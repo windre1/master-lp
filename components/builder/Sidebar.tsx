@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import { Type, AlignLeft, ImageIcon, Play } from "lucide-react";
 import { useDraggable } from '@dnd-kit/core';
 import { BlockType, LandingPage } from '@/types/lp';
 import { getAllLPs } from '@/lib/data';
