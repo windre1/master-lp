@@ -10,17 +10,21 @@ import {
 } from 'lucide-react';
 
 const blockLibrary: { type: BlockType; label: string; icon: any }[] = [
+  { type: 'heading', label: 'Headline', icon: Type },
+  { type: 'text_only', label: 'Text Editor', icon: AlignLeft },
+  { type: 'image_only', label: 'Image', icon: ImageIcon },
+  { type: 'button_only', label: 'Button', icon: Play },
   { type: 'hero', label: 'Hero Hook', icon: Layout },
   { type: 'socialProof', label: 'Social Proof', icon: Users },
-  { type: 'problem', label: 'Pain Point', icon: AlertTriangle },
-  { type: 'solution', label: 'The Solution', icon: Lightbulb },
-  { type: 'features', label: 'Key Features', icon: Grid },
-  { type: 'steps', label: 'Steps (H-I-W)', icon: CheckSquare },
-  { type: 'demo', label: 'Visual Demo', icon: PlayCircle },
+  { type: 'problem', label: 'Problem Section', icon: AlertTriangle },
+  { type: 'solution', label: 'Solution Block', icon: Lightbulb },
+  { type: 'features', label: 'Price Features', icon: Grid },
+  { type: 'steps', label: 'Steps', icon: CheckSquare },
+  { type: 'demo', label: 'Video Meta', icon: PlayCircle },
   { type: 'testimoni', label: 'Testimonials', icon: MessageSquare },
-  { type: 'pricing', label: 'Pricing Plan', icon: Tag },
-  { type: 'faq', label: 'Objection (FAQ)', icon: HelpCircle },
-  { type: 'cta', label: 'Final Push (CTA)', icon: Zap }
+  { type: 'pricing', label: 'Price Table', icon: Tag },
+  { type: 'faq', label: 'FAQ Accordion', icon: HelpCircle },
+  { type: 'cta', label: 'Final CTA', icon: Zap }
 ];
 
 function DraggableBlockItem({ item }: { item: any }) {

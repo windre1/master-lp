@@ -9,7 +9,11 @@ export type BlockType =
   | 'testimoni' 
   | 'pricing' 
   | 'faq' 
-  | 'cta';
+  | 'cta'
+  | 'heading'
+  | 'image_only'
+  | 'text_only'
+  | 'button_only';
 
 export interface BlockData {
   title?: string;
