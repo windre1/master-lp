@@ -29,6 +29,20 @@ export async function saveLP(slug: string, content: any) {
   return data;
 }
 
+export async function getAllLPs(): Promise<LandingPage[]> {
+  const { data, error } = await supabase
+    .from('landing_pages')
+    .select('*')
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    console.error('Error fetching all LPs:', error);
+    return [];
+  }
+
+  return data;
+}
+
 export async function uploadImage(file: File) {
   const fileName = `${Date.now()}-${file.name}`;
   const { data, error } = await supabase.storage
