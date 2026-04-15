@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { templates } from '@/lib/products';
+import { getTemplates } from '@/lib/products';
 import CTA from '@/components/CTA';
 
 interface PageProps {
@@ -10,6 +10,7 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
+  const templates = await getTemplates();
   const template = templates.find((t) => t.slug === slug);
 
   if (!template) {
@@ -26,6 +27,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function DynamicLP({ params }: PageProps) {
   const { slug } = await params;
+  const templates = await getTemplates();
   const template = templates.find((t) => t.slug === slug);
 
   if (!template) {
