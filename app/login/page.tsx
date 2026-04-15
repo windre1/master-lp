@@ -47,25 +47,25 @@ export default function LoginPage() {
           )}
 
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-2">Username</label>
+            <label className="block text-sm font-bold text-slate-900 mb-2">Username</label>
             <input 
               type="text" 
               required
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-600 focus:border-transparent outline-none transition-all"
+              className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-600 focus:border-transparent outline-none transition-all text-slate-900 placeholder:text-slate-400"
               placeholder="Masukkan username"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-2">Password</label>
+            <label className="block text-sm font-bold text-slate-900 mb-2">Password</label>
             <input 
               type="password" 
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-600 focus:border-transparent outline-none transition-all"
+              className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-600 focus:border-transparent outline-none transition-all text-slate-900 placeholder:text-slate-400"
               placeholder="••••••••"
             />
           </div>
