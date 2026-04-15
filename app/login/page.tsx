@@ -15,10 +15,8 @@ export default function LoginPage() {
     setLoading(true);
     setError('');
 
-    // DUMMY AUTH LOGIC
-    // Username: admin, Password: password123
-    if (username === 'admin' && password === 'password123') {
-      // Set dummy cookie
+    // PRODUCTION AUTH
+    if (username === 'windre' && password === '101082') {
       document.cookie = "auth_token=valid_token; path=/; max-age=3600";
       router.push('/');
       router.refresh();
@@ -37,13 +35,13 @@ export default function LoginPage() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
             </svg>
           </div>
-          <h1 className="text-2xl font-bold text-slate-900">Landing Page Builder</h1>
-          <p className="text-slate-500 mt-2">Silahkan masuk untuk mulai membangun</p>
+          <h1 className="text-2xl font-bold text-slate-900">Landing Page Factory</h1>
+          <p className="text-slate-500 mt-2">Masuk ke Dashboard Produksi</p>
         </div>
 
         <form onSubmit={handleLogin} className="space-y-6">
           {error && (
-            <div className="bg-red-50 text-red-600 p-4 rounded-xl text-sm border border-red-100">
+            <div className="bg-red-50 text-red-600 p-4 rounded-xl text-sm border border-red-100 text-center font-medium">
               {error}
             </div>
           )}
@@ -55,8 +53,8 @@ export default function LoginPage() {
               required
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-600 focus:border-transparent outline-none transition-all placeholder:text-slate-300"
-              placeholder="admin"
+              className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-600 focus:border-transparent outline-none transition-all"
+              placeholder="Masukkan username"
             />
           </div>
 
@@ -67,7 +65,7 @@ export default function LoginPage() {
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-600 focus:border-transparent outline-none transition-all placeholder:text-slate-300"
+              className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-600 focus:border-transparent outline-none transition-all"
               placeholder="••••••••"
             />
           </div>
@@ -80,12 +78,6 @@ export default function LoginPage() {
             {loading ? 'Memproses...' : 'Masuk Dashboard'}
           </button>
         </form>
-
-        <div className="mt-8 pt-8 border-t border-slate-50 text-center">
-          <p className="text-sm text-slate-400">
-            Gunakan <span className="font-mono text-indigo-500">admin</span> / <span className="font-mono text-indigo-500">password123</span>
-          </p>
-        </div>
       </div>
     </div>
   );
