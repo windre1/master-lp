@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { Layout } from "lucide-react";
 import Sidebar from './Sidebar';
 import Canvas from './Canvas';
 import { Block, BlockType, LandingPage } from '@/types/lp';
