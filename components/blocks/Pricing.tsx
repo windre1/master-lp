@@ -13,9 +13,12 @@ export default function Pricing({ data }: { data: any }) {
         <div className="bg-indigo-600 rounded-[3rem] p-10 md:p-16 text-white shadow-2xl">
            <h4 className="text-xl font-black mb-4">{data.subtitle || 'Lifetime Access'}</h4>
            <p className="text-5xl font-black tracking-tighter mb-10">{formattedPrice}</p>
-           <button className="w-full py-5 bg-white text-indigo-600 font-black rounded-2xl hover:bg-slate-50 transition-all uppercase text-xs tracking-widest">
+           <a 
+              href={data.ctaLink || '#'}
+              className="w-full block py-5 bg-white text-indigo-600 font-black rounded-2xl hover:bg-slate-50 transition-all uppercase text-xs tracking-widest text-center"
+           >
               {data.ctaText || 'Dapatkan Sekarang'}
-           </button>
+           </a>
         </div>
       </div>
     </section>

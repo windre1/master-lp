@@ -10,9 +10,12 @@ export default function CTA({ data }: { data: any }) {
         <p className="text-xl text-indigo-100 max-w-2xl mx-auto mb-12 font-medium">
           {data.subtitle || 'Mulai sekarang sebelum harga naik!'}
         </p>
-        <button className="px-12 py-6 bg-white text-indigo-600 font-black rounded-full shadow-2xl uppercase tracking-widest text-sm">
+        <a 
+          href={data.ctaLink || '#'}
+          className="inline-block px-12 py-6 bg-white text-indigo-600 font-black rounded-full shadow-2xl uppercase tracking-widest text-sm text-center"
+        >
            {data.ctaText || 'Gabung Sekarang'}
-        </button>
+        </a>
       </div>
     </section>
   );
