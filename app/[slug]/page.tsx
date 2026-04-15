@@ -1,7 +1,13 @@
 import { supabase } from "@/lib/supabase";
 import Renderer from "@/components/lp/Renderer";
 
-export default async function Page({ params }) {
+type PageProps = {
+  params: {
+    slug: string;
+  };
+};
+
+export default async function Page({ params }: PageProps) {
 
   const { data } = await supabase
     .from("landing_pages")
