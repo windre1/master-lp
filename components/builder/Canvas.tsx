@@ -32,7 +32,7 @@ export default function Canvas({
       <div className="p-8 border-b border-slate-100 flex items-center justify-between shrink-0">
         <div>
           <h2 className="text-xl font-bold text-slate-900">{slug ? slug.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()) : 'Halaman Baru'}</h2>
-          <div className="text-xs text-slate-400 mt-1">/akses/{slug || '...'}</div>
+          <div className="text-xs text-slate-400 mt-1">/{slug || '...'}</div>
         </div>
         
         <div className="flex items-center gap-2">
