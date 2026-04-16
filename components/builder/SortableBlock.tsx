@@ -64,6 +64,12 @@ export function SortableBlock({
     }
   };
 
+  const getYouTubeId = (url: string) => {
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+    const match = url?.match(regExp);
+    return (match && match[2].length === 11) ? match[2] : null;
+  };
+
   const renderFields = () => {
     switch (block.type) {
       case 'hero':
@@ -249,6 +255,7 @@ export function SortableBlock({
           </div>
         );
       case 'video_only':
+        const videoId = getYouTubeId(block.data.videoUrl || '');
         return (
           <div className="space-y-4">
             <div className={`flex ${currentAlign === 'left' ? 'justify-start' : (currentAlign === 'right' ? 'justify-end' : 'justify-center')}`}>
@@ -256,10 +263,10 @@ export function SortableBlock({
                 className="bg-slate-900 rounded-2xl overflow-hidden shadow-xl aspect-video relative flex items-center justify-center border border-slate-800"
                 style={{ width: block.data.videoWidth ? `${block.data.videoWidth}%` : '100%' }}
               >
-                {block.data.videoUrl ? (
+                {videoId ? (
                   <iframe 
                     className="w-full h-full"
-                    src={`https://www.youtube.com/embed/${block.data.videoUrl.split('v=')[1]?.split('&')[0] || block.data.videoUrl.split('/').pop()}`}
+                    src={`https://www.youtube.com/embed/${videoId}`}
                     title="YouTube preview"
                   />
                 ) : (

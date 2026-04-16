@@ -89,29 +89,34 @@ const blockMap: Record<string, React.FC<any>> = {
     );
   },
   video_only: ({ data }) => {
+    const getYouTubeId = (url: string) => {
+      const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+      const match = url?.match(regExp);
+      return (match && match[2].length === 11) ? match[2] : null;
+    };
+    const videoId = getYouTubeId(data.videoUrl || '');
+    const width = data.videoWidth || 100;
     const alignment = data.badge === 'left' ? 'justify-start' : (data.badge === 'right' ? 'justify-end' : 'justify-center');
-    const videoId = data.videoUrl?.split('v=')[1]?.split('&')[0] || data.videoUrl?.split('/').pop();
+
     return (
-      <div className="max-w-5xl px-6 mx-auto py-8">
-        <div className={`flex ${alignment}`}>
-          <div 
-            className="aspect-video rounded-[2rem] overflow-hidden shadow-2xl bg-black border border-slate-100"
-            style={{ width: data.videoWidth ? `${data.videoWidth}%` : '100%' }}
-          >
-            {videoId ? (
-              <iframe 
-                className="w-full h-full"
-                src={`https://www.youtube.com/embed/${videoId}`}
-                title="YouTube video player"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-              />
-            ) : (
-              <div className="w-full h-full flex items-center justify-center text-slate-600 font-bold italic">
-                YouTube Video Placeholder
-              </div>
-            )}
-          </div>
+      <div className={`max-w-5xl px-6 mx-auto py-12 flex ${alignment}`}>
+        <div 
+          className="aspect-video bg-slate-900 rounded-[2.5rem] overflow-hidden shadow-2xl border-8 border-slate-900 ring-1 ring-slate-100"
+          style={{ width: `${width}%` }}
+        >
+          {videoId ? (
+            <iframe 
+              className="w-full h-full"
+              src={`https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1`}
+              title="YouTube video player"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          ) : (
+            <div className="w-full h-full flex items-center justify-center text-slate-500 font-bold text-xs uppercase tracking-widest">
+              Video tidak dapat dimuat
+            </div>
+          )}
         </div>
       </div>
     );
