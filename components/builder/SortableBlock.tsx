@@ -581,7 +581,7 @@ export function SortableBlock({
     <div 
       ref={setNodeRef} 
       style={style} 
-      className="bg-white rounded-[2rem] border border-slate-100 shadow-[0_8px_30px_rgba(0,0,0,0.04)] overflow-hidden group mb-6 hover:border-blue-200 transition-all"
+      className="bg-white rounded-[2rem] border border-slate-100 shadow-[0_8px_30px_rgba(0,0,0,0.04)] overflow-hidden group mb-3 hover:border-blue-200 transition-all"
     >
       {/* Card Header matching image */}
       <div className="bg-white px-6 py-4 flex items-center justify-between border-b border-slate-50">

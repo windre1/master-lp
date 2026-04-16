@@ -45,7 +45,7 @@ export default function Editor() {
     setBlocks(blocks.filter(b => b.id !== id));
   };
 
-  const handleAddBlock = (type: BlockType) => {
+  const handleAddBlock = (type: BlockType, index?: number) => {
     const newBlock: Block = {
       id: Math.random().toString(36).substr(2, 9),
       type,
@@ -65,7 +65,14 @@ export default function Editor() {
         ] : undefined
       }
     };
-    setBlocks([...blocks, newBlock]);
+    
+    if (index !== undefined) {
+      const newBlocks = [...blocks];
+      newBlocks.splice(index, 0, newBlock);
+      setBlocks(newBlocks);
+    } else {
+      setBlocks([...blocks, newBlock]);
+    }
   };
 
   const handleSelectLP = (lp: LandingPage) => {
@@ -178,6 +185,7 @@ export default function Editor() {
           onUpdateSlug={setSlug}
           onSave={handleSave}
           saving={saving}
+          onAddBlock={handleAddBlock}
         />
 
         {/* Column 3: Toolbox & Preview */}
