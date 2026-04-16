@@ -2,11 +2,7 @@ import React from 'react';
 import { Check } from 'lucide-react';
 
 export default function Pricing({ data }: { data: any }) {
-  const plans = data.items || [
-    { name: "PAKET 1 TAHUN", price: "147rb", period: "/ tahun", cta: "https://www.wakrod.my.id/order/f0f52950-2e18-4d47-8692-ddd0a84bec8c", featured: false, features: ["Akses Semua Fitur AI", "Masa Aktif 1 Tahun", "Free Update (1 Tahun)", "WA Group Support"] },
-    { name: "PAKET LIFETIME", price: "299rb", period: "/ selamanya", cta: "https://www.wakrod.my.id/order/d6058735-7573-4ee5-b0c5-5701b146e05f", featured: true, features: ["SEMUA Fitur AI", "Akses Selamanya", "Free Update Selamanya", "WA Group Support", "Prioritas Update"] },
-    { name: "PAKET AGENCY", price: "597rb", period: "/ tahun", cta: "https://www.wakrod.my.id/order/77296187-37d7-4228-a708-ffbb9961a547", featured: false, features: ["Akses Selamanya", "Jual Paket Lisensi", "Marketing Kit", "LP Jualan", "Group Eksklusif"] }
-  ];
+  return (
 
     <section className="py-20 md:py-32 max-w-7xl mx-auto px-6">
       <div className="text-center mb-16 animate-in fade-in duration-1000">

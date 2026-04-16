@@ -1,12 +1,6 @@
 import React from 'react';
-import { Layout, Calendar, Users, Database } from 'lucide-react';
-
 export default function Features({ data }: { data: any }) {
-  const items = data.items || [
-    { t: 'Dashboard Intelligence', d: 'Analisis channel kompetitor dan ambil insight berharga secara real-time.', icon: Layout, img: '/assets/fitur1.png' },
-    { t: 'Content Planner', d: 'Atur jadwal konten harian untuk masing-masing channel tanpa bingung.', icon: Calendar, img: '/assets/fitur2.png' },
-    { t: 'Multi-Channel Management', d: 'Kelola puluhan hingga ratusan channel sekaligus dalam satu tampilan.', icon: Users, img: '/assets/fitur3.png' }
-  ];
+  return (
 
     <section className="py-20 md:py-32 max-w-6xl mx-auto px-6 space-y-12">
       <div className="text-center mb-20 animate-in fade-in slide-in-from-bottom-6 duration-1000">
