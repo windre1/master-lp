@@ -4,18 +4,17 @@ import React from 'react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { 
-  GripVertical, 
+  Grip, 
   Trash2, 
   AlignLeft, 
   AlignCenter, 
   AlignRight,
-  Type,
-  Palette,
-  Video,
-  Image as ImageIcon,
-  Maximize,
-  Upload,
-  Youtube
+  Layout,
+  Zap,
+  Play,
+  Layout as ImageIcon,
+  Layers,
+  Upload
 } from 'lucide-react';
 import { Block } from '@/types/lp';
 import { uploadImage } from '@/lib/data';
@@ -83,7 +82,7 @@ export function SortableBlock({
             />
             <div className="flex items-center gap-4 pt-2 border-t border-slate-50">
                <div className="flex items-center gap-2">
-                  <Type className="w-3 h-3 text-slate-400" />
+                  <Layout className="w-3 h-3 text-slate-400" />
                   <input 
                     type="range" min="14" max="72" 
                     value={block.data.fontSize || 24} 
@@ -93,7 +92,7 @@ export function SortableBlock({
                   <span className="text-[9px] font-bold text-slate-400">{block.data.fontSize || 24}px</span>
                </div>
                <div className="flex items-center gap-2">
-                  <Palette className="w-3 h-3 text-slate-400" />
+                  <Zap className="w-3 h-3 text-slate-400" />
                   <input 
                     type="color" 
                     value={block.data.textColor || '#1e293b'} 
@@ -120,7 +119,7 @@ export function SortableBlock({
             />
             <div className="flex items-center gap-4 pt-2 border-t border-slate-50">
                <div className="flex items-center gap-2">
-                  <Type className="w-3 h-3 text-slate-400" />
+                  <Layout className="w-3 h-3 text-slate-400" />
                   <input 
                     type="range" min="10" max="24" 
                     value={block.data.fontSize || 14} 
@@ -130,7 +129,7 @@ export function SortableBlock({
                   <span className="text-[9px] font-bold text-slate-400">{block.data.fontSize || 14}px</span>
                </div>
                <div className="flex items-center gap-2">
-                  <Palette className="w-3 h-3 text-slate-400" />
+                  <Zap className="w-3 h-3 text-slate-400" />
                   <input 
                     type="color" 
                     value={block.data.textColor || '#475569'} 
@@ -199,7 +198,7 @@ export function SortableBlock({
                   />
                 ) : (
                   <div className="flex flex-col items-center text-slate-600">
-                    <Youtube className="w-10 h-10 mb-2 opacity-20" />
+                    <Play className="w-10 h-10 mb-2 opacity-20" />
                     <p className="text-[10px] font-bold uppercase tracking-widest">Video YouTube</p>
                   </div>
                 )}
@@ -207,7 +206,7 @@ export function SortableBlock({
             </div>
             <div className="flex flex-col gap-3">
               <div className="flex items-center gap-2 text-[9px] text-slate-400 font-bold uppercase tracking-widest">
-                <Youtube className="w-3 h-3 shrink-0" />
+                <Play className="w-3 h-3 shrink-0" />
                 <input 
                   type="text" 
                   value={block.data.videoUrl || ''} 
@@ -218,7 +217,7 @@ export function SortableBlock({
               </div>
               <div className="flex items-center gap-4">
                  <div className="flex items-center gap-2">
-                    <Maximize className="w-3 h-3 text-slate-400" />
+                    <Layers className="w-3 h-3 text-slate-400" />
                     <input 
                       type="range" min="30" max="100" 
                       value={block.data.videoWidth || 100} 
@@ -261,7 +260,7 @@ export function SortableBlock({
                  />
               </div>
               <div className="flex items-center gap-2">
-                  <Palette className="w-3 h-3 text-slate-400" />
+                  <Zap className="w-3 h-3 text-slate-400" />
                   <input 
                     type="color" 
                     value={block.data.buttonColor || '#0f172a'} 
@@ -304,11 +303,7 @@ export function SortableBlock({
       <div className="bg-white px-6 py-4 flex items-center justify-between border-b border-slate-50">
         <div className="flex items-center gap-3">
           <div {...listeners} {...attributes} className="cursor-grab active:cursor-grabbing text-slate-300 hover:text-slate-400 p-1">
-             <div className="grid grid-cols-2 gap-0.5">
-               <div className="w-0.5 h-0.5 bg-current rounded-full"></div><div className="w-0.5 h-0.5 bg-current rounded-full"></div>
-               <div className="w-0.5 h-0.5 bg-current rounded-full"></div><div className="w-0.5 h-0.5 bg-current rounded-full"></div>
-               <div className="w-0.5 h-0.5 bg-current rounded-full"></div><div className="w-0.5 h-0.5 bg-current rounded-full"></div>
-             </div>
+             <Grip className="w-4 h-4" />
           </div>
           <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest pl-2 border-l border-slate-200 leading-none">
             {block.type.replace('_only', '').toUpperCase()}
