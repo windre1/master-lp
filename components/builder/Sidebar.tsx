@@ -78,69 +78,71 @@ export default function Sidebar({ onSelectLP, onNewLP }: SidebarProps) {
   }, [activeTab]);
 
   return (
-    <div className="w-80 bg-slate-900 border-r border-slate-800 h-screen sticky top-0 flex flex-col overflow-hidden z-30">
-      <div className="flex bg-slate-800/50 p-1 m-4 rounded-xl shrink-0">
+    <div className="w-80 bg-[#0a1128] border-r border-white/5 h-screen sticky top-0 flex flex-col overflow-hidden z-30">
+      <div className="flex bg-white/5 p-1.5 m-5 rounded-2xl shrink-0 border border-white/5">
         <button 
           onClick={() => setActiveTab('blocks')}
-          className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all ${activeTab === 'blocks' ? 'bg-indigo-600 text-white shadow-lg' : 'text-slate-400 hover:text-white'}`}
+          className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${activeTab === 'blocks' ? 'bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow-lg shadow-cyan-500/20' : 'text-slate-500 hover:text-white'}`}
         >
-          <Plus className="w-3 h-3" /> Blocks
+          <Plus className="w-3.5 h-3.5" /> Blocks
         </button>
         <button 
           onClick={() => setActiveTab('projects')}
-          className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all ${activeTab === 'projects' ? 'bg-indigo-600 text-white shadow-lg' : 'text-slate-400 hover:text-white'}`}
+          className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${activeTab === 'projects' ? 'bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow-lg shadow-cyan-500/20' : 'text-slate-500 hover:text-white'}`}
         >
-          <Folder className="w-3 h-3" /> Projects
+          <Folder className="w-3.5 h-3.5" /> Projects
         </button>
       </div>
 
-      <div className="flex-1 overflow-y-auto px-4 pb-8 scrollbar-hide">
+      <div className="flex-1 overflow-y-auto px-5 pb-8 scrollbar-hide">
         {activeTab === 'blocks' ? (
           <div className="animate-in fade-in slide-in-from-left-4 duration-300">
             <div className="px-2 mb-6">
-              <h2 className="text-white font-black tracking-tight text-xl italic">ELEMENTOR <span className="text-indigo-500 font-mono">PRO</span></h2>
-              <p className="text-slate-500 text-[10px] font-black uppercase tracking-[0.25em] mt-1 italic">Drag block to canvas</p>
+              <h2 className="text-white font-black tracking-tight text-xl uppercase italic">Design <span className="text-[#00f2ff]">Blocks</span></h2>
+              <p className="text-slate-500 text-[9px] font-black uppercase tracking-widest mt-1">Drag and drop to build</p>
             </div>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-4">
               {blockLibrary.map((item) => (
                 <DraggableBlockItem key={item.type} item={item} />
               ))}
             </div>
           </div>
         ) : (
-          <div className="space-y-3 animate-in fade-in slide-in-from-right-4 duration-300">
+          <div className="space-y-4 animate-in fade-in slide-in-from-right-4 duration-300">
              <div className="px-2 mb-4 flex items-center justify-between">
-              <h2 className="text-white font-black tracking-tight text-xl">My Funnels</h2>
+              <h2 className="text-white font-black tracking-tight text-xl italic uppercase">Funnels</h2>
               <button 
                 onClick={onNewLP} 
-                className="w-10 h-10 bg-indigo-600 text-white rounded-xl flex items-center justify-center hover:bg-indigo-700 shadow-lg shadow-indigo-900/50 transition-all font-black text-xl"
+                className="w-10 h-10 bg-white/5 text-[#00f2ff] border border-white/10 rounded-xl flex items-center justify-center hover:bg-[#00f2ff] hover:text-black transition-all font-black text-xl"
               >
                 +
               </button>
             </div>
             {projects.length === 0 ? (
                <div className="py-20 text-center flex flex-col items-center">
-                  <Folder className="w-10 h-10 text-slate-800 mb-4" />
-                  <p className="text-slate-500 text-[10px] font-black uppercase tracking-widest">No Projects Found</p>
+                  <div className="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mb-6">
+                    <Folder className="w-8 h-8 text-slate-700" />
+                  </div>
+                  <p className="text-slate-500 text-[9px] font-black uppercase tracking-widest">No Projects Found</p>
                </div>
             ) : (
               projects.map((lp) => (
                 <div 
                   key={lp.id}
-                  className="group p-5 bg-slate-800/30 border border-slate-700/30 rounded-2xl hover:bg-slate-800 hover:border-slate-500 transition-all cursor-pointer relative overflow-hidden"
+                  className="group p-5 bg-white/5 border border-white/5 rounded-2xl hover:bg-white/10 hover:border-[#00f2ff]/30 transition-all cursor-pointer relative overflow-hidden"
                   onClick={() => onSelectLP(lp)}
                 >
-                   <div className="flex items-center justify-between mb-3">
-                      <div className="flex items-center gap-1.5">
-                         <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-sm shadow-emerald-500/50"></div>
-                         <span className="text-emerald-500 text-[9px] font-black uppercase tracking-widest">Published</span>
+                   <div className="flex items-center justify-between mb-4">
+                      <div className="flex items-center gap-2">
+                         <div className="w-2 h-2 rounded-full bg-[#00f2ff] animate-pulse"></div>
+                         <span className="text-[#94a3b8] text-[9px] font-black uppercase tracking-widest">Active</span>
                       </div>
-                      <a href={`/${lp.slug}`} target="_blank" onClick={(e) => e.stopPropagation()} className="w-8 h-8 flex items-center justify-center bg-slate-700/50 rounded-lg text-slate-400 hover:text-white transition-colors">
+                      <a href={`/${lp.slug}`} target="_blank" onClick={(e) => e.stopPropagation()} className="w-9 h-9 flex items-center justify-center bg-white/5 rounded-xl text-slate-400 hover:text-[#00f2ff] border border-white/5 transition-colors">
                         <ExternalLink className="w-4 h-4" />
                       </a>
                    </div>
-                   <h4 className="text-white font-black text-sm truncate tracking-tight italic">/{lp.slug}</h4>
-                   <p className="text-[9px] text-slate-500 font-bold uppercase tracking-widest mt-2">{new Date(lp.created_at!).toLocaleDateString()}</p>
+                   <h4 className="text-white font-black text-sm truncate tracking-tight uppercase italic mb-1 group-hover:text-[#00f2ff] transition-colors">/{lp.slug}</h4>
+                   <p className="text-[9px] text-slate-500 font-bold uppercase tracking-widest">{new Date(lp.created_at!).toLocaleDateString()}</p>
                 </div>
               ))
             )}
@@ -148,8 +150,8 @@ export default function Sidebar({ onSelectLP, onNewLP }: SidebarProps) {
         )}
       </div>
 
-      <div className="p-6 border-t border-slate-800 bg-slate-950 text-center">
-         <p className="text-[9px] font-black text-slate-700 uppercase tracking-[0.5em]">POWERED BY WINDRE</p>
+      <div className="p-8 border-t border-white/5 bg-[#050a15] text-center">
+         <p className="text-[8px] font-black text-slate-600 uppercase tracking-[0.6em]">SPARTAN ENGINE ALPHA</p>
       </div>
     </div>
   );

@@ -2,22 +2,23 @@ import React from 'react';
 
 export default function Solution({ data }: { data: any }) {
   return (
-    <section className="py-24 bg-white overflow-hidden">
-      <div className="container px-6 mx-auto">
-        <div className="flex flex-col lg:flex-row items-center gap-16">
-          <div className="lg:w-1/2">
-            <h3 className="text-4xl md:text-5xl font-black text-slate-900 mb-6 tracking-tighter leading-tight">
-              {data.title || 'Ubah Cara Kerja Anda Lebih Efisien.'}
-            </h3>
-            <p className="text-lg text-slate-600 font-medium leading-relaxed mb-10">
-              {data.subtitle || 'Kami hadir untuk memberikan solusi digital yang asisten otomatis untuk bisnis Anda.'}
-            </p>
-          </div>
-          <div className="lg:w-1/2">
-             <div className="bg-indigo-600 rounded-3xl aspect-video w-full flex items-center justify-center text-white italic font-bold">
-               {data.image ? <img src={data.image} alt="Solution" className="w-full h-full object-cover rounded-3xl"/> : 'Product Visual'}
-             </div>
-          </div>
+    <section className="py-24 max-w-6xl mx-auto px-6">
+      <div className="bg-[#0f172a]/60 backdrop-blur-2xl rounded-[4rem] p-10 md:p-20 border border-white/5 shadow-[0_0_50px_rgba(0,242,255,0.05)] text-center">
+        <h4 className="text-[#00f2ff] font-bold tracking-[2px] uppercase mb-4">🧠 SOLUSINYA: SPARTAN TUBE</h4>
+        <h2 className="text-3xl md:text-6xl font-black mb-8 bg-gradient-to-br from-white to-cyan-400 bg-clip-text text-transparent uppercase italic leading-tight">
+          {data.title || 'IDE → ANALISA → PRODUKSI → UPLOAD'}
+        </h2>
+        <p className="text-[#94a3b8] text-lg max-w-3xl mx-auto mb-16 leading-relaxed">
+          {data.subtitle || 'Bukan sekadar tools... Ini adalah mesin pertumbuhan channel YouTube dalam SATU dashboard.'}
+        </p>
+        
+        <div className="relative group max-w-5xl mx-auto">
+           <div className="absolute inset-0 bg-cyan-500/20 blur-[80px] -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-1000"></div>
+           <img 
+              src={data.image || "/assets/hero.png"} 
+              alt="Dashboard" 
+              className="w-full rounded-2xl border border-white/10 shadow-[0_0_30px_rgba(10,11,28,1)] transition-transform duration-700 group-hover:scale-[1.02]"
+           />
         </div>
       </div>
     </section>

@@ -94,9 +94,52 @@ export default function Editor() {
   };
 
   const handleNewLP = () => {
-    if (blocks.length > 0 && !confirm("Buat baru?")) return;
+    if (blocks.length > 0 && !confirm("Buat baru? Semua perubahan belum tersimpan akan hilang.")) return;
     setSlug('');
-    setBlocks([]);
+    setBlocks([
+      {
+        id: 'default-hero',
+        type: 'hero',
+        data: {
+          title: 'Berhenti Kerja Keras. Mulailah Kerja Cerdas, Pakai SISTEM yang Terintegrasi dengan AI.',
+          subtitle: 'Ekosistem pertumbuhan YouTube otomatis yang dirancang khusus untuk menyederhanakan alur kerja kreatif Anda.',
+          ctaText: 'BELI SEKARANG',
+          ctaLink: '#pricing'
+        }
+      },
+      {
+        id: 'default-problem',
+        type: 'problem',
+        data: {
+          title: '💥 MASALAH BESAR YANG TIDAK DISADARI CREATOR',
+          subtitle: 'Kebanyakan creator gagal bukan karena tidak memiliki skill, melainkan karena tidak memiliki SISTEM yang mumpuni.'
+        }
+      },
+      {
+        id: 'default-solution',
+        type: 'solution',
+        data: {
+          title: '🧠 SOLUSINYA: SPARTAN TUBE',
+          subtitle: 'IDE → ANALISA → PRODUKSI → UPLOAD. Bukan sekadar tools... Ini adalah mesin pertumbuhan channel YouTube dalam SATU dashboard.'
+        }
+      },
+      {
+        id: 'default-demo',
+        type: 'demo',
+        data: {
+          title: 'SIMAK BAGAIMANA SPARTAN TUBE BEKERJA',
+          videoUrl: 'https://www.youtube.com/embed/EEobrUpwnj4'
+        }
+      },
+      {
+        id: 'default-pricing',
+        type: 'pricing',
+        data: {
+          title: '🚀 PILIH PAKET UNTUK MULAI GROW',
+          subtitle: 'Miliki pusat komando YouTube Anda hari ini.'
+        }
+      }
+    ]);
   };
 
   const handleSave = async (showNotify = true) => {
@@ -128,34 +171,34 @@ export default function Editor() {
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
     >
-      <div className="flex bg-white h-screen overflow-hidden font-sans antialiased">
+      <div className="flex bg-[#050a15] h-screen overflow-hidden font-sans antialiased text-[#e2e8f0]">
         <Sidebar onSelectLP={handleSelectLP} onNewLP={handleNewLP} />
         
         <div className="flex-1 flex flex-col h-screen overflow-hidden">
-          <div className="h-20 bg-white border-b border-slate-100 px-10 flex items-center justify-between z-10 shrink-0 shadow-sm">
+          <div className="h-20 bg-[#050a15]/80 backdrop-blur-xl border-b border-white/10 px-10 flex items-center justify-between z-10 shrink-0 shadow-[0_0_15px_rgba(0,242,255,0.1)]">
             <div className="flex items-center gap-6">
               <div className="flex items-center gap-2.5">
-                 <div className="w-11 h-11 bg-indigo-600 rounded-2xl flex items-center justify-center text-white shadow-xl shadow-indigo-100">
+                 <div className="w-11 h-11 bg-gradient-to-br from-blue-600 to-cyan-500 rounded-2xl flex items-center justify-center text-white shadow-[0_0_20px_rgba(0,242,255,0.4)]">
                     <Sparkles className="w-6 h-6 fill-white" />
                  </div>
-                 <h1 className="font-black text-2xl tracking-tighter text-slate-800 italic">LP<span className="text-indigo-600">FACTORY</span></h1>
+                 <h1 className="font-black text-2xl tracking-tighter text-white uppercase italic">SPARTAN<span className="text-[#00f2ff]">FACTORY</span></h1>
               </div>
               {justSaved && (
-                <span className="text-[10px] font-black text-emerald-600 bg-emerald-50 px-4 py-2 rounded-full uppercase tracking-widest border border-emerald-100 flex items-center gap-2 animate-in fade-in zoom-in">
+                <span className="text-[10px] font-black text-cyan-400 bg-cyan-400/10 px-4 py-2 rounded-full uppercase tracking-widest border border-cyan-400/20 flex items-center gap-2 animate-in fade-in zoom-in">
                   <Check className="w-3.5 h-3.5" /> SAVED
                 </span>
               )}
             </div>
             
             <div className="flex items-center gap-6">
-               <button onClick={handleLogout} className="text-[10px] font-black text-slate-400 hover:text-red-500 uppercase tracking-widest transition-colors flex items-center gap-2">
+               <button onClick={handleLogout} className="text-[10px] font-black text-slate-500 hover:text-red-500 uppercase tracking-widest transition-colors flex items-center gap-2">
                   <LogOut className="w-4 h-4" /> Exit
                </button>
                <div className="flex items-center gap-3">
-                 <button onClick={handlePreview} className="px-6 py-3 bg-white border-2 border-slate-100 text-slate-600 font-black rounded-2xl hover:border-indigo-600 hover:text-indigo-600 transition-all text-[10px] uppercase tracking-widest flex items-center gap-2">
+                 <button onClick={handlePreview} className="px-6 py-3 bg-transparent border-2 border-white/10 text-slate-300 font-black rounded-2xl hover:border-[#00f2ff] hover:text-[#00f2ff] transition-all text-[10px] uppercase tracking-widest flex items-center gap-2">
                    <Eye className="w-4 h-4" /> Preview
                  </button>
-                 <button onClick={() => handleSave()} disabled={saving} className="px-10 py-4 bg-indigo-600 text-white font-black rounded-2xl shadow-2xl shadow-indigo-200 hover:bg-indigo-700 active:scale-95 transition-all text-xs uppercase tracking-widest flex items-center gap-3 disabled:opacity-50">
+                 <button onClick={() => handleSave()} disabled={saving} className="px-10 py-4 bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-black rounded-2xl shadow-[0_0_20px_rgba(0,242,255,0.3)] hover:scale-105 active:scale-95 transition-all text-xs uppercase tracking-widest flex items-center gap-3 disabled:opacity-50">
                    <Save className="w-4 h-4" /> {saving ? '...' : 'Publish'}
                  </button>
                </div>

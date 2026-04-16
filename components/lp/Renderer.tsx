@@ -72,12 +72,20 @@ export default function Renderer({ blocks }: RendererProps) {
   if (!blocks) return null;
 
   return (
-    <div className="flex flex-col w-full selection:bg-indigo-100 selection:text-indigo-900">
-      {blocks.map((block) => {
-        const Component = blockMap[block.type];
-        if (!Component) return <div key={block.id}>Unknown block: {block.type}</div>;
-        return <Component key={block.id} data={block.data} />;
-      })}
+    <div className="bg-[#050a15] text-[#e2e8f0] font-sans selection:bg-cyan-500 selection:text-white min-h-screen overflow-x-hidden">
+      {/* Background Animation */}
+      <div className="fixed inset-0 z-[-1] overflow-hidden">
+        <div className="absolute top-[30%] left-[20%] w-[500px] h-[500px] bg-[#3d5afe]/15 rounded-full blur-[120px] animate-pulse"></div>
+        <div className="absolute top-[60%] left-[70%] w-[400px] h-[400px] bg-[#00f2ff]/10 rounded-full blur-[100px] animate-pulse delay-700"></div>
+      </div>
+
+      <div className="flex flex-col w-full relative z-10">
+        {blocks.map((block) => {
+          const Component = blockMap[block.type];
+          if (!Component) return <div key={block.id}>Unknown block: {block.type}</div>;
+          return <Component key={block.id} data={block.data} />;
+        })}
+      </div>
     </div>
   );
 }

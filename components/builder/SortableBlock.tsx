@@ -188,46 +188,50 @@ export function SortableBlock({ id, block, index, onUpdateBlock, onRemoveBlock, 
     <div 
       ref={setNodeRef} 
       style={style}
-      className={`group relative bg-white border border-slate-100 rounded-[2.5rem] shadow-sm hover:shadow-2xl hover:border-indigo-100 transition-all overflow-hidden ${isDragging ? 'z-50 scale-[1.02] shadow-2xl' : ''}`}
+      className={`group relative bg-[#0a1128]/40 backdrop-blur-xl border border-white/5 rounded-[3rem] shadow-2xl hover:border-[#00f2ff]/30 transition-all overflow-hidden ${isDragging ? 'z-50 scale-[1.02] shadow-cyan-500/20' : ''}`}
     >
       {/* Control Header */}
-      <div className="px-8 py-4 bg-slate-50/50 border-b border-slate-100 flex items-center justify-between">
-         <div className="flex items-center gap-4">
-            <div {...attributes} {...listeners} className="p-1 px-2 -ml-2 text-slate-300 hover:text-indigo-600 cursor-grab active:cursor-grabbing">
-               <GripVertical className="w-4 h-4" />
+      <div className="px-10 py-5 bg-black/20 border-b border-white/5 flex items-center justify-between">
+         <div className="flex items-center gap-5">
+            <div {...attributes} {...listeners} className="p-1 px-2 -ml-2 text-slate-600 hover:text-[#00f2ff] cursor-grab active:cursor-grabbing transition-colors">
+               <GripVertical className="w-5 h-5" />
             </div>
-            <div className="flex items-center gap-2">
-               <div className="w-8 h-8 rounded-xl bg-slate-900 text-white flex items-center justify-center font-black text-[10px]">
+            <div className="flex items-center gap-3">
+               <div className="w-9 h-9 rounded-xl bg-white/5 border border-white/10 text-[#00f2ff] flex items-center justify-center font-black text-xs shadow-[0_0_10px_rgba(0,242,255,0.1)]">
                  {index + 1}
                </div>
-               <span className="text-[10px] font-black text-slate-900 uppercase tracking-[0.2em] italic">{block.type}</span>
+               <span className="text-xs font-black text-white uppercase tracking-[0.25em] italic">{block.type}</span>
             </div>
          </div>
          <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-all">
-            <button onClick={() => onRemoveBlock(id)} className="p-2.5 bg-red-50 text-red-400 rounded-xl hover:bg-red-500 hover:text-white transition-all shadow-sm border border-red-100"><Trash2 className="w-4 h-4" /></button>
+            <button onClick={() => onRemoveBlock(id)} className="p-3 bg-red-500/10 text-red-500 rounded-xl hover:bg-red-500 hover:text-white transition-all border border-red-500/20"><Trash2 className="w-5 h-5" /></button>
          </div>
       </div>
 
       {/* Editor Content */}
-      <div className="p-10">
+      <div className="p-10 space-y-8">
          {renderFields()}
       </div>
 
       <style jsx>{`
         .input-p {
           width: 100%;
-          padding: 0.8rem 1.2rem;
-          background: #f8fafc;
-          border-radius: 1rem;
-          border: 1px solid #f1f5f9;
+          padding: 1rem 1.5rem;
+          background: rgba(0, 0, 0, 0.2);
+          border-radius: 1.25rem;
+          border: 1px solid rgba(255, 255, 255, 0.05);
           font-size: 0.875rem;
+          color: #e2e8f0;
           outline: none;
-          transition: all 0.2s;
+          transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
         }
         .input-p:focus {
-          border-color: #4f46e5;
-          background: white;
-          box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+          border-color: #00f2ff;
+          background: rgba(0, 242, 255, 0.02);
+          box-shadow: 0 0 20px rgba(0, 242, 255, 0.05);
+        }
+        .input-p::placeholder {
+           color: #475569;
         }
       `}</style>
     </div>
@@ -236,8 +240,8 @@ export function SortableBlock({ id, block, index, onUpdateBlock, onRemoveBlock, 
 
 function Field({ label, icon, children }: { label: string, icon: any, children: any }) {
   return (
-    <div className="space-y-2">
-      <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1 flex items-center gap-2 italic">
+    <div className="space-y-3">
+      <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1 flex items-center gap-2 italic">
         {icon} {label}
       </label>
       {children}
@@ -247,27 +251,27 @@ function Field({ label, icon, children }: { label: string, icon: any, children: 
 
 function ImageField({ onImageClick, image }: { onImageClick: () => void, image?: string }) {
   return (
-    <div className="space-y-2">
-      <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1 flex items-center gap-2 italic">
+    <div className="space-y-3">
+      <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1 flex items-center gap-2 italic">
         <ImageIcon className="w-3 h-3" /> Visual Asset
       </label>
       <div 
         onClick={onImageClick}
-        className="aspect-video bg-slate-50 rounded-[2rem] border-2 border-dashed border-slate-200 flex flex-col items-center justify-center gap-2 cursor-pointer hover:bg-white hover:border-indigo-500 hover:shadow-lg transition-all group overflow-hidden relative"
+        className="aspect-video bg-black/20 rounded-[2.5rem] border-2 border-dashed border-white/5 flex flex-col items-center justify-center gap-3 cursor-pointer hover:bg-black/40 hover:border-[#00f2ff] hover:shadow-[0_0_30px_rgba(0,242,255,0.05)] transition-all group overflow-hidden relative"
       >
           {image ? (
             <>
               <img src={image} alt="Block" className="w-full h-full object-cover" />
-              <div className="absolute inset-0 bg-indigo-600/60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
-                 <span className="bg-white px-4 py-2 rounded-xl text-[10px] font-black uppercase text-indigo-600">Ganti Gambar</span>
+              <div className="absolute inset-0 bg-cyan-600/60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity backdrop-blur-[2px]">
+                 <span className="bg-white px-6 py-3 rounded-2xl text-[10px] font-black uppercase text-cyan-700 shadow-2xl">Update Asset</span>
               </div>
             </>
           ) : (
             <>
-               <div className="w-10 h-10 bg-white rounded-xl shadow-sm border border-slate-200 flex items-center justify-center text-slate-300 group-hover:text-indigo-600 transition-all">
-                  <ImageIcon className="w-5 h-5" />
+               <div className="w-12 h-12 bg-white/5 rounded-2xl border border-white/10 flex items-center justify-center text-slate-600 group-hover:text-[#00f2ff] group-hover:border-[#00f2ff]/30 transition-all">
+                  <ImageIcon className="w-6 h-6" />
                </div>
-               <span className="text-[8px] font-black text-slate-400 uppercase tracking-widest">Upload Asset</span>
+               <span className="text-[9px] font-black text-slate-600 group-hover:text-slate-400 uppercase tracking-widest transition-colors">Upload Asset</span>
             </>
           )}
       </div>

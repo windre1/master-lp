@@ -50,31 +50,31 @@ export default function Canvas({
   };
 
   return (
-    <div className="flex-1 min-h-screen bg-slate-50/50 p-6 md:p-12 pb-40 overflow-y-auto scroll-smooth">
+    <div className="flex-1 min-h-screen bg-[#050a15] p-6 md:p-12 pb-40 overflow-y-auto scroll-smooth">
       <input type="file" ref={fileInputRef} className="hidden" accept="image/*" onChange={handleFileChange} />
 
-      <div className="max-w-4xl mx-auto space-y-10">
+      <div className="max-w-4xl mx-auto space-y-12">
         {/* URL Header */}
-        <div className="bg-white p-8 rounded-[2.5rem] shadow-2xl shadow-indigo-100/20 border border-slate-100 flex flex-col md:flex-row items-center gap-10">
-           <div className="flex-1 w-full flex items-center gap-6">
-              <div className="w-12 h-12 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-300">
-                <Layout className="w-6 h-6" />
+        <div className="bg-[#0a1128]/60 backdrop-blur-xl p-10 rounded-[3rem] shadow-2xl border border-white/5 flex flex-col md:flex-row items-center gap-10">
+           <div className="flex-1 w-full flex items-center gap-8">
+              <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-[#00f2ff] shadow-[0_0_15px_rgba(0,242,255,0.1)]">
+                <Layout className="w-7 h-7" />
               </div>
               <div className="flex-1">
-                 <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 block">Published Slug</label>
-                 <div className="flex items-center gap-2 bg-slate-50 px-5 py-3 rounded-xl border-2 border-slate-100 focus-within:border-indigo-600 focus-within:bg-white transition-all">
-                   <span className="text-slate-300 font-black text-lg">/</span>
+                 <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-3 block">Landing Page Slug</label>
+                 <div className="flex items-center gap-3 bg-black/20 px-6 py-4 rounded-2xl border-2 border-white/5 focus-within:border-[#00f2ff] focus-within:bg-black/40 transition-all">
+                   <span className="text-[#00f2ff] font-black text-xl italic">/</span>
                    <input 
                      type="text" 
                      value={slug}
                      onChange={(e) => onUpdateSlug(e.target.value.toLowerCase().replace(/ /g, '-'))}
-                     placeholder="landing-page-name"
-                     className="bg-transparent outline-none flex-1 font-black text-slate-800 text-lg"
+                     placeholder="nama-halaman-anda"
+                     className="bg-transparent outline-none flex-1 font-black text-white text-xl placeholder:text-slate-700 uppercase italic tracking-tight"
                    />
                  </div>
               </div>
            </div>
-           <a href={slug ? `/${slug}` : '#'} target="_blank" className={`px-10 py-5 rounded-2xl font-black text-[11px] uppercase tracking-widest flex items-center justify-center gap-3 transition-all ${slug ? 'bg-slate-900 text-white shadow-xl hover:scale-105 active:scale-95' : 'bg-slate-100 text-slate-300'}`}>
+           <a href={slug ? `/${slug}` : '#'} target="_blank" className={`px-12 py-5 rounded-2xl font-black text-[11px] uppercase tracking-widest flex items-center justify-center gap-3 transition-all ${slug ? 'bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow-[0_10px_20px_rgba(0,242,255,0.2)] hover:scale-105 active:scale-95' : 'bg-white/5 text-slate-700'}`}>
              Preview <ExternalLink className="w-4 h-4" />
            </a>
         </div>
@@ -82,22 +82,22 @@ export default function Canvas({
         {/* Builder Container (Droppable) */}
         <div 
           ref={setCanvasRef}
-          className={`min-h-[600px] rounded-[3.5rem] transition-all p-4 ${isOver ? 'bg-indigo-50/50 ring-4 ring-indigo-600 ring-dashed shadow-inner' : ''}`}
+          className={`min-h-[700px] rounded-[4rem] transition-all p-6 border-2 border-dashed ${isOver ? 'bg-[#00f2ff]/5 border-[#00f2ff] shadow-[0_0_30px_rgba(0,242,255,0.1)]' : 'border-white/5 hover:border-white/10'}`}
         >
           <SortableContext 
             items={blocks.map(b => b.id)}
             strategy={verticalListSortingStrategy}
           >
             {blocks.length === 0 ? (
-              <div className="py-48 flex flex-col items-center justify-center text-center opacity-40">
-                 <div className="w-24 h-24 bg-white rounded-3xl shadow-xl flex items-center justify-center mb-8 border border-slate-50 rotate-6 border-dashed">
-                    <Sparkles className="w-10 h-10 text-slate-200" />
+              <div className="py-60 flex flex-col items-center justify-center text-center">
+                 <div className="w-28 h-28 bg-white/5 rounded-[2.5rem] shadow-2xl flex items-center justify-center mb-10 border border-white/10 rotate-12 group hover:rotate-0 transition-transform duration-500">
+                    <Sparkles className="w-12 h-12 text-[#00f2ff] animate-pulse" />
                  </div>
-                 <h3 className="text-2xl font-black text-slate-900 mb-2">Drag Block Ke Sini</h3>
-                 <p className="text-[10px] font-black uppercase tracking-[0.3em]">Mulai Rakit Landing Page Anda</p>
+                 <h3 className="text-3xl font-black text-white mb-3 uppercase italic">Canvas Kosong</h3>
+                 <p className="text-[10px] font-black text-slate-500 uppercase tracking-[0.4em]">Tarik block dari kiri ke sini</p>
               </div>
             ) : (
-              <div className="space-y-6">
+              <div className="space-y-8">
                 {blocks.map((block, index) => (
                   <SortableBlock 
                     key={block.id}
