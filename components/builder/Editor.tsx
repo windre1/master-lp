@@ -123,6 +123,11 @@ export default function Editor() {
     }
   };
 
+  // Sync data for the real-time preview iframe
+  useEffect(() => {
+    localStorage.setItem('lp_preview_data', JSON.stringify(blocks));
+  }, [blocks]);
+
   const handleLogout = () => {
     document.cookie = "auth_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC";
     window.location.href = '/login';

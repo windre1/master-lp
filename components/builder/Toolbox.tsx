@@ -79,11 +79,13 @@ export default function Toolbox({ onAddBlock, blocks, slug }: ToolboxProps) {
                  </div>
               </div>
 
-              {/* Scrollable Content inside Phone */}
-              <div className="flex-1 overflow-y-auto no-scrollbar bg-white">
-                 <div className="w-full origin-top transform scale-[0.38] md:scale-100">
-                    <Renderer blocks={blocks} />
-                 </div>
+              {/* Real Responsive Iframe inside Phone */}
+              <div className="flex-1 bg-white overflow-hidden relative">
+                 <iframe 
+                   src="/preview" 
+                   className="absolute inset-0 w-full h-full border-none"
+                   title="Mobile Preview"
+                 />
               </div>
 
               {/* Home Indicator */}
