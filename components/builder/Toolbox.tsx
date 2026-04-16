@@ -8,14 +8,20 @@ import { Block, BlockType } from '@/types/lp';
 interface ToolboxProps {
   onAddBlock: (type: BlockType) => void;
   blocks: Block[];
+  slug: string;
 }
 
-export default function Toolbox({ onAddBlock, blocks }: ToolboxProps) {
+export default function Toolbox({ onAddBlock, blocks, slug }: ToolboxProps) {
   const library = [
     { type: 'heading', label: 'Judul', icon: Type },
     { type: 'text_only', label: 'Teks', icon: AlignLeft },
     { type: 'button_only', label: 'Tombol', icon: MousePointer2 },
   ];
+
+  const handleFullPreview = () => {
+    if (!slug) return;
+    window.open(`/${slug}`, '_blank');
+  };
 
   return (
     <div className="w-80 flex flex-col gap-8 shrink-0 pb-20 overflow-y-auto scrollbar-hide">
@@ -52,7 +58,12 @@ export default function Toolbox({ onAddBlock, blocks }: ToolboxProps) {
            <h2 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">
              PREVIEW
            </h2>
-           <span className="text-[10px] font-black text-blue-600 uppercase">Full →</span>
+           <button 
+             onClick={handleFullPreview}
+             className="text-[10px] font-black text-blue-600 uppercase hover:underline"
+           >
+             Full →
+           </button>
         </div>
 
         {/* Mobile Device Frame */}

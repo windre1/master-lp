@@ -50,18 +50,7 @@ export default function Editor() {
   const confirmNewPage = async () => {
     if (!newSlug) return;
     setSaving(true);
-    const initialBlocks: Block[] = [
-      {
-        id: 'default-1',
-        type: 'heading',
-        data: { title: newTitle || 'Halaman Baru', badge: 'center' }
-      },
-      {
-        id: 'default-2',
-        type: 'text_only',
-        data: { subtitle: 'Mulailah membangun halaman impian Anda dengan elemen di sebelah kanan.', badge: 'center' }
-      }
-    ];
+    const initialBlocks: Block[] = [];
     try {
       await saveLP(newSlug, { blocks: initialBlocks });
       setSlug(newSlug);
@@ -78,7 +67,7 @@ export default function Editor() {
   };
 
   const handleSave = async () => {
-    if (!slug) { setError('Slug wajib diisi!'); return; }
+    if (!slug) return;
     setSaving(true);
     try {
       await saveLP(slug, { blocks });
@@ -157,13 +146,13 @@ export default function Editor() {
         />
 
         {/* Column 3: Toolbox & Preview */}
-        <Toolbox onAddBlock={handleAddBlock} blocks={blocks} />
+        <Toolbox onAddBlock={handleAddBlock} blocks={blocks} slug={slug} />
       </main>
 
       {/* Pop Up Modal Buat Halaman Baru */}
       {showModal && (
         <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[100] flex items-center justify-center p-6 animate-in fade-in duration-300">
-           <div className="bg-white w-full max-w-lg rounded-[2.5rem] shadow-2xl overflow-hidden animate-in zoom-in duration-300">
+           <div className="bg-white w-full max-w-lg rounded-[3rem] shadow-2xl overflow-hidden animate-in zoom-in duration-300">
               <div className="p-10 pb-6 flex items-center justify-between">
                  <h2 className="text-xl font-bold text-slate-800">Buat Halaman Baru</h2>
                  <button onClick={() => setShowModal(false)} className="text-slate-400 hover:text-slate-600 font-bold">✕</button>
@@ -180,14 +169,14 @@ export default function Editor() {
                         setNewTitle(e.target.value);
                         if (!newSlug) setNewSlug(e.target.value.toLowerCase().replace(/ /g, '-'));
                       }}
-                      className="w-full bg-slate-50 border border-slate-200 p-5 rounded-2xl outline-none focus:border-slate-900 transition-all font-medium text-slate-600 placeholder:text-slate-300"
+                      className="w-full bg-slate-50 border border-slate-100 p-5 rounded-2xl outline-none focus:border-slate-900 transition-all font-medium text-slate-600 placeholder:text-slate-300"
                     />
                  </div>
 
                  <div className="space-y-3">
                     <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">SLUG URL</label>
-                    <div className="flex items-center gap-3 bg-slate-50 border border-slate-200 px-5 py-5 rounded-2xl focus-within:border-slate-900 transition-all">
-                       <span className="text-slate-400 font-medium">/akses/</span>
+                    <div className="flex items-center gap-1 bg-slate-50 border border-slate-100 px-5 py-5 rounded-2xl focus-within:border-slate-900 transition-all">
+                       <span className="text-slate-400 font-medium whitespace-nowrap">/</span>
                        <input 
                          type="text" 
                          placeholder="panduan-spartan-tube" 
@@ -196,15 +185,6 @@ export default function Editor() {
                          className="bg-transparent outline-none flex-1 font-medium text-slate-600 placeholder:text-slate-300" 
                        />
                     </div>
-                 </div>
-
-                 <div className="space-y-3">
-                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">DESKRIPSI (OPSIONAL)</label>
-                    <input 
-                      type="text" 
-                      placeholder="Keterangan singkat" 
-                      className="w-full bg-slate-50 border border-slate-200 p-5 rounded-2xl outline-none focus:border-slate-900 transition-all font-medium text-slate-600 placeholder:text-slate-300" 
-                    />
                  </div>
               </div>
 
