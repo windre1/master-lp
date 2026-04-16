@@ -477,14 +477,15 @@ export function SortableBlock({
                     ))}
                     <button 
                       onClick={() => {
-                        const firstItem = block.data.items[0] || {};
+                        const items = block.data.items || [];
+                        const firstItem = items[0] || {};
                         const newItem = { ...firstItem };
                         if (newItem.t !== undefined) newItem.t = 'Poin Baru';
                         if (newItem.title !== undefined) newItem.title = 'Poin Baru';
                         if (newItem.d !== undefined) newItem.d = 'Isi keterangan di sini...';
                         if (newItem.desc !== undefined) newItem.desc = 'Isi keterangan di sini...';
                         if (newItem.value !== undefined) newItem.value = 'Keterangan';
-                        updateData('items', [...block.data.items, newItem]);
+                        updateData('items', [...items, newItem]);
                       }}
                       className="w-full py-4 border-2 border-dashed border-slate-200 rounded-2xl text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-slate-900 hover:border-slate-900 transition-all"
                     >
