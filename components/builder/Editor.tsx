@@ -18,7 +18,7 @@ export default function Editor() {
   const [showModal, setShowModal] = useState(false);
   const [newTitle, setNewTitle] = useState('');
   const [newSlug, setNewSlug] = useState('');
-  const [selectedTemplate, setSelectedTemplate] = useState<'blank' | 'spartan' | 'komisi'>('blank');
+  const [selectedTemplate, setSelectedTemplate] = useState<'blank' | 'komisi'>('blank');
 
 
   const KOMISI_BLOCKS: Block[] = [
@@ -78,7 +78,6 @@ export default function Editor() {
     if (!newSlug) return;
     setSaving(true);
     let initialBlocks: Block[] = [];
-    if (selectedTemplate === 'spartan') initialBlocks = SPARTAN_BLOCKS;
     if (selectedTemplate === 'komisi') initialBlocks = KOMISI_BLOCKS;
     
     try {
