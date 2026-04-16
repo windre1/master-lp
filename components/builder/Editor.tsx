@@ -98,45 +98,96 @@ export default function Editor() {
     setSlug('');
     setBlocks([
       {
-        id: 'default-hero',
+        id: Math.random().toString(36).substr(2, 9),
         type: 'hero',
         data: {
+          badge: '🔥 PERHATIAN UNTUK CREATOR YOUTUBE YANG SERIUS MAU GROW',
           title: 'Berhenti Kerja Keras. Mulailah Kerja Cerdas, Pakai SISTEM yang Terintegrasi dengan AI.',
-          subtitle: 'Ekosistem pertumbuhan YouTube otomatis yang dirancang khusus untuk menyederhanakan alur kerja kreatif Anda.',
+          subtitle: 'Jika Anda masih sering merasa bimbang dalam menentukan konsep konten, melakukan proses unggah tanpa landasan strategi yang terukur, serta menghabiskan seluruh waktu untuk pekerjaan manual yang melelahkan... inilah saatnya mengenal Spartan Tube. Sebuah ekosistem pertumbuhan YouTube otomatis yang dirancang khusus untuk menyederhanakan, mengoptimalkan, dan mengintegrasikan seluruh alur kerja kreatif Anda secara elegan dengan dukungan kecerdasan buatan.',
           ctaText: 'BELI SEKARANG',
-          ctaLink: '#pricing'
+          ctaLink: '#pricing',
         }
       },
       {
-        id: 'default-problem',
+        id: Math.random().toString(36).substr(2, 9),
         type: 'problem',
         data: {
           title: '💥 MASALAH BESAR YANG TIDAK DISADARI CREATOR',
-          subtitle: 'Kebanyakan creator gagal bukan karena tidak memiliki skill, melainkan karena tidak memiliki SISTEM yang mumpuni.'
+          subtitle: 'Kebanyakan creator gagal bukan karena tidak memiliki skill, melainkan karena tidak memiliki SISTEM yang mumpuni.',
+          closing: 'Masalahnya bukan di kemampuan Anda…',
+          highlinedClosing: 'Tapi di SISTEM yang Anda gunakan.'
         }
       },
       {
-        id: 'default-solution',
+        id: Math.random().toString(36).substr(2, 9),
         type: 'solution',
         data: {
-          title: '🧠 SOLUSINYA: SPARTAN TUBE',
-          subtitle: 'IDE → ANALISA → PRODUKSI → UPLOAD. Bukan sekadar tools... Ini adalah mesin pertumbuhan channel YouTube dalam SATU dashboard.'
+          title: 'IDE → ANALISA → PRODUKSI → UPLOAD',
+          subtitle: 'Bukan sekadar tools... Ini adalah mesin pertumbuhan channel YouTube dalam SATU dashboard.',
+          image: '/assets/hero.png'
         }
       },
       {
-        id: 'default-demo',
+        id: Math.random().toString(36).substr(2, 9),
         type: 'demo',
         data: {
           title: 'SIMAK BAGAIMANA SPARTAN TUBE BEKERJA',
-          videoUrl: 'https://www.youtube.com/embed/EEobrUpwnj4'
+          videoUrl: 'https://www.youtube.com/watch?v=EEobrUpwnj4'
         }
       },
       {
-        id: 'default-pricing',
+        id: Math.random().toString(36).substr(2, 9),
+        type: 'features',
+        data: {
+          title: '⚔️ 12 SENJATA UTAMA SPARTAN TUBE',
+          subtitle: 'Eksplorasi seluruh ekosistem pertumbuhan YouTube otomatis Anda.'
+        }
+      },
+      {
+        id: Math.random().toString(36).substr(2, 9),
+        type: 'comparison',
+        data: {
+          title: '⚡ SEMUA DALAM 1 SYSTEM'
+        }
+      },
+      {
+        id: Math.random().toString(36).substr(2, 9),
         type: 'pricing',
         data: {
           title: '🚀 PILIH PAKET UNTUK MULAI GROW',
           subtitle: 'Miliki pusat komando YouTube Anda hari ini.'
+        }
+      },
+      {
+        id: Math.random().toString(36).substr(2, 9),
+        type: 'target',
+        data: {
+          title: '🔥 SIAPA YANG COCOK PAKAI SPARTAN TUBE?',
+          subtitle: '👉 Bukan untuk semua orang. Tapi WAJIB untuk yang serius mau growth.'
+        }
+      },
+      {
+        id: Math.random().toString(36).substr(2, 9),
+        type: 'specs',
+        data: {
+          title: '💻 SPESIFIKASI DEVICE'
+        }
+      },
+      {
+        id: Math.random().toString(36).substr(2, 9),
+        type: 'disclaimer',
+        data: {
+          title: '⚠️ DISCLAIMER'
+        }
+      },
+      {
+        id: Math.random().toString(36).substr(2, 9),
+        type: 'cta',
+        data: {
+          title: 'Waktunya Scale Bisnis YouTube Anda.',
+          subtitle: 'Mulai sekarang sebelum harga naik!',
+          ctaText: 'MULAI SEKARANG',
+          ctaLink: '#pricing'
         }
       }
     ]);

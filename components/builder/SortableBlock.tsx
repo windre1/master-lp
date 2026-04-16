@@ -179,6 +179,21 @@ export function SortableBlock({ id, block, index, onUpdateBlock, onRemoveBlock, 
           </div>
         );
 
+      case 'target':
+      case 'specs':
+      case 'disclaimer':
+      case 'comparison':
+        return (
+          <div className="space-y-4">
+             <Field label="Section Title" icon={<Type className="w-3 h-3" />}>
+                <input type="text" value={block.data.title || ''} onChange={e => updateData('title', e.target.value)} className="input-p font-black" />
+             </Field>
+             <p className="text-[10px] text-slate-500 font-bold uppercase italic border-l-2 border-cyan-500 pl-4 py-2 bg-white/5 rounded-r-xl">
+               Isi konten detail (grid/list) untuk bagian ini dikelola otomatis mengikuti gaya desain Spartan Tube. Anda hanya perlu menyesuaikan judul bagian di atas jika perlu.
+             </p>
+          </div>
+        );
+
       default:
         return <p className="text-slate-400 italic">No specific settings for this block.</p>;
     }

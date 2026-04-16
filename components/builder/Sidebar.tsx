@@ -7,7 +7,8 @@ import { BlockType, LandingPage } from '@/types/lp';
 import { getAllLPs } from '@/lib/data';
 import { 
   Layout, Users, AlertTriangle, Lightbulb, Grid, CheckSquare, 
-  PlayCircle, MessageSquare, Tag, HelpCircle, Zap, Folder, Plus, ExternalLink, GripHorizontal
+  PlayCircle, MessageSquare, Tag, HelpCircle, Zap, Folder, Plus, ExternalLink, GripHorizontal,
+  ArrowLeftRight, ShieldAlert, Cpu
 } from 'lucide-react';
 
 const blockLibrary: { type: BlockType; label: string; icon: any }[] = [
@@ -25,7 +26,11 @@ const blockLibrary: { type: BlockType; label: string; icon: any }[] = [
   { type: 'testimoni', label: 'Testimonials', icon: MessageSquare },
   { type: 'pricing', label: 'Price Table', icon: Tag },
   { type: 'faq', label: 'FAQ Accordion', icon: HelpCircle },
-  { type: 'cta', label: 'Final CTA', icon: Zap }
+  { type: 'cta', label: 'Final CTA', icon: Zap },
+  { type: 'comparison', label: 'VS System', icon: ArrowLeftRight },
+  { type: 'target', label: 'Target Market', icon: Users },
+  { type: 'specs', label: 'System Specs', icon: Cpu },
+  { type: 'disclaimer', label: 'Disclaimer', icon: ShieldAlert }
 ];
 
 function DraggableBlockItem({ item }: { item: any }) {

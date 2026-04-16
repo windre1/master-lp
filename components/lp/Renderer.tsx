@@ -13,6 +13,10 @@ import Testimoni from '@/components/blocks/Testimoni';
 import Pricing from '@/components/blocks/Pricing';
 import FAQ from '@/components/blocks/FAQ';
 import CTA from '@/components/blocks/CTA';
+import Comparison from '@/components/blocks/Comparison';
+import Target from '@/components/blocks/Target';
+import Specs from '@/components/blocks/Specs';
+import Disclaimer from '@/components/blocks/Disclaimer';
 
 interface RendererProps {
   blocks: Block[];
@@ -30,6 +34,10 @@ const blockMap: Record<string, React.FC<any>> = {
   pricing: Pricing,
   faq: FAQ,
   cta: CTA,
+  comparison: Comparison,
+  target: Target,
+  specs: Specs,
+  disclaimer: Disclaimer,
   // Atomic Blocks
   heading: ({ data }) => (
     <div className="container px-6 mx-auto py-8">

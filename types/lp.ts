@@ -13,11 +13,16 @@ export type BlockType =
   | 'heading'
   | 'image_only'
   | 'text_only'
-  | 'button_only';
+  | 'button_only'
+  | 'comparison'
+  | 'target'
+  | 'specs'
+  | 'disclaimer';
 
 export interface BlockData {
   title?: string;
   subtitle?: string;
+  badge?: string;
   ctaText?: string;
   ctaLink?: string;
   image?: string;
@@ -25,6 +30,8 @@ export interface BlockData {
   price?: number;
   items?: any[]; // for features, list, faq
   testimonials?: any[];
+  closing?: string;
+  highlinedClosing?: string;
 }
 
 export interface Block {

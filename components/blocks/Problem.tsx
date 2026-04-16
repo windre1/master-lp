@@ -30,8 +30,10 @@ export default function Problem({ data }: { data: any }) {
       </div>
 
        <div className="text-center mt-16 animate-pulse">
-          <p className="text-xl font-bold text-white italic">Masalahnya bukan di kemampuan Anda…</p>
-          <p className="text-3xl font-black text-red-500 uppercase italic mt-2 shadow-red-500/20 drop-shadow-md">Tapi di SISTEM yang Anda gunakan.</p>
+          <p className="text-xl font-bold text-white italic">{data.closing || 'Masalahnya bukan di kemampuan Anda…'}</p>
+          <p className="text-3xl font-black text-red-500 uppercase italic mt-2 shadow-red-500/20 drop-shadow-md">
+            {data.highlinedClosing || 'Tapi di SISTEM yang Anda gunakan.'}
+          </p>
       </div>
     </section>
   );
