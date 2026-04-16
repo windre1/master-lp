@@ -18,7 +18,7 @@ export default function Editor() {
   const [showModal, setShowModal] = useState(false);
   const [newTitle, setNewTitle] = useState('');
   const [newSlug, setNewSlug] = useState('');
-  const [selectedTemplate, setSelectedTemplate] = useState<'blank' | 'spartan'>('blank');
+  const [selectedTemplate, setSelectedTemplate] = useState<'blank' | 'spartan' | 'komisi'>('blank');
 
   const SPARTAN_BLOCKS: Block[] = [
     { id: '1', type: 'hero', data: { title: 'Spartan Tube', subtitle: 'Berhenti Kerja Keras. Mulailah Kerja Cerdas.', badge: 'center' } },
@@ -31,6 +31,22 @@ export default function Editor() {
     { id: '8', type: 'target', data: { title: 'Siapa Yang Cocok?' } },
     { id: '9', type: 'specs', data: { title: 'Spesifikasi Device' } },
     { id: '10', type: 'disclaimer', data: { title: 'Disclaimer' } }
+  ];
+
+  const KOMISI_BLOCKS: Block[] = [
+    { id: 'k1', type: 'hero', data: { title: '👉 Dapat Komisi 30% Tanpa Punya Produk Sendiri', subtitle: 'Gabung jadi Affiliate di Wakrod Project — cukup share link, komisi jalan otomatis, bahkan bisa terus mengalir selamanya.', ctaText: '👉 Amankan Slot & Join GMeet Sekarang', badge: 'center' } },
+    { id: 'k2', type: 'text_only', data: { subtitle: '⚠️ Detail lengkap sistem akan dibahas eksklusif di GMeet (slot terbatas)', badge: 'center', textColor: '#ef4444', fontSize: '18' } },
+    { id: 'k3', type: 'problem', data: { title: 'Capek Jualan Tapi Gak Punya Produk?', subtitle: '👉 Sekarang saatnya ubah cara main.', items: [{ t: 'Bingung Produk Apa', d: 'Mau jualan tapi bingung produk apa.' }, { t: 'Komisi Kecil', d: 'Sudah coba affiliate, tapi komisi kecil.' }, { t: 'Gapunya Produk', d: 'Sekali closing, selesai… gak ada penghasilan lanjutan.' }, { t: 'Mulai dari nol', d: 'Harus mulai dari nol terus.' }] } },
+    { id: 'k4', type: 'solution', data: { title: 'Kenalan dengan Wakrod Project', subtitle: '👉 Semua sudah disiapkan, kamu tinggal jalanin.', items: [{ t: 'Affiliate Komisi Besar', d: 'Komisi hingga 30% per transaksi.' }, { t: 'Tanpa Stok', d: 'Bangun income tanpa stok barang.' }, { t: 'Sistem Seller', d: 'Bahkan upgrade jadi seller dengan sistem simpel.' }] } },
+    { id: 'k5', type: 'heading', data: { title: '💸 Komisi 30% Tanpa Ribet', badge: 'center' } },
+    { id: 'k6', type: 'text_only', data: { subtitle: 'Bayangin kamu cuma share link… ➡️ Ada yang beli → kamu dapat komisi, ➡️ Mereka beli lagi → kamu tetap dapat komisi, ➡️ Bahkan beli produk lain → kamu tetap kebagian. 🔥 Karena sistem kami pakai lifetime cookies', badge: 'center', fontSize: '18', textColor: '#334155' } },
+    { id: 'k7', type: 'heading', data: { title: 'Sekali Refer, Dibayar Selamanya', badge: 'center', textColor: '#2563eb' } },
+    { id: 'k8', type: 'text_only', data: { subtitle: 'Misalnya: Kamu share link affiliate. Si A daftar dari link kamu. Si A beli produk hari ini → kamu dapat komisi. Besok dia beli lagi → kamu tetap dapat. Bahkan tahun depan → masih dapat.', badge: 'center' } },
+    { id: 'k9', type: 'price_list', data: { items: [{ title: 'Income Affiliate', desc: 'Dapatkan komisi 30% dari setiap referral.', ctaText: 'Join Affiliate', ctaLink: '#', textColor: '#0f172a', buttonColor: '#2563eb' }, { title: 'Income Seller', desc: 'Upload produk sendiri, fee hanya 5%.', ctaText: 'Join Seller', ctaLink: '#', textColor: '#0f172a', buttonColor: '#0f172a' }] } },
+    { id: 'k10', type: 'features', data: { title: 'Mulai Tanpa Modal', items: [{ t: 'Gratis Daftar', d: 'Tanpa biaya apa pun.' }, { t: 'Tanpa Stok', d: 'Tidak perlu simpan barang.' }, { t: 'Tanpa Ribet', d: 'Semua sistem sudah otomatis.' }] } },
+    { id: 'k11', type: 'heading', data: { title: '⚠️ Ini Belum Dibuka Publik', badge: 'center', textColor: '#ef4444' } },
+    { id: 'k12', type: 'text_only', data: { subtitle: 'Semua sistem ini akan dijelaskan di GMeet: Strategi closing, Macro recurring income, dan Studi case real.', badge: 'center', fontSize: '18' } },
+    { id: 'k13', type: 'cta', data: { title: 'Siap Dapetin Komisi 30% Tanpa Produk?', subtitle: 'Gratis. Tanpa risiko. Slot terbatas.', ctaText: '👉 Daftar Sekarang & Amankan Slot GMeet', buttonColor: '#ef4444' } }
   ];
 
   const handleUpdateBlock = (id: string, data: any) => {
@@ -73,7 +89,10 @@ export default function Editor() {
   const confirmNewPage = async () => {
     if (!newSlug) return;
     setSaving(true);
-    const initialBlocks: Block[] = selectedTemplate === 'spartan' ? SPARTAN_BLOCKS : [];
+    let initialBlocks: Block[] = [];
+    if (selectedTemplate === 'spartan') initialBlocks = SPARTAN_BLOCKS;
+    if (selectedTemplate === 'komisi') initialBlocks = KOMISI_BLOCKS;
+    
     try {
       await saveLP(newSlug, { blocks: initialBlocks });
       setSlug(newSlug);
@@ -233,6 +252,17 @@ export default function Editor() {
                            </div>
                            <h3 className="font-bold text-slate-800 text-sm">Spartan Tube</h3>
                            <p className="text-[10px] text-slate-400 mt-1">Template landing page lengkap</p>
+                        </button>
+
+                        <button 
+                          onClick={() => setSelectedTemplate('komisi')}
+                          className={`p-6 rounded-3xl border-2 text-left transition-all ${selectedTemplate === 'komisi' ? 'border-orange-600 bg-orange-50/30' : 'border-slate-100 bg-white hover:border-slate-200'}`}
+                        >
+                           <div className="w-10 h-10 bg-orange-100 rounded-2xl flex items-center justify-center mb-4">
+                              <Zap className="w-5 h-5 text-orange-600" />
+                           </div>
+                           <h3 className="font-bold text-slate-800 text-sm">Komisi 30%</h3>
+                           <p className="text-[10px] text-slate-400 mt-1">Template Project Wakrod</p>
                         </button>
                      </div>
                   </div>
