@@ -118,12 +118,22 @@ const blockMap: Record<string, React.FC<any>> = {
   },
   price_list: ({ data }) => {
     const items = data.items || [];
-    const gridCols = items.length === 1 ? 'grid-cols-1 max-w-lg' : (items.length === 2 ? 'grid-cols-1 md:grid-cols-2 max-w-4xl' : 'grid-cols-1 md:grid-cols-3 max-w-6xl');
+    const isSingle = items.length === 1;
+    const isDouble = items.length === 2;
+    
     return (
       <div className="container px-6 mx-auto py-16">
-        <div className={`grid gap-8 mx-auto ${gridCols}`}>
+        <div className={`flex flex-wrap justify-center gap-8`}>
            {items.map((item: any, i: number) => (
-             <div key={i} className="bg-white p-10 rounded-[3rem] border border-slate-100 shadow-2xl shadow-slate-200/40 flex flex-col justify-between hover:-translate-y-2 transition-all duration-300">
+             <div 
+              key={i} 
+              className="bg-white p-10 rounded-[3rem] border border-slate-100 shadow-2xl shadow-slate-200/40 flex flex-col justify-between hover:-translate-y-2 transition-all duration-300"
+              style={{ 
+                width: isSingle ? (data.priceListWidth ? `${data.priceListWidth}%` : '500px') : 'auto',
+                maxWidth: isSingle ? '1000px' : (isDouble ? '450px' : '380px'),
+                flex: isSingle ? 'none' : '1 1 320px'
+              }}
+             >
                 <div>
                    <h3 
                     className="text-2xl font-black mb-4 tracking-tight"

@@ -233,9 +233,18 @@ export function SortableBlock({
       case 'price_list':
         return (
           <div className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className={`flex flex-wrap justify-center gap-6`}>
                {(block.data.items || []).map((item, idx) => (
-                 <div key={idx} className="bg-white p-6 rounded-[2rem] border-2 border-slate-100 relative group/item shadow-sm">
+                 <div 
+                  key={idx} 
+                  className="bg-white p-6 rounded-[2rem] border-2 border-slate-100 relative group/item shadow-sm"
+                  style={{ 
+                    width: (block.data.items || []).length === 1 && block.data.priceListWidth ? `${block.data.priceListWidth}%` : 'auto',
+                    minWidth: '250px',
+                    flex: (block.data.items || []).length === 1 ? 'none' : '1 1 250px',
+                    maxWidth: (block.data.items || []).length === 3 ? '100%' : '400px'
+                  }}
+                 >
                     <button 
                       onClick={() => {
                         const newItems = [...(block.data.items || [])];
@@ -328,13 +337,29 @@ export function SortableBlock({
                      const newItems = [...(block.data.items || []), { title: 'Paket Baru', desc: 'Keterangan paket...', ctaText: 'Pilih', ctaLink: '#', textColor: '#0f172a', buttonColor: '#0f172a' }];
                      updateData('items', newItems);
                    }}
-                   className="border-2 border-dashed border-slate-300 rounded-[2rem] flex flex-col items-center justify-center py-10 text-slate-500 hover:text-slate-900 hover:border-slate-900 transition-all bg-white shadow-sm"
+                   className="border-2 border-dashed border-slate-300 rounded-[2rem] flex flex-col items-center justify-center p-10 text-slate-500 hover:text-slate-900 hover:border-slate-900 transition-all bg-white shadow-sm min-w-[250px]"
                  >
                     <span className="text-xl font-black">+</span>
                     <span className="text-[10px] font-black uppercase tracking-widest">Tambah Kolom</span>
                  </button>
                )}
             </div>
+            
+            {(block.data.items || []).length === 1 && (
+              <div className="flex items-center gap-4 pt-4 border-t border-slate-100">
+                 <div className="flex items-center gap-2">
+                    <Layers className="w-3 h-3 text-slate-500" />
+                    <span className="text-[9px] font-black uppercase tracking-widest text-slate-400">Lebar Kolom Tunggal</span>
+                    <input 
+                      type="range" min="30" max="100" 
+                      value={block.data.priceListWidth || 100} 
+                      onChange={e => updateData('priceListWidth', e.target.value)}
+                      className="w-24 h-1 bg-slate-200 rounded-lg appearance-none cursor-pointer"
+                    />
+                    <span className="text-[9px] font-bold text-slate-600">{block.data.priceListWidth || 100}%</span>
+                 </div>
+              </div>
+            )}
           </div>
         );
       case 'button_only':
