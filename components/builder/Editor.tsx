@@ -20,21 +20,9 @@ export default function Editor() {
   const [newSlug, setNewSlug] = useState('');
   const [selectedTemplate, setSelectedTemplate] = useState<'blank' | 'spartan' | 'komisi'>('blank');
 
-  const SPARTAN_BLOCKS: Block[] = [
-    { id: '1', type: 'hero', data: { title: 'Spartan Tube', subtitle: 'Berhenti Kerja Keras. Mulailah Kerja Cerdas.', badge: 'center' } },
-    { id: '2', type: 'problem', data: { title: 'Masalah Besar Creator', subtitle: 'Gagal karena tidak punya sistem.' } },
-    { id: '3', type: 'solution', data: { title: 'Solusi: Spartan Tube', subtitle: 'Mesin pertumbuhan channel YouTube otomatis.' } },
-    { id: '4', type: 'demo', data: { title: 'Lihat Cara Kerjanya', videoUrl: 'https://www.youtube.com/watch?v=EEobrUpwnj4' } },
-    { id: '5', type: 'features', data: { title: '12 Senjata Utama' } },
-    { id: '6', type: 'testimoni', data: { title: 'Apa Kata Mereka?' } },
-    { id: '7', type: 'pricing', data: { title: 'Pilih Paket Anda' } },
-    { id: '8', type: 'target', data: { title: 'Siapa Yang Cocok?' } },
-    { id: '9', type: 'specs', data: { title: 'Spesifikasi Device' } },
-    { id: '10', type: 'disclaimer', data: { title: 'Disclaimer' } }
-  ];
 
   const KOMISI_BLOCKS: Block[] = [
-    { id: 'k1', type: 'hero', data: { title: '👉 Dapat Komisi 30% Tanpa Punya Produk Sendiri', subtitle: 'Gabung jadi Affiliate di Wakrod Project — cukup share link, komisi jalan otomatis, bahkan bisa terus mengalir selamanya.', ctaText: '👉 Amankan Slot & Join GMeet Sekarang', badge: 'center' } },
+    { id: 'k1', type: 'hero', data: { title: '👉 Dapat Komisi 30% Tanpa Punya Produk Sendiri', subtitle: 'Gabung jadi Affiliate di Wakrod Project — cukup share link, komisi jalan otomatis, bahkan bisa terus mengalir selamanya.', ctaText: '👉 Amankan Slot & Join GMeet Sekarang', ctaLink: '#cta-section', badge: 'center' } },
     { id: 'k2', type: 'text_only', data: { subtitle: '⚠️ Detail lengkap sistem akan dibahas eksklusif di GMeet (slot terbatas)', badge: 'center', textColor: '#ef4444', fontSize: '18' } },
     { id: 'k3', type: 'problem', data: { title: 'Capek Jualan Tapi Gak Punya Produk?', subtitle: '👉 Sekarang saatnya ubah cara main.', items: [{ t: 'Bingung Produk Apa', d: 'Mau jualan tapi bingung produk apa.' }, { t: 'Komisi Kecil', d: 'Sudah coba affiliate, tapi komisi kecil.' }, { t: 'Gapunya Produk', d: 'Sekali closing, selesai… gak ada penghasilan lanjutan.' }, { t: 'Mulai dari nol', d: 'Harus mulai dari nol terus.' }] } },
     { id: 'k4', type: 'solution', data: { title: 'Kenalan dengan Wakrod Project', subtitle: '👉 Semua sudah disiapkan, kamu tinggal jalanin.', items: [{ t: 'Affiliate Komisi Besar', d: 'Komisi hingga 30% per transaksi.' }, { t: 'Tanpa Stok', d: 'Bangun income tanpa stok barang.' }, { t: 'Sistem Seller', d: 'Bahkan upgrade jadi seller dengan sistem simpel.' }] } },
@@ -243,16 +231,6 @@ export default function Editor() {
                            <p className="text-[10px] text-slate-400 mt-1">Mulai halaman dari nol</p>
                         </button>
 
-                        <button 
-                          onClick={() => setSelectedTemplate('spartan')}
-                          className={`p-6 rounded-3xl border-2 text-left transition-all ${selectedTemplate === 'spartan' ? 'border-blue-600 bg-blue-50/30' : 'border-slate-100 bg-white hover:border-slate-200'}`}
-                        >
-                           <div className="w-10 h-10 bg-blue-100 rounded-2xl flex items-center justify-center mb-4">
-                              <Zap className="w-5 h-5 text-blue-600" />
-                           </div>
-                           <h3 className="font-bold text-slate-800 text-sm">Spartan Tube</h3>
-                           <p className="text-[10px] text-slate-400 mt-1">Template landing page lengkap</p>
-                        </button>
 
                         <button 
                           onClick={() => setSelectedTemplate('komisi')}
