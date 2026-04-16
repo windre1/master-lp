@@ -52,15 +52,27 @@ export function SortableBlock({
 
   const currentAlign = block.data.badge || 'center';
 
+  const [uploading, setUploading] = useState(false);
+
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
     
+    setUploading(true);
     try {
       const url = await uploadImage(file);
       updateData('image', url);
     } catch (err: any) {
-      alert("Gagal upload: " + err.message);
+      // Fallback: show image locally via FileReader if upload fails
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        if (ev.target?.result) updateData('image', ev.target.result as string);
+      };
+      reader.readAsDataURL(file);
+    } finally {
+      setUploading(false);
+      // Reset input value so same file can be re-selected
+      e.target.value = '';
     }
   };
 
@@ -138,7 +150,10 @@ export function SortableBlock({
                     className="flex-1 bg-slate-50 px-4 py-2.5 rounded-xl outline-none text-[10px] text-slate-500"
                     placeholder="Paste URL gambar..."
                   />
-                  <label className="p-2.5 bg-slate-900 text-white rounded-xl cursor-pointer hover:bg-slate-800 transition-all">
+                  <label 
+                    className="p-2.5 bg-slate-900 text-white rounded-xl cursor-pointer hover:bg-slate-800 transition-all"
+                    onClick={e => e.stopPropagation()}
+                  >
                     <Upload className="w-4 h-4" />
                     <input type="file" className="hidden" accept="image/*" onChange={handleFileChange} />
                   </label>
@@ -245,7 +260,10 @@ export function SortableBlock({
                   <>
                     <img src={block.data.image} alt="Preview" className="absolute inset-0 w-full h-full object-cover" />
                     <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
-                       <label className="p-2 bg-white rounded-full cursor-pointer hover:bg-slate-50 transition-all text-slate-900">
+                       <label 
+                         className="p-2 bg-white rounded-full cursor-pointer hover:bg-slate-50 transition-all text-slate-900"
+                         onClick={e => e.stopPropagation()}
+                       >
                           <Upload className="w-4 h-4" />
                           <input type="file" className="hidden" accept="image/*" onChange={handleFileChange} />
                        </label>
@@ -258,9 +276,14 @@ export function SortableBlock({
                     </div>
                   </>
                 ) : (
-                  <label className="flex flex-col items-center text-slate-400 cursor-pointer hover:text-slate-600 transition-all">
+                  <label 
+                    className="flex flex-col items-center text-slate-400 cursor-pointer hover:text-slate-600 transition-all"
+                    onClick={e => e.stopPropagation()}
+                  >
                     <Layout className="w-8 h-8 mb-2 opacity-20" />
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-center">Klik untuk Upload Gambar</p>
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-center">
+                      {uploading ? 'Mengupload...' : 'Klik untuk Upload Gambar'}
+                    </p>
                     <input type="file" className="hidden" accept="image/*" onChange={handleFileChange} />
                   </label>
                 )}
@@ -611,7 +634,10 @@ export function SortableBlock({
                <div className="w-full h-32 bg-slate-50 rounded-2xl overflow-hidden border border-slate-100 relative group/img">
                   <img src={block.data.image} alt="Preview" className="w-full h-full object-cover" />
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/img:opacity-100 transition-all flex items-center justify-center">
-                     <label className="p-2 bg-white rounded-full cursor-pointer hover:bg-slate-50 transition-all">
+                     <label 
+                       className="p-2 bg-white rounded-full cursor-pointer hover:bg-slate-50 transition-all"
+                       onClick={e => e.stopPropagation()}
+                     >
                         <Upload className="w-4 h-4 text-slate-900" />
                         <input type="file" className="hidden" accept="image/*" onChange={handleFileChange} />
                      </label>
@@ -665,8 +691,8 @@ export function SortableBlock({
         </div>
       </div>
 
-      {/* Card Body */}
-      <div className="p-8">
+      {/* Card Body — data-no-dnd prevents drag from firing inside editor fields */}
+      <div className="p-8" data-no-dnd="true">
         {renderFields()}
       </div>
     </div>

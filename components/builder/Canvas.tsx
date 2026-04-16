@@ -6,6 +6,8 @@ import {
   closestCenter, 
   KeyboardSensor, 
   PointerSensor, 
+  MouseSensor,
+  TouchSensor,
   useSensor, 
   useSensors,
   DragEndEvent
@@ -47,8 +49,34 @@ export default function Canvas({
     { type: 'button_only', label: 'Tombol CTA', icon: Zap },
   ];
   
+  // Only activate drag when starting from the grip handle
+  // Prevents drag from interrupting input/textarea/button/label interactions
+  function shouldHandleEvent(element: Element | null) {
+    let cur = element;
+    while (cur) {
+      if (cur.dataset && cur.dataset.noDnd) return false;
+      cur = cur.parentElement;
+    }
+    return true;
+  }
+
+  class SmartPointerSensor extends PointerSensor {
+    static activators = [
+      {
+        eventName: 'onPointerDown' as const,
+        handler: ({ nativeEvent: event }: { nativeEvent: PointerEvent }) => {
+          return shouldHandleEvent(event.target as Element);
+        },
+      },
+    ];
+  }
+
   const sensors = useSensors(
-    useSensor(PointerSensor),
+    useSensor(SmartPointerSensor, {
+      activationConstraint: {
+        distance: 8,
+      },
+    }),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
     })
