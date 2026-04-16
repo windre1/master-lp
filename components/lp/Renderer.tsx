@@ -74,14 +74,22 @@ const blockMap: Record<string, React.FC<any>> = {
   },
   image_only: ({ data }) => {
     const alignment = data.badge === 'left' ? 'justify-start' : (data.badge === 'right' ? 'justify-end' : 'justify-center');
+    const width = data.imageWidth || 100;
     return (
-      <div className="container px-6 mx-auto py-8 flex">
-        <div className={`w-full flex ${alignment}`}>
+      <div className={`max-w-5xl px-6 mx-auto py-12 flex ${alignment}`}>
+        <div 
+          className="rounded-[2.5rem] overflow-hidden shadow-2xl border border-slate-100 ring-1 ring-slate-900/5 group"
+          style={{ width: `${width}%` }}
+        >
           {data.image ? (
-            <img src={data.image} alt="Visual" className="max-w-full rounded-[2rem] shadow-xl h-auto" />
+            <img 
+              src={data.image} 
+              alt="Visual" 
+              className="w-full h-auto transform group-hover:scale-[1.02] transition-transform duration-1000" 
+            />
           ) : (
-            <div className="w-full aspect-video bg-slate-100 rounded-[2rem] flex items-center justify-center text-slate-300 font-bold italic">
-               Image Placeholder
+            <div className="py-20 bg-slate-50 flex items-center justify-center text-slate-400 font-bold uppercase tracking-widest text-xs">
+              Belum ada gambar
             </div>
           )}
         </div>
@@ -107,14 +115,14 @@ const blockMap: Record<string, React.FC<any>> = {
           {videoId ? (
             <iframe 
               className="w-full h-full"
-              src={`https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1`}
+              src={`https://www.youtube-nocookie.com/embed/${videoId}?rel=0&modestbranding=1&origin=${typeof window !== 'undefined' ? window.location.origin : ''}`}
               title="YouTube video player"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
             />
           ) : (
-            <div className="w-full h-full flex items-center justify-center text-slate-500 font-bold text-xs uppercase tracking-widest">
-              Video tidak dapat dimuat
+            <div className="w-full h-full flex items-center justify-center text-slate-500 font-bold text-xs uppercase tracking-widest px-10 text-center">
+              Masukkan ID Video / Link YouTube yang Benar
             </div>
           )}
         </div>

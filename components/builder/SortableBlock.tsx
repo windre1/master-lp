@@ -100,13 +100,21 @@ export function SortableBlock({
             <div className="grid grid-cols-2 gap-4 pt-4 border-t border-slate-50">
                <div className="space-y-2">
                   <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Teks Tombol</label>
-                  <input 
-                    type="text" 
-                    value={block.data.ctaText || ''} 
-                    onChange={e => updateData('ctaText', e.target.value)}
-                    className="w-full bg-slate-100 px-4 py-2.5 rounded-xl outline-none text-[10px] font-bold"
-                    placeholder="Amankan Slot..."
-                  />
+                  <div className="flex items-center gap-2 bg-slate-100 p-2 rounded-xl">
+                    <input 
+                      type="text" 
+                      value={block.data.ctaText || ''} 
+                      onChange={e => updateData('ctaText', e.target.value)}
+                      className="flex-1 bg-transparent border-none outline-none font-bold text-[10px]"
+                      placeholder="Amankan Slot..."
+                    />
+                    <input 
+                      type="color" 
+                      value={block.data.buttonColor || '#0f172a'} 
+                      onChange={e => updateData('buttonColor', e.target.value)}
+                      className="w-4 h-4 rounded-full overflow-hidden border-none p-0 cursor-pointer"
+                    />
+                  </div>
                </div>
                <div className="space-y-2">
                   <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Link Tombol</label>
@@ -120,7 +128,7 @@ export function SortableBlock({
                </div>
             </div>
 
-            <div className="space-y-2 pt-4">
+            <div className="space-y-4 pt-4 border-t border-slate-50">
                <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Gambar Hero (Opsional)</label>
                <div className="flex items-center gap-2">
                   <input 
@@ -134,6 +142,19 @@ export function SortableBlock({
                     <Upload className="w-4 h-4" />
                     <input type="file" className="hidden" accept="image/*" onChange={handleFileChange} />
                   </label>
+               </div>
+               <div className="flex items-center gap-4">
+                  <div className="flex-1 flex items-center gap-2">
+                     <Layers className="w-3 h-3 text-slate-400" />
+                     <span className="text-[9px] font-black uppercase tracking-widest text-slate-400">Lebar Gambar</span>
+                     <input 
+                       type="range" min="30" max="100" 
+                       value={block.data.imageWidth || 100} 
+                       onChange={e => updateData('imageWidth', e.target.value)}
+                       className="flex-1 h-1 bg-slate-200 rounded-lg appearance-none cursor-pointer"
+                     />
+                     <span className="text-[9px] font-bold text-slate-600">{block.data.imageWidth || 100}%</span>
+                  </div>
                </div>
             </div>
           </div>
@@ -216,7 +237,10 @@ export function SortableBlock({
         return (
           <div className="space-y-4">
             <div className={`flex ${currentAlign === 'left' ? 'justify-start' : (currentAlign === 'right' ? 'justify-end' : 'justify-center')}`}>
-              <div className="relative group w-full max-w-sm aspect-video bg-slate-50 rounded-2xl border-2 border-dashed border-slate-200 flex flex-col items-center justify-center p-4 overflow-hidden">
+              <div 
+                className="relative group aspect-video bg-slate-50 rounded-2xl border-2 border-dashed border-slate-200 flex flex-col items-center justify-center p-4 overflow-hidden shadow-inner"
+                style={{ width: block.data.imageWidth ? `${block.data.imageWidth}%` : '100%' }}
+              >
                 {block.data.image ? (
                   <>
                     <img src={block.data.image} alt="Preview" className="absolute inset-0 w-full h-full object-cover" />
@@ -235,22 +259,37 @@ export function SortableBlock({
                   </>
                 ) : (
                   <label className="flex flex-col items-center text-slate-400 cursor-pointer hover:text-slate-600 transition-all">
-                    <ImageIcon className="w-8 h-8 mb-2 opacity-20" />
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-center">Klik untuk Upload Gambar<br/><span className="text-[8px] opacity-60">atau tempel link di bawah</span></p>
+                    <Layout className="w-8 h-8 mb-2 opacity-20" />
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-center">Klik untuk Upload Gambar</p>
                     <input type="file" className="hidden" accept="image/*" onChange={handleFileChange} />
                   </label>
                 )}
               </div>
             </div>
-            <div className="flex items-center gap-2 mt-4 text-[9px] text-slate-400 font-bold uppercase tracking-widest">
-               <Upload className="w-3 h-3 shrink-0" />
-               <input 
-                 type="text" 
-                 value={block.data.image || ''} 
-                 onChange={e => updateData('image', e.target.value)}
-                 className="flex-1 bg-slate-50 px-3 py-1.5 rounded-lg outline-none text-slate-600 text-[10px]"
-                 placeholder="Tempel URL gambar di sini..."
-               />
+            <div className="flex flex-col gap-4 pt-4 border-t border-slate-50">
+               <div className="flex items-center gap-4">
+                  <div className="flex-1 flex items-center gap-2">
+                     <Layers className="w-3 h-3 text-slate-400" />
+                     <span className="text-[9px] font-black uppercase tracking-widest text-slate-400">Lebar Gambar</span>
+                     <input 
+                       type="range" min="10" max="100" 
+                       value={block.data.imageWidth || 100} 
+                       onChange={e => updateData('imageWidth', e.target.value)}
+                       className="flex-1 h-1 bg-slate-200 rounded-lg appearance-none cursor-pointer"
+                     />
+                     <span className="text-[9px] font-bold text-slate-600">{block.data.imageWidth || 100}%</span>
+                  </div>
+               </div>
+               <div className="flex items-center gap-2 text-[9px] text-slate-400 font-bold uppercase tracking-widest">
+                  <span className="shrink-0">Atau URL</span>
+                  <input 
+                    type="text" 
+                    value={block.data.image || ''} 
+                    onChange={e => updateData('image', e.target.value)}
+                    className="flex-1 bg-slate-50 px-3 py-1.5 rounded-lg outline-none text-slate-600 text-[10px]"
+                    placeholder="https://..."
+                  />
+               </div>
             </div>
           </div>
         );
@@ -266,7 +305,7 @@ export function SortableBlock({
                 {videoId ? (
                   <iframe 
                     className="w-full h-full"
-                    src={`https://www.youtube.com/embed/${videoId}`}
+                    src={`https://www.youtube-nocookie.com/embed/${videoId}?origin=${typeof window !== 'undefined' ? window.location.origin : ''}`}
                     title="YouTube preview"
                   />
                 ) : (
