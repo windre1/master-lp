@@ -39,7 +39,12 @@ export default function Editor() {
         image: type === 'image_only' ? '' : undefined,
         videoUrl: type === 'video_only' ? '' : undefined,
         videoWidth: '100',
-        badge: 'center'
+        badge: 'center',
+        items: type === 'price_list' ? [
+          { title: 'Paket Basic', desc: 'Fitur standar untuk pemula', ctaText: 'Pilih Paket', ctaLink: '#' },
+          { title: 'Paket Pro', desc: 'Fitur lengkap untuk bisnis Anda', ctaText: 'Pilih Paket', ctaLink: '#' },
+          { title: 'Paket Ultra', desc: 'Solusi total dengan support prioritas', ctaText: 'Pilih Paket', ctaLink: '#' }
+        ] : undefined
       }
     };
     setBlocks([...blocks, newBlock]);

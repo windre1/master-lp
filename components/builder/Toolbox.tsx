@@ -17,6 +17,7 @@ export default function Toolbox({ onAddBlock, blocks, slug }: ToolboxProps) {
     { type: 'text_only', label: 'Teks', icon: AlignLeft },
     { type: 'image_only', label: 'Gambar', icon: Layout },
     { type: 'video_only', label: 'Video YouTube', icon: Play },
+    { type: 'price_list', label: 'Price List (3 Kolom)', icon: Layout },
     { type: 'button_only', label: 'Tombol', icon: Zap },
   ];
 

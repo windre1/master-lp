@@ -116,6 +116,30 @@ const blockMap: Record<string, React.FC<any>> = {
       </div>
     );
   },
+  price_list: ({ data }) => {
+    const items = data.items || [];
+    const gridCols = items.length === 1 ? 'grid-cols-1 max-w-lg' : (items.length === 2 ? 'grid-cols-1 md:grid-cols-2 max-w-4xl' : 'grid-cols-1 md:grid-cols-3 max-w-6xl');
+    return (
+      <div className="container px-6 mx-auto py-16">
+        <div className={`grid gap-8 mx-auto ${gridCols}`}>
+           {items.map((item: any, i: number) => (
+             <div key={i} className="bg-white p-10 rounded-[3rem] border border-slate-100 shadow-xl shadow-slate-200/50 flex flex-col justify-between hover:-translate-y-2 transition-all duration-300">
+                <div>
+                   <h3 className="text-2xl font-black text-slate-900 mb-4 tracking-tight">{item.title}</h3>
+                   <p className="text-slate-500 leading-relaxed mb-8">{item.desc}</p>
+                </div>
+                <a 
+                  href={item.ctaLink || '#'} 
+                  className="w-full py-4 bg-slate-900 text-white text-center rounded-2xl font-black text-xs uppercase tracking-[0.2em] hover:bg-slate-800 transition-all shadow-lg shadow-slate-200"
+                >
+                  {item.ctaText}
+                </a>
+             </div>
+           ))}
+        </div>
+      </div>
+    );
+  },
   button_only: ({ data }) => {
     const alignment = data.badge === 'left' ? 'text-left' : (data.badge === 'right' ? 'text-right' : 'text-center');
     return (

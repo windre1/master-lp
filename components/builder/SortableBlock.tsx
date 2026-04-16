@@ -230,6 +230,88 @@ export function SortableBlock({
             </div>
           </div>
         );
+      case 'price_list':
+        return (
+          <div className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+               {(block.data.items || []).map((item, idx) => (
+                 <div key={idx} className="bg-slate-50 p-6 rounded-[2rem] border border-slate-100 relative group/item">
+                    <button 
+                      onClick={() => {
+                        const newItems = [...(block.data.items || [])];
+                        newItems.splice(idx, 1);
+                        updateData('items', newItems);
+                      }}
+                      className="absolute -top-2 -right-2 w-6 h-6 bg-white border border-slate-200 rounded-full flex items-center justify-center text-red-500 opacity-0 group-item-hover:opacity-100 transition-all hover:bg-red-50"
+                    >
+                       <Trash2 className="w-3 h-3" />
+                    </button>
+
+                    <div className="space-y-4">
+                       <input 
+                         type="text" 
+                         value={item.title || ''} 
+                         onChange={(e) => {
+                           const newItems = [...(block.data.items || [])];
+                           newItems[idx] = { ...item, title: e.target.value };
+                           updateData('items', newItems);
+                         }}
+                         placeholder="Judul"
+                         className="w-full bg-transparent font-bold text-slate-800 outline-none border-b border-transparent focus:border-slate-200"
+                       />
+                       <textarea 
+                         rows={3}
+                         value={item.desc || ''} 
+                         onChange={(e) => {
+                           const newItems = [...(block.data.items || [])];
+                           newItems[idx] = { ...item, desc: e.target.value };
+                           updateData('items', newItems);
+                         }}
+                         placeholder="Keterangan..."
+                         className="w-full bg-transparent text-xs text-slate-500 outline-none resize-none"
+                       />
+                       <div className="pt-4 space-y-2">
+                          <input 
+                            type="text" 
+                            value={item.ctaText || ''} 
+                            onChange={(e) => {
+                              const newItems = [...(block.data.items || [])];
+                              newItems[idx] = { ...item, ctaText: e.target.value };
+                              updateData('items', newItems);
+                            }}
+                            placeholder="Teks Tombol"
+                            className="w-full bg-slate-200/50 px-3 py-1.5 rounded-lg font-bold text-[9px] uppercase tracking-widest text-slate-600 outline-none"
+                          />
+                          <input 
+                            type="text" 
+                            value={item.ctaLink || ''} 
+                            onChange={(e) => {
+                              const newItems = [...(block.data.items || [])];
+                              newItems[idx] = { ...item, ctaLink: e.target.value };
+                              updateData('items', newItems);
+                            }}
+                            placeholder="Link URL"
+                            className="w-full bg-white border border-slate-100 px-3 py-1.5 rounded-lg text-[9px] text-slate-400 outline-none"
+                          />
+                       </div>
+                    </div>
+                 </div>
+               ))}
+               {(block.data.items || []).length < 3 && (
+                 <button 
+                   onClick={() => {
+                     const newItems = [...(block.data.items || []), { title: 'Paket Baru', desc: 'Keterangan paket...', ctaText: 'Pilih', ctaLink: '#' }];
+                     updateData('items', newItems);
+                   }}
+                   className="border-2 border-dashed border-slate-200 rounded-[2rem] flex flex-col items-center justify-center py-10 text-slate-300 hover:text-slate-500 hover:border-slate-300 transition-all"
+                 >
+                    <span className="text-xl">+</span>
+                    <span className="text-[10px] font-bold uppercase tracking-widest">Tambah Kolom</span>
+                 </button>
+               )}
+            </div>
+          </div>
+        );
       case 'button_only':
       case 'cta':
         return (

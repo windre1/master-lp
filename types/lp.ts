@@ -18,6 +18,7 @@ export type BlockType =
   | 'target'
   | 'specs'
   | 'video_only'
+  | 'price_list'
   | 'disclaimer';
 
 export interface BlockData {
