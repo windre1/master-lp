@@ -129,32 +129,32 @@ export default function Editor() {
   };
 
   return (
-    <div className="flex flex-col bg-white min-h-screen font-sans text-slate-900 selection:bg-slate-900 selection:text-white">
+    <div className="flex flex-col bg-white h-screen overflow-hidden font-sans text-slate-900 selection:bg-slate-900 selection:text-white">
       {/* Top Header */}
-      <header className="h-24 bg-white border-b border-slate-100 px-12 flex items-center justify-between shrink-0">
+      <header className="h-20 bg-white border-b border-slate-100 px-12 flex items-center justify-between shrink-0">
         <div>
-          <h1 className="text-2xl font-black text-slate-900 tracking-tight uppercase italic">Landing Page <span className="text-blue-600">Builder</span></h1>
+          <h1 className="text-xl font-black text-slate-900 tracking-tight uppercase italic">LP <span className="text-blue-600">Builder</span></h1>
         </div>
         
         <div className="flex items-center gap-6">
            <button 
              onClick={handleLogout}
-             className="text-[10px] font-black text-slate-400 hover:text-red-500 uppercase tracking-[0.2em] transition-all flex items-center gap-2"
+             className="text-[9px] font-black text-slate-400 hover:text-red-500 uppercase tracking-[0.2em] transition-all flex items-center gap-2"
            >
-             <LogOut className="w-4 h-4" /> Keluar
+             <LogOut className="w-3.5 h-3.5" /> Keluar
            </button>
            
            <button 
              onClick={() => setShowModal(true)}
-             className="flex items-center gap-2 px-8 py-3.5 bg-slate-900 text-white font-black rounded-2xl hover:bg-slate-800 transition-all shadow-xl shadow-slate-200 uppercase tracking-widest text-[10px]"
+             className="flex items-center gap-2 px-6 py-3 bg-slate-900 text-white font-black rounded-xl hover:bg-slate-800 transition-all shadow-lg uppercase tracking-widest text-[9px]"
            >
-             <Plus className="w-4 h-4" /> Halaman Baru
+             <Plus className="w-3.5 h-3.5" /> Halaman Baru
            </button>
         </div>
       </header>
 
       {/* Main Layout 3 Columns */}
-      <main className="flex-1 flex p-8 gap-10 overflow-hidden bg-slate-50/30">
+      <main className="flex-1 flex p-6 gap-6 overflow-hidden bg-slate-50/20">
         {/* Column 1: Halaman List */}
         <Sidebar 
           onSelectLP={handleSelectLP} 

@@ -66,6 +66,72 @@ export function SortableBlock({
 
   const renderFields = () => {
     switch (block.type) {
+      case 'hero':
+        return (
+          <div className="space-y-6">
+            <div className="space-y-4">
+               <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Headline Utama</label>
+               <textarea 
+                rows={2}
+                value={block.data.title || ''} 
+                onChange={e => updateData('title', e.target.value)} 
+                placeholder="Hook yang menarik..."
+                className="w-full bg-slate-50 border border-slate-100 p-4 rounded-xl outline-none font-bold text-slate-900 placeholder:text-slate-200 text-lg leading-tight"
+               />
+            </div>
+            
+            <div className="space-y-4">
+               <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Sub-Headline</label>
+               <textarea 
+                rows={2}
+                value={block.data.subtitle || ''} 
+                onChange={e => updateData('subtitle', e.target.value)} 
+                placeholder="Penjelasan singkat..."
+                className="w-full bg-slate-50 border border-slate-100 p-4 rounded-xl outline-none text-sm text-slate-600 font-medium"
+               />
+            </div>
+
+            <div className="grid grid-cols-2 gap-4 pt-4 border-t border-slate-50">
+               <div className="space-y-2">
+                  <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Teks Tombol</label>
+                  <input 
+                    type="text" 
+                    value={block.data.ctaText || ''} 
+                    onChange={e => updateData('ctaText', e.target.value)}
+                    className="w-full bg-slate-100 px-4 py-2.5 rounded-xl outline-none text-[10px] font-bold"
+                    placeholder="Amankan Slot..."
+                  />
+               </div>
+               <div className="space-y-2">
+                  <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Link Tombol</label>
+                  <input 
+                    type="text" 
+                    value={block.data.ctaLink || ''} 
+                    onChange={e => updateData('ctaLink', e.target.value)}
+                    className="w-full bg-slate-100 px-4 py-2.5 rounded-xl outline-none text-[10px] font-bold"
+                    placeholder="#cta-section atau https://..."
+                  />
+               </div>
+            </div>
+
+            <div className="space-y-2 pt-4">
+               <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Gambar Hero (Opsional)</label>
+               <div className="flex items-center gap-2">
+                  <input 
+                    type="text" 
+                    value={block.data.image || ''} 
+                    onChange={e => updateData('image', e.target.value)}
+                    className="flex-1 bg-slate-50 px-4 py-2.5 rounded-xl outline-none text-[10px] text-slate-500"
+                    placeholder="Paste URL gambar..."
+                  />
+                  <label className="p-2.5 bg-slate-900 text-white rounded-xl cursor-pointer hover:bg-slate-800 transition-all">
+                    <Upload className="w-4 h-4" />
+                    <input type="file" className="hidden" accept="image/*" onChange={handleFileChange} />
+                  </label>
+               </div>
+            </div>
+          </div>
+        );
       case 'heading':
         return (
           <div className="space-y-4">

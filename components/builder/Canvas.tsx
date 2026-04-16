@@ -59,8 +59,8 @@ export default function Canvas({
 
   return (
     <div className="flex-1 bg-white rounded-[2rem] border border-slate-200 overflow-hidden flex flex-col shadow-sm">
-      {/* Page Header */}
-      <div className="p-8 border-b border-slate-100 flex items-center justify-between shrink-0">
+      {/* Page Header - Sticky */}
+      <div className="p-8 border-b border-slate-100 flex items-center justify-between shrink-0 bg-white/80 backdrop-blur-md sticky top-0 z-20">
         <div>
           <h2 className="text-xl font-bold text-slate-900">{slug ? slug.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()) : 'Halaman Baru'}</h2>
           <div className="text-xs text-slate-400 mt-1">/{slug || '...'}</div>
@@ -82,15 +82,15 @@ export default function Canvas({
            <button 
              onClick={onSave}
              disabled={saving}
-             className="flex items-center gap-2 px-6 py-2.5 bg-slate-900 text-white rounded-xl text-xs font-bold hover:bg-slate-800 disabled:opacity-50 transition-all"
+             className="flex items-center gap-2 px-6 py-2.5 bg-slate-900 text-white rounded-xl text-xs font-bold hover:bg-slate-800 disabled:opacity-50 transition-all shadow-lg"
            >
              <Save className="w-4 h-4" /> {saving ? '...' : 'Simpan'}
            </button>
         </div>
       </div>
 
-      {/* Editor Cards Area */}
-      <div className="flex-1 overflow-y-auto bg-white p-8 scrollbar-thin border-t border-slate-50">
+      {/* Editor Cards Area - Scrollable */}
+      <div className="flex-1 overflow-y-auto bg-slate-50/50 p-8 scrollbar-thin scrollbar-thumb-slate-200 scrollbar-track-transparent">
         <div className="max-w-xl mx-auto py-10">
           <DndContext 
             sensors={sensors}

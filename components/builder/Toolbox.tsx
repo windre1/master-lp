@@ -27,58 +27,70 @@ export default function Toolbox({ onAddBlock, blocks, slug }: ToolboxProps) {
   };
 
   return (
-    <div className="w-80 flex flex-col gap-8 shrink-0 pb-20 overflow-y-auto scrollbar-hide">
+    <div className="w-[380px] flex flex-col gap-6 shrink-0 overflow-hidden h-full">
       {/* Add Elements Card */}
-      <div className="bg-white rounded-[2rem] border border-slate-200 p-8 shadow-sm">
-        <h2 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-6">
+      <div className="bg-white rounded-[2rem] border border-slate-200 p-6 shadow-sm shrink-0">
+        <h2 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-4">
           TAMBAH ELEMEN
         </h2>
         
-        <div className="space-y-3">
-          {library.map((item) => (
+        <div className="grid grid-cols-2 gap-2">
+           {library.map((item) => (
             <button
               key={item.type}
               onClick={() => onAddBlock(item.type as BlockType)}
-              className="w-full flex items-center justify-between p-4 bg-white border border-slate-100 rounded-2xl text-slate-600 hover:border-slate-900 hover:bg-slate-50 transition-all group"
+              className="flex items-center gap-2 p-3 bg-slate-50 border border-slate-100 rounded-xl text-slate-600 hover:border-slate-900 hover:bg-white transition-all group"
             >
-              <div className="flex items-center gap-3">
-                <item.icon className="w-4 h-4 text-slate-400 group-hover:text-slate-900" />
-                <span className="font-bold text-sm tracking-tight">{item.label}</span>
-              </div>
-              <span className="text-slate-200 group-hover:text-slate-900 font-bold">+</span>
+              <item.icon className="w-3 h-3 text-slate-400 group-hover:text-slate-900" />
+              <span className="font-bold text-[10px] tracking-tight">{item.label}</span>
             </button>
           ))}
-          
-          <div className="pt-4 border-t border-slate-50 mt-4">
-             <p className="text-[10px] text-slate-400 font-bold uppercase italic text-center">Blok desain premium dikelola secara otomatis di template.</p>
-          </div>
         </div>
       </div>
 
-      {/* Mobile Preview Card */}
-      <div className="bg-white rounded-[2rem] border border-slate-200 p-8 shadow-sm flex-1 flex flex-col min-h-[500px]">
-        <div className="flex items-center justify-between mb-6">
+      {/* Mobile Preview Real-size Mockup */}
+      <div className="bg-white rounded-[2rem] border border-slate-200 p-6 shadow-sm flex-1 flex flex-col overflow-hidden min-h-0 bg-slate-50/50">
+        <div className="flex items-center justify-between mb-4 shrink-0">
            <h2 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">
-             PREVIEW
+             LIVE PREVIEW
            </h2>
            <button 
              onClick={handleFullPreview}
              className="text-[10px] font-black text-blue-600 uppercase hover:underline"
            >
-             Full →
+             Full View →
            </button>
         </div>
 
-        {/* Mobile Device Frame */}
-        <div className="flex-1 rounded-[2.5rem] border-[6px] border-slate-100 overflow-hidden relative shadow-inner bg-slate-900 group">
-           <div className="absolute inset-0 overflow-y-auto no-scrollbar transform scale-95 origin-top group-hover:scale-100 transition-transform duration-500">
-             <div className="min-h-full w-full">
-                <Renderer blocks={blocks} />
-             </div>
+        {/* Realistic Phone Frame */}
+        <div className="flex-1 flex justify-center items-start overflow-hidden">
+           <div className="relative w-full max-w-[280px] aspect-[9/19] bg-slate-900 rounded-[2.5rem] border-[10px] border-slate-900 shadow-2xl flex flex-col overflow-hidden ring-4 ring-slate-100">
+              {/* Notch */}
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-6 bg-slate-900 rounded-b-2xl z-30 flex items-center justify-center">
+                 <div className="w-10 h-1 bg-slate-800 rounded-full"></div>
+              </div>
+
+              {/* Status Bar Mock */}
+              <div className="h-6 bg-slate-900 shrink-0 z-20 flex justify-between px-6 pt-1">
+                 <span className="text-[8px] text-white font-bold">9:41</span>
+                 <div className="flex gap-1">
+                    <div className="w-2 h-2 rounded-full border border-white/20"></div>
+                    <div className="w-2 h-2 rounded-full bg-white/40"></div>
+                 </div>
+              </div>
+
+              {/* Scrollable Content inside Phone */}
+              <div className="flex-1 overflow-y-auto no-scrollbar bg-white">
+                 <div className="w-full origin-top transform scale-[0.38] md:scale-100">
+                    <Renderer blocks={blocks} />
+                 </div>
+              </div>
+
+              {/* Home Indicator */}
+              <div className="h-5 bg-slate-900 shrink-0 flex items-center justify-center z-20">
+                 <div className="w-16 h-1 bg-white/20 rounded-full"></div>
+              </div>
            </div>
-           
-           {/* Notch */}
-           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-20 h-5 bg-slate-100 rounded-b-2xl z-20"></div>
         </div>
       </div>
     </div>

@@ -25,6 +25,7 @@ export default function Sidebar({ onSelectLP, activeSlug, onDeleteLP }: SidebarP
           LANDING PAGE ({projects.length})
         </h2>
         
+      <div className="flex-1 overflow-y-auto px-8 pb-8 scrollbar-thin scrollbar-thumb-slate-200 scrollbar-track-transparent">
         <div className="space-y-3">
           {projects.map((lp) => {
             const isActive = lp.slug === activeSlug;
@@ -34,8 +35,8 @@ export default function Sidebar({ onSelectLP, activeSlug, onDeleteLP }: SidebarP
                 onClick={() => onSelectLP(lp)}
                 className={`group p-5 rounded-2xl cursor-pointer transition-all relative ${
                   isActive 
-                  ? 'bg-slate-900 text-white shadow-lg' 
-                  : 'bg-white text-slate-600 hover:bg-slate-50'
+                  ? 'bg-slate-900 text-white shadow-xl scale-[1.02] z-10' 
+                  : 'bg-white text-slate-600 hover:bg-slate-50 border border-transparent hover:border-slate-100'
                 }`}
               >
                 <div className="font-bold text-sm mb-1 pr-8">{lp.slug.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}</div>
@@ -64,6 +65,7 @@ export default function Sidebar({ onSelectLP, activeSlug, onDeleteLP }: SidebarP
             </div>
           )}
         </div>
+      </div>
       </div>
     </div>
   );

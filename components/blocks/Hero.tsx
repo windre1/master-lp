@@ -15,12 +15,6 @@ export default function Hero({ data }: { data: BlockData }) {
 
   return (
     <section className="relative pt-20 pb-16 md:pt-32 md:pb-24 text-center max-w-5xl mx-auto px-6 overflow-hidden">
-      <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 text-blue-600 rounded-full mb-8 border border-blue-100 animate-in fade-in slide-in-from-bottom-4 duration-1000">
-        <span className="w-2 h-2 bg-blue-600 rounded-full animate-pulse"></span>
-        <h4 className="text-[10px] md:text-xs font-black tracking-widest uppercase">
-          {data.badge || 'PROJEK AFILIASI WAKROD'}
-        </h4>
-      </div>
       
       <h1 className="text-4xl md:text-7xl lg:text-8xl font-black leading-[1.05] mb-8 text-slate-900 tracking-tight">
         {renderTitle(data.title || '')}
