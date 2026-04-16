@@ -50,7 +50,7 @@ export default function Editor() {
   const confirmNewPage = async () => {
     if (!newSlug) return;
     setSaving(true);
-    const initialBlocks = [
+    const initialBlocks: Block[] = [
       {
         id: 'default-1',
         type: 'heading',
