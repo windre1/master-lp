@@ -441,7 +441,7 @@ export function SortableBlock({
                               type="text" 
                               value={item.t || item.title || ''} 
                               onChange={(e) => {
-                                const newItems = [...block.data.items];
+                                const newItems = [...(block.data.items || [])];
                                 if (item.t !== undefined) newItems[idx] = { ...item, t: e.target.value };
                                 else newItems[idx] = { ...item, title: e.target.value };
                                 updateData('items', newItems);
@@ -453,7 +453,7 @@ export function SortableBlock({
                               rows={2}
                               value={item.d || item.desc || item.value || ''} 
                               onChange={(e) => {
-                                const newItems = [...block.data.items];
+                                const newItems = [...(block.data.items || [])];
                                 if (item.d !== undefined) newItems[idx] = { ...item, d: e.target.value };
                                 else if (item.desc !== undefined) newItems[idx] = { ...item, desc: e.target.value };
                                 else newItems[idx] = { ...item, value: e.target.value };
@@ -465,7 +465,7 @@ export function SortableBlock({
                          </div>
                          <button 
                            onClick={() => {
-                             const newItems = [...block.data.items];
+                             const newItems = [...(block.data.items || [])];
                              newItems.splice(idx, 1);
                              updateData('items', newItems);
                            }}
