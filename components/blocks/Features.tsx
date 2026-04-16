@@ -2,7 +2,7 @@ import React from 'react';
 export default function Features({ data }: { data: any }) {
   return (
 
-    <section className="py-20 md:py-32 max-w-6xl mx-auto px-6 space-y-12">
+    <section className="py-20 md:py-32 max-w-5xl mx-auto px-6 space-y-12">
       <div className="text-center mb-20 animate-in fade-in slide-in-from-bottom-6 duration-1000">
         <h2 className="text-3xl md:text-6xl font-black mb-6 text-slate-900 tracking-tight">
           {data.title || 'FITUR UTAMA'}

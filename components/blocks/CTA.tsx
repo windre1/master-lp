@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function CTA({ data }: { data: any }) {
   return (
-    <section className="py-20 md:py-32 text-center max-w-6xl mx-auto px-6">
+    <section className="py-20 md:py-32 text-center max-w-5xl mx-auto px-6">
       <div className="bg-slate-900 rounded-[4rem] p-10 md:p-24 shadow-2xl shadow-slate-200 relative overflow-hidden group">
         <div className="absolute top-0 right-0 w-96 h-96 bg-cyan-500/5 rounded-full blur-[100px] -z-10 group-hover:bg-cyan-500/10 transition-colors"></div>
         

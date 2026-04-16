@@ -42,7 +42,7 @@ const blockMap: Record<string, React.FC<any>> = {
   heading: ({ data }) => {
     const alignment = data.badge === 'left' ? 'text-left' : (data.badge === 'right' ? 'text-right' : 'text-center');
     return (
-      <div className="container px-6 mx-auto py-8">
+      <div className="max-w-5xl px-6 mx-auto py-8">
         <h2 
           className={`font-black tracking-tighter ${alignment}`}
           style={{ 
@@ -59,7 +59,7 @@ const blockMap: Record<string, React.FC<any>> = {
   text_only: ({ data }) => {
     const alignment = data.badge === 'left' ? 'text-left' : (data.badge === 'right' ? 'text-right' : 'text-center');
     return (
-      <div className="container px-6 mx-auto py-6">
+      <div className="max-w-5xl px-6 mx-auto py-6">
         <p 
           className={`leading-relaxed font-medium whitespace-pre-wrap ${alignment}`}
           style={{ 
@@ -92,7 +92,7 @@ const blockMap: Record<string, React.FC<any>> = {
     const alignment = data.badge === 'left' ? 'justify-start' : (data.badge === 'right' ? 'justify-end' : 'justify-center');
     const videoId = data.videoUrl?.split('v=')[1]?.split('&')[0] || data.videoUrl?.split('/').pop();
     return (
-      <div className="container px-6 mx-auto py-8">
+      <div className="max-w-5xl px-6 mx-auto py-8">
         <div className={`flex ${alignment}`}>
           <div 
             className="aspect-video rounded-[2rem] overflow-hidden shadow-2xl bg-black border border-slate-100"
@@ -122,7 +122,7 @@ const blockMap: Record<string, React.FC<any>> = {
     const isDouble = items.length === 2;
     
     return (
-      <div className="container px-6 mx-auto py-16">
+      <div className="max-w-5xl px-6 mx-auto py-16">
         <div className={`flex flex-wrap justify-center gap-8`}>
            {items.map((item: any, i: number) => (
              <div 
@@ -159,7 +159,7 @@ const blockMap: Record<string, React.FC<any>> = {
   button_only: ({ data }) => {
     const alignment = data.badge === 'left' ? 'text-left' : (data.badge === 'right' ? 'text-right' : 'text-center');
     return (
-      <div className={`container px-6 mx-auto py-8 ${alignment}`}>
+      <div className={`max-w-5xl px-6 mx-auto py-8 ${alignment}`}>
         <a 
           href={data.ctaLink || '#'} 
           className="px-12 py-5 text-white font-black rounded-2xl hover:brightness-110 transition-all shadow-xl uppercase tracking-widest text-xs inline-block"

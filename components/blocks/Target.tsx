@@ -12,7 +12,7 @@ export default function Target({ data }: { data: any }) {
   ];
 
   return (
-    <section className="py-20 md:py-32 max-w-7xl mx-auto px-6">
+    <section className="py-20 md:py-32 max-w-5xl mx-auto px-6">
       <div className="text-center mb-16 animate-in fade-in duration-1000">
         <h2 className="text-3xl md:text-6xl font-black mb-6 text-slate-900 tracking-tight leading-tight">
           {data.title || 'SIAPA YANG COCOK?'}

@@ -8,7 +8,7 @@ export default function Steps({ data }: { data: any }) {
   ];
 
   return (
-    <section className="py-24 max-w-6xl mx-auto px-6">
+    <section className="py-20 md:py-32 max-w-5xl mx-auto px-6">
       <h3 className="text-3xl md:text-5xl font-black text-center mb-16 uppercase italic">
         {data.title || 'ALUR KERJA OTOMATIS'}
       </h3>

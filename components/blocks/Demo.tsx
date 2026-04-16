@@ -11,7 +11,7 @@ export default function Demo({ data }: { data: any }) {
   const embedUrl = getEmbedUrl(data.videoUrl);
 
   return (
-    <section className="py-24 max-w-6xl mx-auto px-6 text-center">
+    <section className="py-20 md:py-32 max-w-5xl mx-auto px-6 text-center">
       <div className="mb-12">
         <h2 className="text-3xl md:text-5xl font-black mb-4 uppercase italic">
           {data.title || 'LIHAT BAGAIMANA INI BEKERJA'}

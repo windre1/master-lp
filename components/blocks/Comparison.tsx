@@ -13,7 +13,7 @@ export default function Comparison({ data }: { data: any }) {
   };
 
   return (
-    <section className="py-24 max-w-6xl mx-auto px-6">
+    <section className="py-20 md:py-32 max-w-5xl mx-auto px-6">
       <div className="text-center mb-16">
         <h2 className="text-3xl md:text-5xl font-black uppercase italic">
           {data.title || '⚡ SEMUA DALAM 1 SYSTEM'}

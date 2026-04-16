@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function Solution({ data }: { data: any }) {
   return (
-    <section className="py-20 md:py-32 max-w-6xl mx-auto px-6">
+    <section className="py-20 md:py-32 max-w-5xl mx-auto px-6">
       <div className="bg-slate-900 rounded-[4rem] p-10 md:p-24 shadow-2xl shadow-slate-200 text-center relative overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent"></div>
         

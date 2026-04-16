@@ -13,7 +13,7 @@ export default function Problem({ data }: { data: BlockData }) {
 
   return (
     <section className="py-20 md:py-32 bg-slate-50/50">
-      <div className="max-w-6xl mx-auto px-6">
+      <div className="max-w-5xl mx-auto px-6">
         <div className="bg-white rounded-[4rem] p-10 md:p-24 border border-slate-100 text-center mb-16 shadow-2xl shadow-slate-200/50">
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-red-50 text-red-600 rounded-full mb-6">
              <AlertCircle className="w-3 h-3" />
