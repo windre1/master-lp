@@ -54,7 +54,7 @@ export default function Canvas({
   function shouldHandleEvent(element: Element | null) {
     let cur = element;
     while (cur) {
-      if (cur.dataset && cur.dataset.noDnd) return false;
+      if ((cur as HTMLElement).dataset?.noDnd) return false;
       cur = cur.parentElement;
     }
     return true;
