@@ -38,6 +38,7 @@ export interface BlockData {
   textColor?: string;
   buttonColor?: string;
   videoWidth?: string;
+  imageWidth?: string;
   priceListWidth?: string;
 }
 

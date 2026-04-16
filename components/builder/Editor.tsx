@@ -85,7 +85,13 @@ export default function Editor() {
     if (!newSlug) return;
     setSaving(true);
     let initialBlocks: Block[] = [];
-    if (selectedTemplate === 'komisi') initialBlocks = KOMISI_BLOCKS;
+    if (selectedTemplate === 'komisi') {
+      // Map and give unique IDs for smooth drag-and-drop
+      initialBlocks = KOMISI_BLOCKS.map(block => ({
+        ...block,
+        id: Math.random().toString(36).substr(2, 9)
+      }));
+    }
     
     try {
       await saveLP(newSlug, { blocks: initialBlocks });
