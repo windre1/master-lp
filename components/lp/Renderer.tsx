@@ -80,19 +80,25 @@ export default function Renderer({ blocks }: RendererProps) {
   if (!blocks) return null;
 
   return (
-    <div className="bg-[#050a15] text-[#e2e8f0] font-sans selection:bg-cyan-500 selection:text-white min-h-screen overflow-x-hidden">
-      {/* Background Animation */}
-      <div className="fixed inset-0 z-[-1] overflow-hidden">
-        <div className="absolute top-[30%] left-[20%] w-[500px] h-[500px] bg-[#3d5afe]/15 rounded-full blur-[120px] animate-pulse"></div>
-        <div className="absolute top-[60%] left-[70%] w-[400px] h-[400px] bg-[#00f2ff]/10 rounded-full blur-[100px] animate-pulse delay-700"></div>
-      </div>
-
+    <div className="bg-white text-slate-900 font-sans selection:bg-slate-900 selection:text-white min-h-screen w-full">
       <div className="flex flex-col w-full relative z-10">
         {blocks.map((block) => {
           const Component = blockMap[block.type];
-          if (!Component) return <div key={block.id}>Unknown block: {block.type}</div>;
-          return <Component key={block.id} data={block.data} />;
+          if (!Component) return <div key={block.id} className="p-8 text-red-500">Missing component: {block.type}</div>;
+          return (
+            <div key={block.id} className="w-full">
+              <Component data={block.data} />
+            </div>
+          );
         })}
+        {blocks.length === 0 && (
+          <div className="flex flex-col items-center justify-center py-40 bg-white">
+             <div className="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mb-6">
+                <span className="text-slate-200 text-4xl">📄</span>
+             </div>
+             <p className="text-slate-400 font-medium">Halaman ini belum memiliki konten.</p>
+          </div>
+        )}
       </div>
     </div>
   );
