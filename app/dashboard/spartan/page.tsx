@@ -1,16 +1,10 @@
 'use client';
 
 import React, { useEffect, useRef } from 'react';
-import Head from 'next/head';
 import { 
   Check, 
-  X, 
-  ArrowRight, 
-  Youtube, 
-  Monitor, 
   Cpu, 
   TrendingUp, 
-  Smartphone, 
   Search, 
   Zap, 
   Layers, 
@@ -19,13 +13,13 @@ import {
   Play, 
   Upload, 
   ShieldAlert,
-  AlertCircle,
   Clock,
   Layout,
   Users,
   Target,
   BarChart3,
-  Globe
+  Globe,
+  Smartphone
 } from 'lucide-react';
 
 /**
@@ -97,7 +91,7 @@ const LP_CONTENT = {
     badge: "🧠 SOLUSINYA: SPARTAN TUBE",
     title: "IDE → ANALISA → PRODUKSI → UPLOAD",
     description: "Bukan sekadar tools... Ini adalah mesin pertumbuhan channel YouTube dalam SATU dashboard.",
-    image: "/assets/hero.png" // Pastikan file ini ada di public/assets/
+    image: "/assets/hero.png" 
   },
   demo: {
     title: "SIMAK BAGAIMANA SPARTAN TUBE BEKERJA",
@@ -326,7 +320,7 @@ const LP_CONTENT = {
   disclaimer: {
     title: "⚠️ DISCLAIMER",
     content: [
-      "Spartan Tube adalah tools berbasis AI dan automation yang dirancang untuk membantu mempercepat workflow dan pengambilan keputusan dalam pengelolaan channel YouTube.",
+      "Spartan Tube adalah tools berbasis AI and automation yang dirancang untuk membantu mempercepat workflow dan pengambilan keputusan dalam pengelolaan channel YouTube.",
       "Hasil yang didapatkan setiap pengguna dapat berbeda-beda, tergantung pada konsistensi penggunaan, strategi konten yang diterapkan, serta niche dan kondisi market masing-masing.",
       "Spartan Tube tidak menjamin hasil instan atau viral secara otomatis, namun memberikan sistem dan data yang membantu meningkatkan peluang keberhasilan secara signifikan.",
       "Pengguna tetap bertanggung jawab atas konten yang dibuat dan dipublikasikan sesuai dengan kebijakan platform YouTube."
@@ -545,7 +539,7 @@ export default function SpartanTemplate() {
               <h3 className="text-2xl font-bold mb-6">{LP_CONTENT.comparison.traditional.title}</h3>
               <ul className="space-y-4 mb-8">
                 {LP_CONTENT.comparison.traditional.items.map((item, i) => (
-                  <li key={i} className="flex items-center gap-3 text-red-100/70">{item}</li>
+                   <li key={i} className="flex items-center gap-3 text-red-100/70">{item}</li>
                 ))}
               </ul>
               <p className="text-red-500 font-bold text-xl">{LP_CONTENT.comparison.traditional.footer}</p>
