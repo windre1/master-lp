@@ -32,10 +32,14 @@ export default function Editor() {
       id: Math.random().toString(36).substr(2, 9),
       type,
       data: {
-        title: type === 'heading' ? 'Baru' : '',
+        title: type === 'heading' ? 'Judul Baru' : '',
         subtitle: type === 'text_only' ? 'Isi teks di sini...' : '',
         ctaText: type === 'cta' || type === 'button_only' ? 'Tombol' : '',
         ctaLink: '#',
+        image: type === 'image_only' ? '' : undefined,
+        videoUrl: type === 'video_only' ? '' : undefined,
+        videoWidth: '100',
+        badge: 'center'
       }
     };
     setBlocks([...blocks, newBlock]);

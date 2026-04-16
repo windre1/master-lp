@@ -1,7 +1,21 @@
 'use client';
 
 import React from 'react';
-import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import { 
+  DndContext, 
+  closestCenter, 
+  KeyboardSensor, 
+  PointerSensor, 
+  useSensor, 
+  useSensors,
+  DragEndEvent
+} from '@dnd-kit/core';
+import { 
+  SortableContext, 
+  verticalListSortingStrategy,
+  arrayMove,
+  sortableKeyboardCoordinates 
+} from '@dnd-kit/sortable';
 import { Block } from '@/types/lp';
 import { SortableBlock } from './SortableBlock';
 import { ExternalLink, Link2, Save } from 'lucide-react';
@@ -18,8 +32,25 @@ interface CanvasProps {
 }
 
 export default function Canvas({ 
-  blocks, onUpdateBlock, onRemoveBlock, slug, onUpdateSlug, onSave, saving 
+  blocks, onUpdateBlock, onRemoveBlock, onSortBlocks, slug, onUpdateSlug, onSave, saving 
 }: CanvasProps) {
+  
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
+
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+
+    if (over && active.id !== over.id) {
+      const oldIndex = blocks.findIndex((block) => block.id === active.id);
+      const newIndex = blocks.findIndex((block) => block.id === over.id);
+      onSortBlocks(arrayMove(blocks, oldIndex, newIndex));
+    }
+  };
   
   const handleCopy = () => {
     navigator.clipboard.writeText(`${window.location.origin}/${slug}`);
@@ -61,30 +92,36 @@ export default function Canvas({
       {/* Editor Cards Area */}
       <div className="flex-1 overflow-y-auto bg-white p-8 scrollbar-thin border-t border-slate-50">
         <div className="max-w-xl mx-auto py-10">
-          <SortableContext 
-            items={blocks.map(b => b.id)}
-            strategy={verticalListSortingStrategy}
+          <DndContext 
+            sensors={sensors}
+            collisionDetection={closestCenter}
+            onDragEnd={handleDragEnd}
           >
-            {blocks.length === 0 ? (
-              <div className="py-40 text-center flex flex-col items-center justify-center border-2 border-dashed border-slate-200 rounded-[2rem]">
-                 <p className="text-slate-400 font-bold text-sm">Halaman Kosong</p>
-                 <p className="text-xs text-slate-400 mt-2">Tambah elemen dari kolom kanan</p>
-              </div>
-            ) : (
-              <div className="space-y-4">
-                {blocks.map((block, index) => (
-                  <SortableBlock 
-                    key={block.id}
-                    id={block.id}
-                    block={block}
-                    index={index}
-                    onUpdateBlock={onUpdateBlock}
-                    onRemoveBlock={onRemoveBlock}
-                  />
-                ))}
-              </div>
-            )}
-          </SortableContext>
+            <SortableContext 
+              items={blocks.map(b => b.id)}
+              strategy={verticalListSortingStrategy}
+            >
+              {blocks.length === 0 ? (
+                <div className="py-40 text-center flex flex-col items-center justify-center border-2 border-dashed border-slate-200 rounded-[2rem]">
+                   <p className="text-slate-400 font-bold text-sm">Halaman Kosong</p>
+                   <p className="text-xs text-slate-400 mt-2">Tambah elemen dari kolom kanan</p>
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  {blocks.map((block, index) => (
+                    <SortableBlock 
+                      key={block.id}
+                      id={block.id}
+                      block={block}
+                      index={index}
+                      onUpdateBlock={onUpdateBlock}
+                      onRemoveBlock={onRemoveBlock}
+                    />
+                  ))}
+                </div>
+              )}
+            </SortableContext>
+          </DndContext>
         </div>
       </div>
     </div>

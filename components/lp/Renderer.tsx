@@ -39,41 +39,97 @@ const blockMap: Record<string, React.FC<any>> = {
   specs: Specs,
   disclaimer: Disclaimer,
   // Atomic Blocks
-  heading: ({ data }) => (
-    <div className="container px-6 mx-auto py-8">
-      <h2 className="text-4xl md:text-6xl font-black text-slate-900 tracking-tighter">
-        {data.title || 'Headline'}
-      </h2>
-    </div>
-  ),
-  text_only: ({ data }) => (
-    <div className="container px-6 mx-auto py-6">
-      <p className="text-lg text-slate-600 leading-relaxed font-medium whitespace-pre-wrap">
-        {data.subtitle || 'Tulis paragraf di sini...'}
-      </p>
-    </div>
-  ),
-  image_only: ({ data }) => (
-    <div className="container px-6 mx-auto py-8">
-      {data.image ? (
-        <img src={data.image} alt="Visual" className="w-full rounded-[2rem] shadow-xl" />
-      ) : (
-        <div className="w-full aspect-video bg-slate-100 rounded-[2rem] flex items-center justify-center text-slate-300 font-bold italic">
-           Image Placeholder
+  heading: ({ data }) => {
+    const alignment = data.badge === 'left' ? 'text-left' : (data.badge === 'right' ? 'text-right' : 'text-center');
+    return (
+      <div className="container px-6 mx-auto py-8">
+        <h2 
+          className={`font-black tracking-tighter ${alignment}`}
+          style={{ 
+            color: data.textColor || '#0f172a',
+            fontSize: data.fontSize ? `${data.fontSize}px` : undefined,
+            lineHeight: '1.1'
+          }}
+        >
+          {data.title || 'Headline'}
+        </h2>
+      </div>
+    );
+  },
+  text_only: ({ data }) => {
+    const alignment = data.badge === 'left' ? 'text-left' : (data.badge === 'right' ? 'text-right' : 'text-center');
+    return (
+      <div className="container px-6 mx-auto py-6">
+        <p 
+          className={`leading-relaxed font-medium whitespace-pre-wrap ${alignment}`}
+          style={{ 
+            color: data.textColor || '#475569',
+            fontSize: data.fontSize ? `${data.fontSize}px` : '1.125rem'
+          }}
+        >
+          {data.subtitle || 'Tulis paragraf di sini...'}
+        </p>
+      </div>
+    );
+  },
+  image_only: ({ data }) => {
+    const alignment = data.badge === 'left' ? 'justify-start' : (data.badge === 'right' ? 'justify-end' : 'justify-center');
+    return (
+      <div className="container px-6 mx-auto py-8 flex">
+        <div className={`w-full flex ${alignment}`}>
+          {data.image ? (
+            <img src={data.image} alt="Visual" className="max-w-full rounded-[2rem] shadow-xl h-auto" />
+          ) : (
+            <div className="w-full aspect-video bg-slate-100 rounded-[2rem] flex items-center justify-center text-slate-300 font-bold italic">
+               Image Placeholder
+            </div>
+          )}
         </div>
-      )}
-    </div>
-  ),
-  button_only: ({ data }) => (
-    <div className="container px-6 mx-auto py-8 text-center">
-      <a 
-        href={data.ctaLink || '#'} 
-        className="px-12 py-5 bg-indigo-600 text-white font-black rounded-2xl hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-100 uppercase tracking-widest text-xs inline-block"
-      >
-        {data.ctaText || 'Klik Di Sini'}
-      </a>
-    </div>
-  )
+      </div>
+    );
+  },
+  video_only: ({ data }) => {
+    const alignment = data.badge === 'left' ? 'justify-start' : (data.badge === 'right' ? 'justify-end' : 'justify-center');
+    const videoId = data.videoUrl?.split('v=')[1]?.split('&')[0] || data.videoUrl?.split('/').pop();
+    return (
+      <div className="container px-6 mx-auto py-8">
+        <div className={`flex ${alignment}`}>
+          <div 
+            className="aspect-video rounded-[2rem] overflow-hidden shadow-2xl bg-black border border-slate-100"
+            style={{ width: data.videoWidth ? `${data.videoWidth}%` : '100%' }}
+          >
+            {videoId ? (
+              <iframe 
+                className="w-full h-full"
+                src={`https://www.youtube.com/embed/${videoId}`}
+                title="YouTube video player"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center text-slate-600 font-bold italic">
+                YouTube Video Placeholder
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  },
+  button_only: ({ data }) => {
+    const alignment = data.badge === 'left' ? 'text-left' : (data.badge === 'right' ? 'text-right' : 'text-center');
+    return (
+      <div className={`container px-6 mx-auto py-8 ${alignment}`}>
+        <a 
+          href={data.ctaLink || '#'} 
+          className="px-12 py-5 text-white font-black rounded-2xl hover:brightness-110 transition-all shadow-xl uppercase tracking-widest text-xs inline-block"
+          style={{ backgroundColor: data.buttonColor || '#4f46e5' }}
+        >
+          {data.ctaText || 'Klik Di Sini'}
+        </a>
+      </div>
+    );
+  }
 };
 
 export default function Renderer({ blocks }: RendererProps) {

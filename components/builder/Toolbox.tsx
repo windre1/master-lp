@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Type, AlignLeft, Send, MousePointer2 } from 'lucide-react';
+import { Type, AlignLeft, Send, MousePointer2, Image as ImageIcon, Video } from 'lucide-react';
 import Renderer from '../lp/Renderer';
 import { Block, BlockType } from '@/types/lp';
 
@@ -15,6 +15,8 @@ export default function Toolbox({ onAddBlock, blocks, slug }: ToolboxProps) {
   const library = [
     { type: 'heading', label: 'Judul', icon: Type },
     { type: 'text_only', label: 'Teks', icon: AlignLeft },
+    { type: 'image_only', label: 'Gambar', icon: ImageIcon },
+    { type: 'video_only', label: 'Video YouTube', icon: Video },
     { type: 'button_only', label: 'Tombol', icon: MousePointer2 },
   ];
 

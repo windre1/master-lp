@@ -17,6 +17,7 @@ export type BlockType =
   | 'comparison'
   | 'target'
   | 'specs'
+  | 'video_only'
   | 'disclaimer';
 
 export interface BlockData {
@@ -32,6 +33,10 @@ export interface BlockData {
   testimonials?: any[];
   closing?: string;
   highlinedClosing?: string;
+  fontSize?: string;
+  textColor?: string;
+  buttonColor?: string;
+  videoWidth?: string;
 }
 
 export interface Block {
