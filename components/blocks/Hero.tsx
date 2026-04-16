@@ -1,3 +1,6 @@
+import React from 'react';
+import { BlockData } from '@/types/lp';
+
 export default function Hero({ data }: { data: BlockData }) {
   return (
     <section className="relative pt-32 pb-24 text-center max-w-5xl mx-auto px-6 overflow-hidden">
