@@ -14,31 +14,37 @@ export default function Hero({ data }: { data: BlockData }) {
   };
 
   return (
-    <section className="relative pt-32 pb-24 text-center max-w-5xl mx-auto px-6 overflow-hidden">
-      <h4 className="text-blue-600 text-xs md:text-sm font-bold tracking-[3px] uppercase mb-8 animate-pulse">
-        {data.badge || '🔥 PERHATIAN UNTUK CREATOR YOUTUBE YANG SERIUS MAU GROW'}
-      </h4>
-      <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-[1.1] mb-8 text-slate-900 uppercase italic">
+    <section className="relative pt-20 pb-16 md:pt-32 md:pb-24 text-center max-w-6xl mx-auto px-6 overflow-hidden">
+      <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 text-blue-600 rounded-full mb-8 border border-blue-100 animate-in fade-in slide-in-from-bottom-4 duration-1000">
+        <span className="w-2 h-2 bg-blue-600 rounded-full animate-pulse"></span>
+        <h4 className="text-[10px] md:text-xs font-black tracking-widest uppercase">
+          {data.badge || 'PROJEK AFILIASI WAKROD'}
+        </h4>
+      </div>
+      
+      <h1 className="text-4xl md:text-7xl lg:text-8xl font-black leading-[1.05] mb-8 text-slate-900 tracking-tight">
         {renderTitle(data.title || '')}
       </h1>
-      <p className="text-slate-500 text-lg md:text-xl max-w-3xl mx-auto mb-10 leading-relaxed font-medium">
+      
+      <p className="text-slate-600 text-lg md:text-2xl max-w-3xl mx-auto mb-12 leading-relaxed font-medium">
         {data.subtitle || 'Berhenti kerja keras. Mulailah kerja cerdas pakai sistem yang terintegrasi.'}
       </p>
-      <div className="flex flex-col sm:flex-row justify-center items-center gap-6">
+      
+      <div className="flex flex-col sm:flex-row justify-center items-center gap-6 mb-20">
         <a 
           href={data.ctaLink || '#'} 
-          className="px-12 py-5 bg-gradient-to-r from-blue-600 to-cyan-500 text-white rounded-full font-black text-sm tracking-widest hover:shadow-[0_0_30px_rgba(0,242,255,0.4)] transition-all uppercase italic shadow-[0_10px_20px_rgba(0,242,255,0.2)]"
+          className="w-full sm:w-auto px-14 py-6 bg-slate-900 text-white rounded-[2rem] font-black text-sm tracking-widest hover:scale-105 transition-all uppercase shadow-2xl shadow-slate-200"
         >
-          {data.ctaText || 'BELI SEKARANG'}
+          {data.ctaText || 'DAFTAR SEKARANG'}
         </a>
       </div>
 
        {data.image && (
-        <div className="mt-20 relative max-w-5xl mx-auto rounded-[3rem] overflow-hidden border border-white/10 shadow-[0_0_50px_rgba(0,242,255,0.1)] group">
+        <div className="relative max-w-5xl mx-auto rounded-[3.5rem] overflow-hidden border border-slate-100 shadow-2xl group ring-1 ring-slate-900/5">
            <img 
              src={data.image} 
-             alt="Visual" 
-             className="w-full transform group-hover:scale-105 transition-transform duration-700" 
+             alt="Visual Content" 
+             className="w-full transform group-hover:scale-[1.02] transition-transform duration-1000" 
            />
         </div>
       )}
