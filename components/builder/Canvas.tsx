@@ -59,8 +59,8 @@ export default function Canvas({
       </div>
 
       {/* Editor Cards Area */}
-      <div className="flex-1 overflow-y-auto bg-slate-50/50 p-8 scrollbar-thin">
-        <div className="max-w-xl mx-auto">
+      <div className="flex-1 overflow-y-auto bg-white p-8 scrollbar-thin border-t border-slate-50">
+        <div className="max-w-xl mx-auto py-10">
           <SortableContext 
             items={blocks.map(b => b.id)}
             strategy={verticalListSortingStrategy}

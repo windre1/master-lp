@@ -120,10 +120,10 @@ export function SortableBlock({
     <div 
       ref={setNodeRef} 
       style={style} 
-      className="bg-white rounded-[1.5rem] border border-slate-200 shadow-[0_4px_12px_rgba(0,0,0,0.02)] overflow-hidden group mb-4"
+      className="bg-white rounded-[2rem] border border-slate-100 shadow-[0_8px_30px_rgba(0,0,0,0.04)] overflow-hidden group mb-6 hover:border-blue-200 transition-all"
     >
       {/* Card Header matching image */}
-      <div className="bg-slate-50/50 px-5 py-2.5 flex items-center justify-between border-b border-slate-100">
+      <div className="bg-white px-6 py-4 flex items-center justify-between border-b border-slate-50">
         <div className="flex items-center gap-3">
           <div {...listeners} {...attributes} className="cursor-grab active:cursor-grabbing text-slate-300 hover:text-slate-400 p-1">
              <div className="grid grid-cols-2 gap-0.5">

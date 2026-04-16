@@ -43,6 +43,17 @@ export async function getAllLPs(): Promise<LandingPage[]> {
   return data;
 }
 
+export async function deleteLP(slug: string) {
+  const { error } = await supabase
+    .from('landing_pages')
+    .delete()
+    .eq('slug', slug);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+}
+
 export async function uploadImage(file: File) {
   const fileName = `${Date.now()}-${file.name}`;
   const { data, error } = await supabase.storage

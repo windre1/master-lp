@@ -5,7 +5,7 @@ import Sidebar from './Sidebar';
 import Canvas from './Canvas';
 import Toolbox from './Toolbox';
 import { Block, BlockType, LandingPage } from '@/types/lp';
-import { saveLP } from '@/lib/data';
+import { saveLP, deleteLP } from '@/lib/data';
 import { Plus } from 'lucide-react';
 
 export default function Editor() {
@@ -14,6 +14,7 @@ export default function Editor() {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
   const [activeLP, setActiveLP] = useState<LandingPage | null>(null);
+  const [refreshKey, setRefreshKey] = useState(0);
 
   const handleUpdateBlock = (id: string, data: any) => {
     setBlocks(blocks.map(b => b.id === id ? { ...b, data } : b));
@@ -44,23 +45,23 @@ export default function Editor() {
   };
 
   const handleNewLP = () => {
-    const newSlug = 'akses-baru-' + Math.floor(Math.random() * 1000);
+    const newSlug = 'halaman-baru-' + Math.floor(Math.random() * 1000);
     setSlug(newSlug);
     setBlocks([
       {
         id: 'default-1',
         type: 'heading',
-        data: { title: 'Selamat, Anda Sudah Punya Akses TEKOTOK', badge: 'center' }
+        data: { title: 'Selamat Datang di Landing Page Baru', badge: 'center' }
       },
       {
         id: 'default-2',
         type: 'text_only',
-        data: { subtitle: 'Semua sistem, tools, dan automasi siap Anda gunakan. Sekarang tinggal satu langkah lagi.', badge: 'center' }
+        data: { subtitle: 'Mulailah membangun halaman impian Anda dengan elemen di sebelah kanan.', badge: 'center' }
       },
       {
         id: 'default-3',
         type: 'button_only',
-        data: { ctaText: 'DOWNLOAD SEKARANG', ctaLink: '#', badge: 'center' }
+        data: { ctaText: 'MULAI SEKARANG', ctaLink: '#', badge: 'center' }
       }
     ]);
     setActiveLP(null);
@@ -71,6 +72,7 @@ export default function Editor() {
     setSaving(true);
     try {
       await saveLP(slug, { blocks });
+      setRefreshKey(prev => prev + 1);
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -78,26 +80,44 @@ export default function Editor() {
     }
   };
 
+  const handleDeleteLP = async (targetSlug: string) => {
+    if (!confirm(`Hapus landing page "${targetSlug}"?`)) return;
+    try {
+      await deleteLP(targetSlug);
+      if (slug === targetSlug) {
+        setSlug('');
+        setBlocks([]);
+      }
+      setRefreshKey(prev => prev + 1);
+    } catch (err: any) {
+      alert("Gagal menghapus: " + err.message);
+    }
+  };
+
   return (
-    <div className="flex flex-col bg-[#f0f2f5] min-h-screen font-sans text-slate-900">
+    <div className="flex flex-col bg-white min-h-screen font-sans text-slate-900 selection:bg-slate-900 selection:text-white">
       {/* Top Header */}
-      <header className="h-24 bg-white border-b border-slate-200 px-12 flex items-center justify-between shrink-0">
+      <header className="h-24 bg-white border-b border-slate-100 px-12 flex items-center justify-between shrink-0">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">Page Builder</h1>
-          <p className="text-sm text-slate-500">Buat halaman akses custom — copy slug-nya ke field Access Link.</p>
+          <h1 className="text-2xl font-black text-slate-900 tracking-tight uppercase italic">Landing Page <span className="text-blue-600">Builder</span></h1>
         </div>
         <button 
           onClick={handleNewLP}
-          className="flex items-center gap-2 px-6 py-3 bg-slate-900 text-white font-bold rounded-2xl hover:bg-slate-800 transition-all shadow-lg"
+          className="flex items-center gap-2 px-8 py-3.5 bg-slate-900 text-white font-black rounded-2xl hover:bg-slate-800 transition-all shadow-xl shadow-slate-200 uppercase tracking-widest text-[10px]"
         >
-          <Plus className="w-5 h-5" /> Halaman Baru
+          <Plus className="w-4 h-4" /> Halaman Baru
         </button>
       </header>
 
       {/* Main Layout 3 Columns */}
-      <main className="flex-1 flex p-8 gap-8 overflow-hidden">
+      <main className="flex-1 flex p-8 gap-10 overflow-hidden bg-slate-50/30">
         {/* Column 1: Halaman List */}
-        <Sidebar onSelectLP={handleSelectLP} activeSlug={slug} />
+        <Sidebar 
+          onSelectLP={handleSelectLP} 
+          activeSlug={slug} 
+          key={refreshKey} 
+          onDeleteLP={handleDeleteLP}
+        />
 
         {/* Column 2: Editor Canvas */}
         <Canvas 
