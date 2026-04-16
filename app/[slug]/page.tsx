@@ -2,9 +2,9 @@ import { supabase } from "@/lib/supabase";
 import Renderer from "@/components/lp/Renderer";
 
 type PageProps = {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 };
 
 export default async function Page(props: PageProps) {
