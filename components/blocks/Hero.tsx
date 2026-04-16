@@ -1,3 +1,5 @@
+import { BlockData } from '@/types/lp';
+
 export default function Hero({ data }: { data: BlockData }) {
   const alignment = data.badge === 'left' ? 'text-left' : (data.badge === 'right' ? 'text-right' : 'text-center');
   const itemsAlignment = data.badge === 'left' ? 'items-start' : (data.badge === 'right' ? 'items-end' : 'items-center');
