@@ -6,7 +6,7 @@ import Canvas from './Canvas';
 import Toolbox from './Toolbox';
 import { Block, BlockType, LandingPage } from '@/types/lp';
 import { saveLP, deleteLP } from '@/lib/data';
-import { Plus, LogOut } from 'lucide-react';
+import { Plus, LogOut, Layers, Zap } from 'lucide-react';
 
 export default function Editor() {
   const [slug, setSlug] = useState('');
@@ -18,6 +18,20 @@ export default function Editor() {
   const [showModal, setShowModal] = useState(false);
   const [newTitle, setNewTitle] = useState('');
   const [newSlug, setNewSlug] = useState('');
+  const [selectedTemplate, setSelectedTemplate] = useState<'blank' | 'spartan'>('blank');
+
+  const SPARTAN_BLOCKS: Block[] = [
+    { id: '1', type: 'hero', data: { title: 'Spartan Tube', subtitle: 'Berhenti Kerja Keras. Mulailah Kerja Cerdas.', badge: 'center' } },
+    { id: '2', type: 'problem', data: { title: 'Masalah Besar Creator', subtitle: 'Gagal karena tidak punya sistem.' } },
+    { id: '3', type: 'solution', data: { title: 'Solusi: Spartan Tube', subtitle: 'Mesin pertumbuhan channel YouTube otomatis.' } },
+    { id: '4', type: 'demo', data: { title: 'Lihat Cara Kerjanya', videoUrl: 'https://www.youtube.com/watch?v=EEobrUpwnj4' } },
+    { id: '5', type: 'features', data: { title: '12 Senjata Utama' } },
+    { id: '6', type: 'testimoni', data: { title: 'Apa Kata Mereka?' } },
+    { id: '7', type: 'pricing', data: { title: 'Pilih Paket Anda' } },
+    { id: '8', type: 'target', data: { title: 'Siapa Yang Cocok?' } },
+    { id: '9', type: 'specs', data: { title: 'Spesifikasi Device' } },
+    { id: '10', type: 'disclaimer', data: { title: 'Disclaimer' } }
+  ];
 
   const handleUpdateBlock = (id: string, data: any) => {
     setBlocks(blocks.map(b => b.id === id ? { ...b, data } : b));
@@ -59,7 +73,7 @@ export default function Editor() {
   const confirmNewPage = async () => {
     if (!newSlug) return;
     setSaving(true);
-    const initialBlocks: Block[] = [];
+    const initialBlocks: Block[] = selectedTemplate === 'spartan' ? SPARTAN_BLOCKS : [];
     try {
       await saveLP(newSlug, { blocks: initialBlocks });
       setSlug(newSlug);
@@ -67,6 +81,7 @@ export default function Editor() {
       setShowModal(false);
       setNewTitle('');
       setNewSlug('');
+      setSelectedTemplate('blank');
       setRefreshKey(prev => prev + 1);
     } catch (err: any) {
       alert(err.message);
@@ -195,7 +210,33 @@ export default function Editor() {
                        />
                     </div>
                  </div>
-              </div>
+                  <div className="space-y-3">
+                     <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">PILIH TEMPLATE</label>
+                     <div className="grid grid-cols-2 gap-4">
+                        <button 
+                          onClick={() => setSelectedTemplate('blank')}
+                          className={`p-6 rounded-3xl border-2 text-left transition-all ${selectedTemplate === 'blank' ? 'border-slate-900 bg-slate-50' : 'border-slate-100 bg-white hover:border-slate-200'}`}
+                        >
+                           <div className="w-10 h-10 bg-slate-100 rounded-2xl flex items-center justify-center mb-4">
+                              <Layers className="w-5 h-5 text-slate-400" />
+                           </div>
+                           <h3 className="font-bold text-slate-800 text-sm">Blank Canvas</h3>
+                           <p className="text-[10px] text-slate-400 mt-1">Mulai halaman dari nol</p>
+                        </button>
+
+                        <button 
+                          onClick={() => setSelectedTemplate('spartan')}
+                          className={`p-6 rounded-3xl border-2 text-left transition-all ${selectedTemplate === 'spartan' ? 'border-blue-600 bg-blue-50/30' : 'border-slate-100 bg-white hover:border-slate-200'}`}
+                        >
+                           <div className="w-10 h-10 bg-blue-100 rounded-2xl flex items-center justify-center mb-4">
+                              <Zap className="w-5 h-5 text-blue-600" />
+                           </div>
+                           <h3 className="font-bold text-slate-800 text-sm">Spartan Tube</h3>
+                           <p className="text-[10px] text-slate-400 mt-1">Template landing page lengkap</p>
+                        </button>
+                     </div>
+                  </div>
+               </div>
 
               <div className="p-10 pt-4 flex gap-4">
                  <button 

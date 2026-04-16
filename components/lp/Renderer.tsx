@@ -123,14 +123,20 @@ const blockMap: Record<string, React.FC<any>> = {
       <div className="container px-6 mx-auto py-16">
         <div className={`grid gap-8 mx-auto ${gridCols}`}>
            {items.map((item: any, i: number) => (
-             <div key={i} className="bg-white p-10 rounded-[3rem] border border-slate-100 shadow-xl shadow-slate-200/50 flex flex-col justify-between hover:-translate-y-2 transition-all duration-300">
+             <div key={i} className="bg-white p-10 rounded-[3rem] border border-slate-100 shadow-2xl shadow-slate-200/40 flex flex-col justify-between hover:-translate-y-2 transition-all duration-300">
                 <div>
-                   <h3 className="text-2xl font-black text-slate-900 mb-4 tracking-tight">{item.title}</h3>
-                   <p className="text-slate-500 leading-relaxed mb-8">{item.desc}</p>
+                   <h3 
+                    className="text-2xl font-black mb-4 tracking-tight"
+                    style={{ color: item.textColor || '#0f172a' }}
+                   >
+                    {item.title}
+                   </h3>
+                   <p className="text-slate-800 leading-relaxed mb-8 font-medium">{item.desc}</p>
                 </div>
                 <a 
                   href={item.ctaLink || '#'} 
-                  className="w-full py-4 bg-slate-900 text-white text-center rounded-2xl font-black text-xs uppercase tracking-[0.2em] hover:bg-slate-800 transition-all shadow-lg shadow-slate-200"
+                  className="w-full py-4 text-white text-center rounded-2xl font-black text-xs uppercase tracking-[0.2em] hover:brightness-110 transition-all shadow-lg"
+                  style={{ backgroundColor: item.buttonColor || '#0f172a' }}
                 >
                   {item.ctaText}
                 </a>
