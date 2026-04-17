@@ -2,7 +2,7 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
+  --background: #f0f7ff;
   --foreground: #0f172a;
 }
 
@@ -16,7 +16,7 @@
 }
 
 body {
-  background: var(--background);
+  background: #f8fbff;
   color: var(--foreground);
   font-family: 'Outfit', sans-serif;
   -webkit-font-smoothing: antialiased;

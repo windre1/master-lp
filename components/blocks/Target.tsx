@@ -14,11 +14,11 @@ export default function Target({ data }: { data: any }) {
   return (
     <section className="py-20 md:py-32 max-w-5xl mx-auto px-6">
       <div className="text-center mb-16 animate-in fade-in duration-1000">
-        <h2 className="text-3xl md:text-6xl font-extrabold mb-6 text-slate-900 tracking-[-0.03em] leading-[1.05]">
+        <h2 className="text-3xl md:text-5xl font-extrabold mb-6 text-slate-900 tracking-[-0.035em] leading-[1.05]">
           {data.title || 'SIAPA YANG COCOK?'}
         </h2>
-        <p className="text-blue-500 font-bold text-base md:text-lg uppercase tracking-[0.2em]">
-          {data.subtitle || '👉 Bukan untuk semua orang. Tapi WAJIB untuk yang serius mau growth.'}
+        <p className="text-blue-500 font-bold text-sm md:text-base uppercase tracking-[0.25em] opacity-80">
+          {data.subtitle || 'Bukan untuk semua orang. Tapi WAJIB untuk yang serius.'}
         </p>
       </div>
 
@@ -30,11 +30,11 @@ export default function Target({ data }: { data: any }) {
         ]).map((card: any, i: number) => {
           const Icon = card.icon || Users;
           return (
-            <div key={i} className="bg-white p-10 rounded-[3.5rem] border border-slate-100 shadow-xl shadow-slate-200/40 hover:shadow-2xl transition-all group overflow-hidden relative">
-              <div className="w-14 h-14 bg-slate-50 rounded-2xl flex items-center justify-center text-slate-400 mb-8 group-hover:bg-slate-900 group-hover:text-white transition-all">
+            <div key={i} className="bg-white p-10 rounded-[3.5rem] border border-blue-100/50 shadow-xl shadow-blue-500/5 hover:shadow-blue-500/10 hover:-translate-y-2 transition-all group overflow-hidden relative">
+              <div className="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-400 mb-8 group-hover:bg-blue-600 group-hover:text-white transition-all shadow-sm">
                 <Icon size={28} strokeWidth={1.5} />
               </div>
-              <h3 className="text-xl font-extrabold text-slate-800 mb-4 tracking-[-0.02em] leading-tight uppercase">{card.title}</h3>
+              <h3 className="text-xl font-extrabold text-slate-800 mb-4 tracking-[-0.02em] leading-tight uppercase italic">{card.title}</h3>
               <p className="text-slate-500 text-sm leading-relaxed font-medium">{card.desc}</p>
             </div>
           );

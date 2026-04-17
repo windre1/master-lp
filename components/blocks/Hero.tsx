@@ -7,7 +7,7 @@ export default function Hero({ data }: { data: BlockData }) {
   return (
     <section className={`relative py-16 md:py-24 ${alignment} max-w-5xl mx-auto px-6 overflow-hidden flex flex-col ${itemsAlignment}`}>
       
-      <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-[1.05] mb-8 text-slate-900 tracking-[-0.03em] max-w-4xl">
+      <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.05] mb-8 text-slate-900 tracking-[-0.035em] max-w-4xl">
         {data.title || 'Judul Landing Page Anda'}
       </h1>
       
