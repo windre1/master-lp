@@ -6,7 +6,7 @@ import Canvas from './Canvas';
 import Toolbox from './Toolbox';
 import { Block, BlockType, LandingPage } from '@/types/lp';
 import { saveLP, deleteLP } from '@/lib/data';
-import { Plus, LogOut, Layers, Zap } from 'lucide-react';
+import { Plus, LogOut, Layers, Zap, Smartphone } from 'lucide-react';
 
 export default function Editor() {
   const [slug, setSlug] = useState('');
