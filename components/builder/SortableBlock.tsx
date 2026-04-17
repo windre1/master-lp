@@ -666,7 +666,7 @@ export function SortableBlock({
                          className="flex-[3] bg-slate-50 border border-slate-100 px-3 py-2 rounded-lg text-[10px]"
                          placeholder="Keterangan"
                        />
-                       <button onClick={() => updateData('items', block.data.items.filter((_: any, i: number) => i !== idx))} className="p-2 text-slate-300 hover:text-red-500">
+                       <button onClick={() => updateData('items', (block.data.items || []).filter((_: any, i: number) => i !== idx))} className="p-2 text-slate-300 hover:text-red-500">
                           <Trash2 className="w-3 h-3" />
                        </button>
                     </div>
