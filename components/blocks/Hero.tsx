@@ -7,11 +7,11 @@ export default function Hero({ data }: { data: BlockData }) {
   return (
     <section className={`relative py-16 md:py-24 ${alignment} max-w-5xl mx-auto px-6 overflow-hidden flex flex-col ${itemsAlignment}`}>
       
-      <h1 className="text-4xl md:text-6xl lg:text-7xl font-black leading-[1.1] mb-8 text-slate-900 tracking-tight max-w-4xl">
+      <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-[1.05] mb-8 text-slate-900 tracking-[-0.03em] max-w-4xl">
         {data.title || 'Judul Landing Page Anda'}
       </h1>
       
-      <p className="text-slate-600 text-lg md:text-xl max-w-3xl mb-12 leading-relaxed font-medium">
+      <p className="text-slate-500 text-lg md:text-xl max-w-2xl mb-12 leading-relaxed font-medium">
         {data.subtitle || 'Tuliskan penjelasan singkat yang menarik di sini untuk meyakinkan pengunjung Anda.'}
       </p>
       

@@ -4,10 +4,10 @@ export default function Features({ data }: { data: any }) {
 
     <section className="py-20 md:py-32 max-w-5xl mx-auto px-6 space-y-12">
       <div className="text-center mb-20 animate-in fade-in slide-in-from-bottom-6 duration-1000">
-        <h2 className="text-3xl md:text-6xl font-black mb-6 text-slate-900 tracking-tight">
+        <h2 className="text-3xl md:text-6xl font-extrabold mb-6 text-slate-900 tracking-[-0.03em] leading-[1.05]">
           {data.title || 'FITUR UTAMA'}
         </h2>
-        <p className="text-slate-600 max-w-2xl mx-auto text-lg md:text-xl font-medium">
+        <p className="text-slate-500 max-w-2xl mx-auto text-lg md:text-xl font-medium leading-relaxed">
           {data.subtitle || 'Eksplorasi seluruh ekosistem pertumbuhan yang kami siapkan untuk Anda.'}
         </p>
       </div>
@@ -18,18 +18,18 @@ export default function Features({ data }: { data: any }) {
           { t: 'Fitur Unggulan 2', d: 'Kelola segalanya dalam satu dashboard yang intuitif.' }
         ]).map((f: any, i: number) => {
           return (
-            <div key={i} className="bg-white p-8 md:p-16 rounded-[4rem] border border-slate-100 shadow-2xl shadow-slate-200/50 hover:shadow-cyan-500/5 transition-all group overflow-hidden relative">
+            <div key={i} className="bg-white p-8 md:p-16 rounded-[4.5rem] border border-slate-100 shadow-2xl shadow-slate-200/40 hover:shadow-cyan-500/5 transition-all group overflow-hidden relative">
               <div className="absolute top-0 right-0 p-10 opacity-5 group-hover:opacity-10 transition-opacity">
-                 <span className="text-9xl font-black text-slate-900 leading-none select-none">{i + 1}</span>
+                 <span className="text-9xl font-extrabold text-slate-900 leading-none select-none tracking-tighter">{i + 1}</span>
               </div>
               
               <div className="relative z-10 flex flex-col md:flex-row items-center gap-10 md:gap-20">
                 <div className="flex-1 space-y-6 text-center md:text-left">
                   <div className="inline-flex items-center gap-2 px-3 py-1 bg-cyan-50 text-cyan-600 rounded-full">
                      <div className="w-1.5 h-1.5 bg-cyan-600 rounded-full"></div>
-                     <span className="text-[10px] font-black tracking-widest uppercase">Fitur {i + 1}</span>
+                     <span className="text-[10px] font-black tracking-[0.2em] uppercase">Fitur {i + 1}</span>
                   </div>
-                  <h3 className="text-2xl md:text-5xl font-black text-slate-900 tracking-tight">{f.t}</h3>
+                  <h3 className="text-2xl md:text-5xl font-extrabold text-slate-900 tracking-[-0.02em] leading-tight">{f.t}</h3>
                   <p className="text-slate-500 text-lg md:text-xl font-medium leading-relaxed">{f.d}</p>
                 </div>
                 {f.img && (
