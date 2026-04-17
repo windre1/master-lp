@@ -40,6 +40,16 @@ export interface BlockData {
   videoWidth?: string;
   imageWidth?: string;
   priceListWidth?: string;
+  traditional?: {
+    title: string;
+    items: string[];
+    footer: string;
+  };
+  spartan?: {
+    title: string;
+    items: string[];
+    footer: string;
+  };
 }
 
 export interface Block {
