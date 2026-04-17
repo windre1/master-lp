@@ -25,5 +25,10 @@ export default async function Page(props: PageProps) {
     );
   }
 
-  return <Renderer blocks={data?.content?.blocks || []} />;
+  return (
+    <Renderer 
+      blocks={data?.content?.blocks || []} 
+      settings={data?.content?.settings} 
+    />
+  );
 }

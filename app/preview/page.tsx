@@ -5,15 +5,19 @@ import Renderer from '@/components/lp/Renderer';
 import { Block } from '@/types/lp';
 
 export default function PreviewPage() {
-  const [blocks, setBlocks] = useState<Block[]>([]);
+  const [data, setData] = useState<{ blocks: Block[], settings?: any }>({ blocks: [] });
 
   useEffect(() => {
     // Listen to changes from the editor via localStorage
     const handleStorage = (e: StorageEvent) => {
       if (e.key === 'lp_preview_data') {
         try {
-          const data = JSON.parse(e.newValue || '[]');
-          setBlocks(data);
+          const parsed = JSON.parse(e.newValue || '{}');
+          if (Array.isArray(parsed)) {
+            setData({ blocks: parsed });
+          } else {
+            setData(parsed);
+          }
         } catch (err) {
           console.error("Failed to parse preview data", err);
         }
@@ -24,7 +28,12 @@ export default function PreviewPage() {
     const initialData = localStorage.getItem('lp_preview_data');
     if (initialData) {
       try {
-        setBlocks(JSON.parse(initialData));
+        const parsed = JSON.parse(initialData);
+        if (Array.isArray(parsed)) {
+          setData({ blocks: parsed });
+        } else {
+          setData(parsed);
+        }
       } catch (err) {}
     }
 
@@ -32,12 +41,13 @@ export default function PreviewPage() {
     
     // Also check every 500ms as a fallback for the same-window updates
     const interval = setInterval(() => {
-      const data = localStorage.getItem('lp_preview_data');
-      if (data) {
+      const stored = localStorage.getItem('lp_preview_data');
+      if (stored) {
         try {
-          const parsed = JSON.parse(data);
-          if (JSON.stringify(parsed) !== JSON.stringify(blocks)) {
-            setBlocks(parsed);
+          const parsed = JSON.parse(stored);
+          const current = Array.isArray(parsed) ? { blocks: parsed } : parsed;
+          if (JSON.stringify(current) !== JSON.stringify(data)) {
+            setData(current);
           }
         } catch (err) {}
       }
@@ -47,11 +57,11 @@ export default function PreviewPage() {
       window.removeEventListener('storage', handleStorage);
       clearInterval(interval);
     };
-  }, [blocks]);
+  }, [data]);
 
   return (
     <div className="bg-white min-h-screen">
-      <Renderer blocks={blocks} />
+      <Renderer blocks={data.blocks} settings={data.settings} />
     </div>
   );
 }

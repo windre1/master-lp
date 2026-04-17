@@ -392,30 +392,44 @@ export function SortableBlock({
                     </button>
 
                     <div className="space-y-4">
-                       <div className="flex items-center justify-between gap-2 border-b border-slate-50 pb-2">
-                          <input 
-                            type="text" 
-                            value={item.title || ''} 
-                            onChange={(e) => {
-                              const newItems = [...(block.data.items || [])];
-                              newItems[idx] = { ...item, title: e.target.value };
-                              updateData('items', newItems);
-                            }}
-                            style={{ color: item.textColor || '#0f172a' }}
-                            placeholder="Judul"
-                            className="w-full bg-transparent font-black text-sm outline-none placeholder:text-slate-300"
-                          />
-                          <input 
-                            type="color" 
-                            value={item.textColor || '#0f172a'} 
-                            onChange={(e) => {
-                              const newItems = [...(block.data.items || [])];
-                              newItems[idx] = { ...item, textColor: e.target.value };
-                              updateData('items', newItems);
-                            }}
-                            className="w-4 h-4 rounded-full overflow-hidden border-none p-0 cursor-pointer shrink-0"
-                          />
-                       </div>
+                        <div className="flex items-center justify-between gap-2 border-b border-slate-50 pb-2">
+                           <input 
+                             type="text" 
+                             value={item.title || ''} 
+                             onChange={(e) => {
+                               const newItems = [...(block.data.items || [])];
+                               newItems[idx] = { ...item, title: e.target.value };
+                               updateData('items', newItems);
+                             }}
+                             style={{ color: item.textColor || '#0f172a' }}
+                             placeholder="Judul Paket"
+                             className="w-full bg-transparent font-black text-sm outline-none placeholder:text-slate-300"
+                           />
+                           <input 
+                             type="color" 
+                             value={item.textColor || '#0f172a'} 
+                             onChange={(e) => {
+                               const newItems = [...(block.data.items || [])];
+                               newItems[idx] = { ...item, textColor: e.target.value };
+                               updateData('items', newItems);
+                             }}
+                             className="w-4 h-4 rounded-full overflow-hidden border-none p-0 cursor-pointer shrink-0"
+                           />
+                        </div>
+                        <div className="flex items-center gap-1 border-b border-slate-50 pb-2">
+                           <span className="text-[10px] font-black text-slate-300">Rp</span>
+                           <input 
+                             type="text" 
+                             value={item.price || ''} 
+                             onChange={(e) => {
+                               const newItems = [...(block.data.items || [])];
+                               newItems[idx] = { ...item, price: e.target.value };
+                               updateData('items', newItems);
+                             }}
+                             placeholder="Harga"
+                             className="w-full bg-transparent font-black text-xs outline-none text-blue-600 placeholder:text-slate-200"
+                           />
+                        </div>
                        <textarea 
                          rows={2}
                          value={item.desc || ''} 

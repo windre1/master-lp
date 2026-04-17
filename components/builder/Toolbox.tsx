@@ -9,9 +9,11 @@ interface ToolboxProps {
   onAddBlock: (type: BlockType) => void;
   blocks: Block[];
   slug: string;
+  settings: { globalBg?: string };
+  onUpdateSettings: (settings: any) => void;
 }
 
-export default function Toolbox({ onAddBlock, blocks, slug }: ToolboxProps) {
+export default function Toolbox({ onAddBlock, blocks, slug, settings, onUpdateSettings }: ToolboxProps) {
   const library = [
     { type: 'heading', label: 'Judul', icon: Layout },
     { type: 'text_only', label: 'Teks', icon: AlignLeft },
@@ -28,6 +30,25 @@ export default function Toolbox({ onAddBlock, blocks, slug }: ToolboxProps) {
 
   return (
     <div className="w-[380px] flex flex-col gap-6 shrink-0 overflow-hidden h-full">
+      {/* Page Settings Card */}
+      <div className="bg-white rounded-[2rem] border border-slate-200 p-6 shadow-sm shrink-0">
+        <h2 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-4">
+          PAGE SETTINGS
+        </h2>
+        <div className="flex items-center justify-between bg-slate-50 border border-slate-100 p-4 rounded-xl">
+           <div className="flex flex-col">
+              <span className="text-[10px] font-black text-slate-600 uppercase tracking-tight">Background Global</span>
+              <span className="text-[9px] text-slate-400 font-medium">Warna latar belakang utama</span>
+           </div>
+           <input 
+             type="color" 
+             value={settings.globalBg || '#f0f7ff'} 
+             onChange={e => onUpdateSettings({ ...settings, globalBg: e.target.value })}
+             className="w-10 h-10 rounded-xl overflow-hidden border-none p-0 cursor-pointer shadow-sm"
+           />
+        </div>
+      </div>
+
       {/* Add Elements Card */}
       <div className="bg-white rounded-[2rem] border border-slate-200 p-6 shadow-sm shrink-0">
         <h2 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-4">

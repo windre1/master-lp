@@ -63,6 +63,9 @@ export interface LandingPage {
   slug: string;
   content: {
     blocks: Block[];
+    settings?: {
+      globalBg?: string;
+    };
   };
   created_at?: string;
 }

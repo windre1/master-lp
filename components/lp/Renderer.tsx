@@ -20,6 +20,9 @@ import Disclaimer from '@/components/blocks/Disclaimer';
 
 interface RendererProps {
   blocks: Block[];
+  settings?: {
+    globalBg?: string;
+  };
 }
 
 const blockMap: Record<string, React.FC<any>> = {
@@ -140,32 +143,40 @@ const blockMap: Record<string, React.FC<any>> = {
       <div className="max-w-5xl px-6 mx-auto py-16">
         <div className={`flex flex-wrap justify-center gap-8`}>
            {items.map((item: any, i: number) => (
-             <div 
-              key={i} 
-              className="bg-white p-10 rounded-[3rem] border border-slate-100 shadow-2xl shadow-slate-200/40 flex flex-col justify-between hover:-translate-y-2 transition-all duration-300"
-              style={{ 
-                width: isSingle ? (data.priceListWidth ? `${data.priceListWidth}%` : '500px') : 'auto',
-                maxWidth: isSingle ? '1000px' : (isDouble ? '450px' : '380px'),
-                flex: isSingle ? 'none' : '1 1 320px'
-              }}
-             >
-                <div>
-                   <h3 
-                    className="text-2xl font-black mb-4 tracking-tight"
-                    style={{ color: item.textColor || '#0f172a' }}
-                   >
-                    {item.title}
-                   </h3>
-                   <p className="text-slate-800 leading-relaxed mb-8 font-medium">{item.desc}</p>
-                </div>
-                <a 
-                  href={item.ctaLink || '#'} 
-                  className="w-full py-4 text-white text-center rounded-2xl font-black text-xs uppercase tracking-[0.2em] hover:brightness-110 transition-all shadow-lg"
-                  style={{ backgroundColor: item.buttonColor || '#0f172a' }}
-                >
-                  {item.ctaText}
-                </a>
-             </div>
+              <div 
+               key={i} 
+               className="bg-white p-10 rounded-[3.5rem] border border-blue-100/50 shadow-2xl shadow-blue-500/5 flex flex-col justify-between hover:-translate-y-2 transition-all duration-500 group relative overflow-hidden"
+               style={{ 
+                 width: isSingle ? (data.priceListWidth ? `${data.priceListWidth}%` : '500px') : 'auto',
+                 maxWidth: isSingle ? '1000px' : (isDouble ? '450px' : '380px'),
+                 flex: isSingle ? 'none' : '1 1 320px',
+                 minHeight: '480px'
+               }}
+              >
+                 <div className="flex-1">
+                    <h3 
+                     className="text-xl font-extrabold mb-1 tracking-[-0.03em] uppercase italic group-hover:text-blue-600 transition-colors"
+                     style={{ color: item.textColor || '#0f172a' }}
+                    >
+                     {item.title}
+                    </h3>
+                    {item.price && (
+                      <div className="flex items-baseline gap-1 mb-6 mt-2">
+                         <span className="text-[10px] font-black text-slate-400 uppercase">Rp</span>
+                         <span className="text-4xl font-black text-slate-900 tracking-[-0.05em] leading-none">{item.price}</span>
+                      </div>
+                    )}
+                    <div className="w-10 h-1 bg-blue-100 mb-6 rounded-full"></div>
+                    <p className="text-slate-500 leading-relaxed mb-8 font-medium text-sm">{item.desc}</p>
+                 </div>
+                 <a 
+                   href={item.ctaLink || '#'} 
+                   className="w-full py-5 text-white text-center rounded-2xl font-extrabold text-[10px] uppercase tracking-[0.2em] hover:brightness-110 transition-all shadow-xl shadow-blue-500/10"
+                   style={{ backgroundColor: item.buttonColor || '#0f172a' }}
+                 >
+                   {item.ctaText}
+                 </a>
+              </div>
            ))}
         </div>
       </div>
@@ -187,11 +198,13 @@ const blockMap: Record<string, React.FC<any>> = {
   }
 };
 
-export default function Renderer({ blocks }: RendererProps) {
+export default function Renderer({ blocks, settings }: RendererProps) {
   if (!blocks) return null;
 
+  const bgGlobal = settings?.globalBg || '#f0f7ff';
+
   return (
-    <div className="bg-[#f0f7ff] text-slate-900 font-sans selection:bg-slate-900 selection:text-white min-h-screen w-full relative overflow-x-hidden">
+    <div className="text-slate-900 font-sans selection:bg-slate-900 selection:text-white min-h-screen w-full relative overflow-x-hidden" style={{ backgroundColor: bgGlobal }}>
       {/* Background Decorative Elements */}
       <div className="fixed top-0 left-0 w-full h-full pointer-events-none -z-0">
         <div className="absolute top-[10%] left-[-10%] w-[40%] h-[40%] bg-blue-200/20 rounded-full blur-[120px]"></div>

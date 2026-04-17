@@ -19,6 +19,7 @@ export default function Editor() {
   const [newTitle, setNewTitle] = useState('');
   const [newSlug, setNewSlug] = useState('');
   const [selectedTemplate, setSelectedTemplate] = useState<'blank' | 'komisi' | 'tekotok'>('blank');
+  const [settings, setSettings] = useState<{ globalBg?: string }>({ globalBg: '#f0f7ff' });
 
 
   const KOMISI_BLOCKS: Block[] = [
@@ -97,6 +98,7 @@ export default function Editor() {
     setActiveLP(lp);
     setSlug(lp.slug);
     setBlocks(lp.content.blocks || []);
+    setSettings(lp.content.settings || { globalBg: '#f0f7ff' });
   };
 
   const confirmNewPage = async () => {
@@ -117,7 +119,7 @@ export default function Editor() {
     }
     
     try {
-      await saveLP(newSlug, { blocks: initialBlocks });
+      await saveLP(newSlug, { blocks: initialBlocks, settings });
       setSlug(newSlug);
       setBlocks(initialBlocks);
       setShowModal(false);
@@ -136,7 +138,7 @@ export default function Editor() {
     if (!slug) return;
     setSaving(true);
     try {
-      await saveLP(slug, { blocks });
+      await saveLP(slug, { blocks, settings });
       setRefreshKey(prev => prev + 1);
     } catch (err: any) {
       setError(err.message);
@@ -161,8 +163,8 @@ export default function Editor() {
 
   // Sync data for the real-time preview iframe
   useEffect(() => {
-    localStorage.setItem('lp_preview_data', JSON.stringify(blocks));
-  }, [blocks]);
+    localStorage.setItem('lp_preview_data', JSON.stringify({ blocks, settings }));
+  }, [blocks, settings]);
 
   const handleLogout = () => {
     document.cookie = "auth_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC";
@@ -218,7 +220,7 @@ export default function Editor() {
         />
 
         {/* Column 3: Toolbox & Preview */}
-        <Toolbox onAddBlock={handleAddBlock} blocks={blocks} slug={slug} />
+        <Toolbox onAddBlock={handleAddBlock} blocks={blocks} slug={slug} settings={settings} onUpdateSettings={setSettings} />
       </main>
 
       {/* Pop Up Modal Buat Halaman Baru */}
