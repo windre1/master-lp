@@ -538,6 +538,103 @@ export function SortableBlock({
             </div>
           </div>
         );
+      case 'problem':
+        return (
+          <div className="space-y-6">
+            <div className="space-y-4">
+               <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Headline Masalah</label>
+               <textarea 
+                rows={2}
+                value={block.data.title || ''} 
+                onChange={e => updateData('title', e.target.value)} 
+                placeholder="Hook masalah..."
+                className="w-full bg-slate-50 border border-slate-100 p-4 rounded-xl outline-none font-bold text-slate-800 text-lg leading-tight"
+               />
+            </div>
+            
+            <div className="space-y-4">
+               <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Sub-Headline</label>
+               <textarea 
+                rows={2}
+                value={block.data.subtitle || ''} 
+                onChange={e => updateData('subtitle', e.target.value)} 
+                placeholder="Penjelasan singkat..."
+                className="w-full bg-slate-50 border border-slate-100 p-4 rounded-xl outline-none text-sm text-slate-600 font-medium"
+               />
+            </div>
+
+            <div className="grid grid-cols-2 gap-4 pt-4 border-t border-slate-50">
+               <div className="space-y-2">
+                  <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Statement (Highlight)</label>
+                  <input 
+                    type="text" 
+                    value={block.data.closing || ''} 
+                    onChange={e => updateData('closing', e.target.value)}
+                    className="w-full bg-slate-100 px-4 py-2.5 rounded-xl outline-none text-[10px] font-bold"
+                    placeholder="MASALAHNYA BUKAN DI ANDA..."
+                  />
+               </div>
+               <div className="space-y-2">
+                  <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Statement (Miring)</label>
+                  <input 
+                    type="text" 
+                    value={block.data.highlinedClosing || ''} 
+                    onChange={e => updateData('highlinedClosing', e.target.value)}
+                    className="w-full bg-slate-100 px-4 py-2.5 rounded-xl outline-none text-[10px] font-bold"
+                    placeholder="TAPI DI SISTEM ANDA."
+                  />
+               </div>
+            </div>
+
+            <div className="space-y-4 pt-4 border-t border-slate-50">
+               <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Daftar Poin Masalah</label>
+               <div className="grid gap-3">
+                  {(block.data.items || []).map((item: any, idx: number) => (
+                    <div key={idx} className="flex gap-2 items-start">
+                       <input 
+                         type="text" 
+                         value={item.t || ''} 
+                         onChange={(e) => {
+                           const newItems = [...(block.data.items || [])];
+                           newItems[idx] = { ...item, t: e.target.value };
+                           updateData('items', newItems);
+                         }}
+                         placeholder="Judul"
+                         className="flex-[2] bg-slate-50 border border-slate-100 px-3 py-2 rounded-lg font-bold text-[10px] outline-none"
+                       />
+                       <input 
+                         type="text" 
+                         value={item.d || ''} 
+                         onChange={(e) => {
+                           const newItems = [...(block.data.items || [])];
+                           newItems[idx] = { ...item, d: e.target.value };
+                           updateData('items', newItems);
+                         }}
+                         placeholder="Deskripsi"
+                         className="flex-[3] bg-slate-50 border border-slate-100 px-3 py-2 rounded-lg text-[10px] outline-none"
+                       />
+                       <button 
+                         onClick={() => {
+                           const newItems = [...(block.data.items || [])];
+                           newItems.splice(idx, 1);
+                           updateData('items', newItems);
+                         }}
+                         className="p-2 text-slate-300 hover:text-red-500"
+                       >
+                          <Trash2 className="w-3 h-3" />
+                       </button>
+                    </div>
+                  ))}
+                  <button 
+                    onClick={() => updateData('items', [...(block.data.items || []), { t: 'Masalah Baru', d: 'Keterangan...' }])}
+                    className="w-full py-2 border-2 border-dashed border-slate-200 rounded-xl text-[9px] font-black text-slate-400 hover:text-slate-600"
+                  >
+                    + Tambah Poin
+                  </button>
+               </div>
+            </div>
+          </div>
+        );
       default:
         return (
           <div className="space-y-6">

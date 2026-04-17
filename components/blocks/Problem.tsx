@@ -26,10 +26,12 @@ export default function Problem({ data }: { data: BlockData }) {
             {data.subtitle || 'Tanpa sistem yang benar, YouTube hanya akan menjadi hobi yang melelahkan bukan bisnis yang menguntungkan.'}
           </p>
           
-          <div className="pt-10 border-t border-slate-50 mt-10">
-             <p className="text-slate-900 font-bold text-lg md:text-2xl tracking-tight">
-                {data.closing || 'MASALAHNYA BUKAN DI ANDA...'} <span className="text-red-600 italic">{data.highlinedClosing || 'TAPI DI SISTEM ANDA.'}</span>
-             </p>
+          <div className="pt-10 border-t border-slate-100 mt-10">
+             <div className="inline-block bg-slate-900 px-6 py-3 rounded-xl shadow-xl transform -rotate-1">
+                <p className="text-white font-black text-lg md:text-2xl tracking-tight uppercase">
+                   {data.closing || 'MASALAHNYA BUKAN DI ANDA...'} <span className="italic opacity-90">{data.highlinedClosing || 'TAPI DI SISTEM ANDA.'}</span>
+                </p>
+             </div>
           </div>
         </div>
 
