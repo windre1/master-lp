@@ -155,27 +155,30 @@ const blockMap: Record<string, React.FC<any>> = {
               >
                  <div className="flex-1">
                     <h3 
-                     className="text-xl font-extrabold mb-1 tracking-[-0.03em] uppercase italic group-hover:text-blue-600 transition-colors"
+                     className="text-xl font-extrabold mb-4 tracking-[-0.03em] uppercase italic group-hover:text-blue-600 transition-colors"
                      style={{ color: item.textColor || '#0f172a' }}
                     >
                      {item.title}
                     </h3>
+                    <div className="w-10 h-1 bg-blue-100 mb-6 rounded-full"></div>
+                    <p className="text-slate-500 leading-relaxed mb-8 font-medium text-sm">{item.desc}</p>
+                 </div>
+                 
+                 <div className="mt-8">
                     {item.price && (
-                      <div className="flex items-baseline gap-1 mb-6 mt-2">
+                      <div className="flex items-baseline gap-1 mb-6">
                          <span className="text-[10px] font-black text-slate-400 uppercase">Rp</span>
                          <span className="text-4xl font-black text-slate-900 tracking-[-0.05em] leading-none">{item.price}</span>
                       </div>
                     )}
-                    <div className="w-10 h-1 bg-blue-100 mb-6 rounded-full"></div>
-                    <p className="text-slate-500 leading-relaxed mb-8 font-medium text-sm">{item.desc}</p>
+                    <a 
+                      href={item.ctaLink || '#'} 
+                      className="w-full py-5 text-white text-center rounded-2xl font-extrabold text-[10px] uppercase tracking-[0.2em] hover:brightness-110 transition-all shadow-xl shadow-blue-500/10 block"
+                      style={{ backgroundColor: item.buttonColor || '#0f172a' }}
+                    >
+                      {item.ctaText}
+                    </a>
                  </div>
-                 <a 
-                   href={item.ctaLink || '#'} 
-                   className="w-full py-5 text-white text-center rounded-2xl font-extrabold text-[10px] uppercase tracking-[0.2em] hover:brightness-110 transition-all shadow-xl shadow-blue-500/10"
-                   style={{ backgroundColor: item.buttonColor || '#0f172a' }}
-                 >
-                   {item.ctaText}
-                 </a>
               </div>
            ))}
         </div>
