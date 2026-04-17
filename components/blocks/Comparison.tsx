@@ -20,35 +20,43 @@ export default function Comparison({ data }: { data: any }) {
         </h2>
       </div>
       
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] items-stretch gap-8">
-        <div className="bg-[#0f172a]/40 backdrop-blur-xl p-10 rounded-[3rem] border border-red-500/10 hover:border-red-500/20 transition-all">
-          <h3 className="text-2xl font-black mb-8 text-white uppercase italic">{traditional.title}</h3>
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] items-stretch gap-6 md:gap-8">
+        {/* Sisi Kiri: Masalah / Tradisional */}
+        <div className="bg-slate-50 p-8 md:p-12 rounded-[3.5rem] border border-slate-100 shadow-sm hover:shadow-md transition-all">
+          <h3 className="text-xl md:text-2xl font-black mb-8 text-slate-800 uppercase italic tracking-tight">{traditional.title}</h3>
           <ul className="space-y-4 mb-10">
-            {traditional.items.map((item: string, i: number) => (
-              <li key={i} className="text-[#94a3b8] flex items-center gap-3 text-sm">
-                <span className="text-red-500 font-bold shrink-0">✕</span> {item}
+            {(traditional.items || []).map((item: string, i: number) => (
+              <li key={i} className="text-slate-500 flex items-start gap-3 text-sm md:text-base font-medium leading-relaxed">
+                <span className="text-red-500 font-bold shrink-0 mt-1">✕</span> {item}
               </li>
             ))}
           </ul>
-          <p className="text-red-500 font-black text-xl italic drop-shadow-[0_0_10px_rgba(239,68,68,0.2)]">{traditional.footer}</p>
+          <p className="text-red-500 font-black text-xl md:text-2xl italic tracking-tight">{traditional.footer}</p>
         </div>
 
-        <div className="hidden lg:flex flex-col items-center justify-center relative px-4">
-           <div className="w-px h-full bg-white/5"></div>
-           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full bg-[#050a15] border-2 border-[#00f2ff] flex items-center justify-center text-[#00f2ff] font-black text-xl z-10 shadow-[0_0_25px_rgba(0,242,255,0.4)] italic">VS</div>
+        {/* Separator VS */}
+        <div className="flex lg:flex-col items-center justify-center relative py-4 lg:py-0 px-4">
+           <div className="hidden lg:block w-px h-full bg-slate-100"></div>
+           <div className="lg:hidden w-full h-px bg-slate-100"></div>
+           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-14 h-14 md:w-16 md:h-16 rounded-full bg-white border-4 border-slate-50 shadow-xl flex items-center justify-center text-slate-900 font-black text-lg md:text-xl z-10 italic">VS</div>
         </div>
 
-        <div className="bg-[#0a1128] p-10 rounded-[3rem] border-2 border-[#00f2ff]/30 shadow-[0_0_50px_rgba(0,242,255,0.05)] hover:border-[#00f2ff] transition-all relative">
-          <div className="absolute top-0 right-10 -translate-y-1/2 bg-[#00f2ff] text-black px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">Recommended</div>
-          <h3 className="text-2xl font-black mb-8 text-[#00f2ff] uppercase italic">{spartan.title}</h3>
-          <ul className="space-y-4 mb-10">
-            {spartan.items.map((item: string, i: number) => (
-              <li key={i} className="text-white font-bold flex items-center gap-3 text-sm">
-                <span className="text-[#00f2ff] shrink-0">✓</span> {item}
+        {/* Sisi Kanan: Solusi / Tekotok */}
+        <div className="bg-[#0f172a] p-8 md:p-12 rounded-[3.5rem] border-2 border-blue-500/20 shadow-2xl shadow-blue-500/10 hover:border-blue-500/40 transition-all relative overflow-hidden group">
+          <div className="absolute top-0 right-10 -translate-y-1/2 bg-blue-600 text-white px-5 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.15em] shadow-lg shadow-blue-500/40 z-20">Recommended</div>
+          
+          {/* Subtle Glow Effect */}
+          <div className="absolute -top-20 -right-20 w-64 h-64 bg-blue-600/10 rounded-full blur-[80px] group-hover:bg-blue-600/20 transition-all"></div>
+          
+          <h3 className="text-xl md:text-2xl font-black mb-8 text-white uppercase italic tracking-tight relative z-10">{spartan.title}</h3>
+          <ul className="space-y-4 mb-10 relative z-10">
+            {(spartan.items || []).map((item: string, i: number) => (
+              <li key={i} className="text-slate-300 font-semibold flex items-start gap-3 text-sm md:text-base leading-relaxed">
+                <span className="text-blue-400 shrink-0 mt-1 font-black">✓</span> {item}
               </li>
             ))}
           </ul>
-          <p className="text-[#00f2ff] font-black text-2xl italic tracking-tight drop-shadow-[0_0_15px_rgba(0,242,255,0.3)]">{spartan.footer}</p>
+          <p className="text-blue-400 font-black text-2xl md:text-3xl italic tracking-tighter relative z-10 drop-shadow-[0_0_15px_rgba(59,130,246,0.3)]">{spartan.footer}</p>
         </div>
       </div>
     </section>
