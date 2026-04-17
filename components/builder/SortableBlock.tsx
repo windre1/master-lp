@@ -568,6 +568,116 @@ export function SortableBlock({
             </div>
           </div>
         );
+      case 'comparison':
+        return (
+          <div className="space-y-6">
+            <div className="space-y-4">
+               <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Judul Komparasi</label>
+               <input 
+                 type="text" 
+                 value={block.data.title || ''} 
+                 onChange={e => updateData('title', e.target.value)} 
+                 className="w-full bg-slate-50 border border-slate-100 p-4 rounded-xl outline-none font-bold text-slate-800 text-lg text-center"
+               />
+            </div>
+            <div className="grid grid-cols-2 gap-6 pt-4 border-t border-slate-50">
+               <div className="space-y-4">
+                  <label className="text-[9px] font-black text-red-400 uppercase tracking-widest">SISI KIRI (NEGATIF)</label>
+                  <input 
+                    type="text" 
+                    value={block.data.traditional?.title || ''} 
+                    onChange={e => updateData('traditional', { ...block.data.traditional, title: e.target.value })}
+                    className="w-full bg-red-50/50 border border-red-100 px-3 py-2 rounded-lg font-bold text-xs"
+                    placeholder="Sebelum..."
+                  />
+                  <textarea 
+                    rows={4}
+                    value={(block.data.traditional?.items || []).join('\n')} 
+                    onChange={e => updateData('traditional', { ...block.data.traditional, items: e.target.value.split('\n') })}
+                    className="w-full bg-slate-50 border border-slate-100 p-3 rounded-xl text-[10px] font-medium resize-none"
+                    placeholder="Item 1\nItem 2..."
+                  />
+               </div>
+               <div className="space-y-4">
+                  <label className="text-[9px] font-black text-blue-400 uppercase tracking-widest">SISI KANAN (POSITIF)</label>
+                  <input 
+                    type="text" 
+                    value={block.data.spartan?.title || ''} 
+                    onChange={e => updateData('spartan', { ...block.data.spartan, title: e.target.value })}
+                    className="w-full bg-blue-50/50 border border-blue-100 px-3 py-2 rounded-lg font-bold text-xs"
+                    placeholder="Setelah..."
+                  />
+                  <textarea 
+                    rows={4}
+                    value={(block.data.spartan?.items || []).join('\n')} 
+                    onChange={e => updateData('spartan', { ...block.data.spartan, items: e.target.value.split('\n') })}
+                    className="w-full bg-slate-50 border border-slate-100 p-3 rounded-xl text-[10px] font-medium resize-none"
+                    placeholder="Item 1\nItem 2..."
+                  />
+               </div>
+            </div>
+          </div>
+        );
+      case 'target':
+        return (
+          <div className="space-y-6">
+            <div className="space-y-4">
+               <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Judul Section</label>
+               <input 
+                 type="text" 
+                 value={block.data.title || ''} 
+                 onChange={e => updateData('title', e.target.value)} 
+                 className="w-full bg-slate-50 border border-slate-100 p-4 rounded-xl outline-none font-bold text-slate-800 text-lg text-center"
+               />
+            </div>
+            <div className="space-y-4">
+               <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Sub-Judul / Deskripsi</label>
+               <input 
+                 type="text" 
+                 value={block.data.subtitle || ''} 
+                 onChange={e => updateData('subtitle', e.target.value)} 
+                 className="w-full bg-slate-50 border border-slate-100 p-4 rounded-xl outline-none text-sm text-slate-600 font-medium"
+               />
+            </div>
+            <div className="space-y-4 pt-4 border-t border-slate-50">
+               <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Daftar Target User</label>
+               <div className="grid gap-3">
+                  {(block.data.items || []).map((item: any, idx: number) => (
+                    <div key={idx} className="flex gap-2 items-start">
+                       <input 
+                         type="text" 
+                         value={item.title || ''} 
+                         onChange={(e) => {
+                           const newItems = [...(block.data.items || [])];
+                           newItems[idx] = { ...item, title: e.target.value };
+                           updateData('items', newItems);
+                         }}
+                         className="flex-[2] bg-slate-50 border border-slate-100 px-3 py-2 rounded-lg font-bold text-[10px]"
+                         placeholder="Target"
+                       />
+                       <input 
+                         type="text" 
+                         value={item.desc || ''} 
+                         onChange={(e) => {
+                           const newItems = [...(block.data.items || [])];
+                           newItems[idx] = { ...item, desc: e.target.value };
+                           updateData('items', newItems);
+                         }}
+                         className="flex-[3] bg-slate-50 border border-slate-100 px-3 py-2 rounded-lg text-[10px]"
+                         placeholder="Keterangan"
+                       />
+                       <button onClick={() => updateData('items', block.data.items.filter((_: any, i: number) => i !== idx))} className="p-2 text-slate-300 hover:text-red-500">
+                          <Trash2 className="w-3 h-3" />
+                       </button>
+                    </div>
+                  ))}
+                  <button onClick={() => updateData('items', [...(block.data.items || []), { title: 'Target Baru', desc: 'Deskripsi...' }])} className="w-full py-2 border-2 border-dashed border-slate-200 rounded-xl text-[9px] font-black text-slate-400 hover:text-slate-600">
+                    + Tambah Target
+                  </button>
+               </div>
+            </div>
+          </div>
+        );
       case 'problem':
         return (
           <div className="space-y-6">

@@ -18,7 +18,7 @@ export default function Editor() {
   const [showModal, setShowModal] = useState(false);
   const [newTitle, setNewTitle] = useState('');
   const [newSlug, setNewSlug] = useState('');
-  const [selectedTemplate, setSelectedTemplate] = useState<'blank' | 'komisi'>('blank');
+  const [selectedTemplate, setSelectedTemplate] = useState<'blank' | 'komisi' | 'tekotok'>('blank');
 
 
   const KOMISI_BLOCKS: Block[] = [
@@ -35,6 +35,24 @@ export default function Editor() {
     { id: 'k11', type: 'heading', data: { title: '⚠️ Ini Belum Dibuka Publik', badge: 'center', textColor: '#ef4444' } },
     { id: 'k12', type: 'text_only', data: { subtitle: 'Semua sistem ini akan dijelaskan di GMeet: Strategi closing, Macro recurring income, dan Studi case real.', badge: 'center', fontSize: '18' } },
     { id: 'k13', type: 'cta', data: { title: 'Siap Dapetin Komisi 30% Tanpa Produk?', subtitle: 'Gratis. Tanpa risiko. Slot terbatas.', ctaText: '👉 Daftar Sekarang & Amankan Slot GMeet', buttonColor: '#ef4444' } }
+  ];
+  
+  const TEKOTOK_BLOCKS: Block[] = [
+    { id: 't1', type: 'hero', data: { title: '👉 Scale Konten TikTok Tanpa Batas', subtitle: 'Upload massal, multi akun, auto posting — semua otomatis. Fokus bikin konten, biarkan sistem yang kerja.', ctaText: '👉 Mulai Sekarang', ctaLink: '#cta-penutup', badge: 'center' } },
+    { id: 't2', type: 'text_only', data: { subtitle: '✔ Upload banyak video sekaligus (batch) \n✔ Auto posting & schedule tanpa ribet \n✔ Bisa handle banyak akun sekaligus \n✔ Cocok untuk affiliate & seller TikTok', badge: 'center', fontSize: '16', textColor: '#10b981' } },
+    { id: 't3', type: 'text_only', data: { subtitle: 'Dipakai oleh Affiliate & Seller di TikTok', badge: 'center', fontSize: '14', textColor: '#64748b' } },
+    { id: 't4', type: 'problem', data: { title: 'Kenapa Konten Lo Gak Pernah Scale?', subtitle: '👉 Masalahnya bukan di effort lo… tapi di sistem lo.', items: [{ t: 'Upload manual bikin capek', d: 'Udah bikin banyak konten, tapi mental drop pas harus upload satu-satu' }, { t: 'Akun banyak jadi ribet', d: 'Login logout terus, buang waktu & energi' }, { t: 'Gak konsisten upload', d: 'Niatnya mau rutin… tapi kalah sama capek & ribet' }], closing: 'Akhirnya growth stuck', highlinedClosing: 'di situ-situ aja.' } },
+    { id: 't5', type: 'solution', data: { title: 'Sekarang Saatnya Ubah Cara Main', subtitle: 'Kenalin… sistem automation dari Wakrod Project: Tekotok Uploader', items: [{ t: 'Scale konten lebih cepat', d: 'Tools yang dirancang buat bantu kamu' }, { t: 'Handle banyak akun tanpa stress', d: 'Bangun konsistensi tanpa effort berulang' }, { t: 'Bukan kerja lebih keras.', d: 'Tapi kerja lebih cerdas.' }] } },
+    { id: 't6', type: 'heading', data: { title: 'Upload Sekali, Jalan Terus', badge: 'center' } },
+    { id: 't7', type: 'text_only', data: { subtitle: 'Bayangin ini: ➡️ Kamu upload puluhan video sekaligus, ➡️ Sistem yang handle posting otomatis, ➡️ Semua akun jalan bareng tanpa ribet. 🔥 Ini bukan tools biasa — ini mesin scaling.', badge: 'center', fontSize: '18' } },
+    { id: 't8', type: 'features', data: { title: 'Semua yang Kamu Butuh Sudah Disiapkan', items: [{ t: '⚡ Upload Mode Fleksibel', d: 'Single upload atau batch sekaligus' }, { t: '🤖 Auto Posting & Schedule', d: 'Upload sekarang atau atur jadwal otomatis' }, { t: '🔐 Multi Akun Support', d: 'Bisa untuk akun regular, seller, atau affiliate' }, { t: '🔐 No Login Logout Ribet', d: 'Kelola banyak akun dalam satu dashboard' }, { t: '⚡ Auto Delete Video', d: 'Video bisa otomatis terhapus setelah terposting' }, { t: '🤖 User Friendly', d: 'Tampilan simpel, gak bikin pusing' }] } },
+    { id: 't9', type: 'comparison', data: { title: 'Dari Manual ke Auto System', traditional: { title: '❌ Sebelum', items: ['Upload satu-satu', 'Capek duluan sebelum konsisten', 'Growth lambat'], footer: 'Gak bakal scale.' }, spartan: { title: '✅ Setelah Tekotok', items: ['Upload massal', 'Konsisten tanpa effort', 'Konten jalan terus → peluang viral naik'], footer: 'Sistem yang kerja.' } } },
+    { id: 't10', type: 'target', data: { title: 'Siapa yang Cocok Pakai Ini?', items: [{ title: 'Affiliate TikTok', desc: 'Scale konten affiliate dengan cepat.' }, { title: 'Seller TikTok Shop', desc: 'Handle banyak video produk otomatis.' }, { title: 'Content creator', desc: 'Fokus berkreasi, bukan memposting.' }, { title: 'Agency / jasa kelola akun', desc: 'Efisiensi waktu untuk banyak klien.' }], subtitle: 'Kalau kamu main di TikTok dan mau scale… ini wajib.' } },
+    { id: 't11', type: 'heading', data: { title: '⚠️ Ini Bukan Sekadar Tools', badge: 'center', textColor: '#ef4444' } },
+    { id: 't12', type: 'text_only', data: { subtitle: 'Di dalamnya ada strategi penggunaan yang bisa memaksimalkan reach, bikin akun lebih konsisten, dan meningkatkan peluang viral. 👉 Semua akan dibahas lebih dalam di akses berikutnya.', badge: 'center' } },
+    { id: 't13', type: 'heading', data: { title: 'Akses Tidak Selalu Dibuka', badge: 'center' } },
+    { id: 't14', type: 'text_only', data: { subtitle: 'Tools ini tidak untuk semua orang. Hanya untuk yang serius mau scale. 👉 Kalau kamu lihat halaman ini, berarti kamu termasuk yang beruntung.', badge: 'center' } },
+    { id: 't15', type: 'cta', data: { title: 'Siap Scale Konten Tanpa Batas?', subtitle: 'Stop capek upload manual. Saatnya pakai sistem.', ctaText: '👉 Mulai Sekarang', buttonColor: '#ef4444' } }
   ];
 
   const handleUpdateBlock = (id: string, data: any) => {
@@ -88,6 +106,11 @@ export default function Editor() {
     if (selectedTemplate === 'komisi') {
       // Map and give unique IDs for smooth drag-and-drop
       initialBlocks = KOMISI_BLOCKS.map(block => ({
+        ...block,
+        id: Math.random().toString(36).substr(2, 9)
+      }));
+    } else if (selectedTemplate === 'tekotok') {
+      initialBlocks = TEKOTOK_BLOCKS.map(block => ({
         ...block,
         id: Math.random().toString(36).substr(2, 9)
       }));
@@ -259,6 +282,17 @@ export default function Editor() {
                            </div>
                            <h3 className="font-bold text-slate-800 text-sm">Komisi 30%</h3>
                            <p className="text-[10px] text-slate-400 mt-1">Template Project Wakrod</p>
+                        </button>
+
+                        <button 
+                          onClick={() => setSelectedTemplate('tekotok')}
+                          className={`p-6 rounded-3xl border-2 text-left transition-all ${selectedTemplate === 'tekotok' ? 'border-blue-600 bg-blue-50/30' : 'border-slate-100 bg-white hover:border-slate-200'}`}
+                        >
+                           <div className="w-10 h-10 bg-blue-100 rounded-2xl flex items-center justify-center mb-4">
+                              <Smartphone className="w-5 h-5 text-blue-600" />
+                           </div>
+                           <h3 className="font-bold text-slate-800 text-sm">Tekotok Tools</h3>
+                           <p className="text-[10px] text-slate-400 mt-1">Template Automation TikTok</p>
                         </button>
                      </div>
                   </div>
