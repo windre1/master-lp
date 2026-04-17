@@ -500,41 +500,71 @@ export function SortableBlock({
       case 'button_only':
       case 'cta':
         return (
-          <div className="space-y-4">
-            <div className={`flex ${currentAlign === 'left' ? 'justify-start' : (currentAlign === 'right' ? 'justify-end' : 'justify-center')}`}>
-              <div 
-                className="px-10 py-3 rounded-xl text-xs font-black uppercase tracking-widest shadow-lg min-w-[200px] text-center"
-                style={{ backgroundColor: block.data.buttonColor || '#0f172a', color: '#ffffff' }}
-              >
-                <input 
-                  type="text" 
-                  value={block.data.ctaText || ''} 
-                  onChange={e => updateData('ctaText', e.target.value)}
-                  className="bg-transparent border-none outline-none text-center w-full"
-                  placeholder="TOMBOL"
-                />
-              </div>
-            </div>
-            <div className="flex items-center justify-between gap-4 border-t border-slate-50 pt-4">
-              <div className="flex-1 flex items-center gap-2 text-[9px] text-slate-400 font-bold uppercase tracking-widest">
-                 <span className="shrink-0">URL</span>
-                 <input 
-                   type="text" 
-                   value={block.data.ctaLink || ''} 
-                   onChange={e => updateData('ctaLink', e.target.value)}
-                   className="flex-1 bg-slate-100 px-3 py-1.5 rounded-lg outline-none text-slate-600 text-[10px]"
-                   placeholder="https://..."
-                 />
-              </div>
-              <div className="flex items-center gap-2">
-                  <Zap className="w-3 h-3 text-slate-400" />
-                  <input 
-                    type="color" 
-                    value={block.data.buttonColor || '#0f172a'} 
-                    onChange={e => updateData('buttonColor', e.target.value)}
-                    className="w-4 h-4 rounded-full overflow-hidden border-none p-0 cursor-pointer"
-                  />
-               </div>
+          <div className="space-y-6">
+            {block.type === 'cta' && (
+              <>
+                <div className="space-y-4">
+                   <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Headline CTA</label>
+                   <textarea 
+                    rows={2}
+                    value={block.data.title || ''} 
+                    onChange={e => updateData('title', e.target.value)} 
+                    placeholder="Waktunya Scale Bisnis..."
+                    className="w-full bg-slate-50 border border-slate-100 p-4 rounded-xl outline-none font-bold text-slate-900 text-lg leading-tight"
+                   />
+                </div>
+                
+                <div className="space-y-4">
+                   <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Sub-Headline</label>
+                   <textarea 
+                    rows={2}
+                    value={block.data.subtitle || ''} 
+                    onChange={e => updateData('subtitle', e.target.value)} 
+                    placeholder="Bukan sekadar tools..."
+                    className="w-full bg-slate-50 border border-slate-100 p-4 rounded-xl outline-none text-sm text-slate-600 font-medium"
+                   />
+                </div>
+              </>
+            )}
+
+            <div className="pt-4 border-t border-slate-50">
+               <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-4 block">Pengaturan Tombol</label>
+                <div className={`flex ${currentAlign === 'left' ? 'justify-start' : (currentAlign === 'right' ? 'justify-end' : 'justify-center')}`}>
+                  <div 
+                    className="px-10 py-3 rounded-xl text-xs font-black uppercase tracking-widest shadow-lg min-w-[200px] text-center"
+                    style={{ backgroundColor: block.data.buttonColor || '#0f172a', color: '#ffffff' }}
+                  >
+                    <input 
+                      type="text" 
+                      value={block.data.ctaText || ''} 
+                      onChange={e => updateData('ctaText', e.target.value)}
+                      className="bg-transparent border-none outline-none text-center w-full"
+                      placeholder="TOMBOL"
+                    />
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between gap-4 border-t border-slate-50 mt-6 pt-4">
+                  <div className="flex-1 flex items-center gap-2 text-[9px] text-slate-400 font-bold uppercase tracking-widest">
+                     <span className="shrink-0">URL</span>
+                     <input 
+                       type="text" 
+                       value={block.data.ctaLink || ''} 
+                       onChange={e => updateData('ctaLink', e.target.value)}
+                       className="flex-1 bg-slate-100 px-3 py-1.5 rounded-lg outline-none text-slate-600 text-[10px]"
+                       placeholder="https://..."
+                     />
+                  </div>
+                  <div className="flex items-center gap-2">
+                      <Zap className="w-3 h-3 text-slate-400" />
+                      <input 
+                        type="color" 
+                        value={block.data.buttonColor || '#0f172a'} 
+                        onChange={e => updateData('buttonColor', e.target.value)}
+                        className="w-4 h-4 rounded-full overflow-hidden border-none p-0 cursor-pointer"
+                      />
+                   </div>
+                </div>
             </div>
           </div>
         );
