@@ -22,6 +22,7 @@ export type BlockType =
   | 'disclaimer';
 
 export interface BlockData {
+  [key: string]: any;
   title?: string;
   subtitle?: string;
   badge?: string;
