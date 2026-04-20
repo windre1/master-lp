@@ -47,10 +47,10 @@ const blockMap: Record<string, React.FC<any>> = {
     return (
       <div className="max-w-4xl px-6 mx-auto py-12">
         <h2 
-          className={`font-extrabold tracking-[-0.03em] ${alignment}`}
+          className={`font-serif font-black tracking-[-0.03em] ${alignment}`}
           style={{ 
-            color: data.textColor || '#0f172a',
-            fontSize: data.fontSize ? `${data.fontSize}px` : '2.5rem',
+            color: data.textColor || '#ffffff',
+            fontSize: data.fontSize ? `${data.fontSize}px` : '3rem',
             lineHeight: '1.05'
           }}
         >
@@ -68,7 +68,7 @@ const blockMap: Record<string, React.FC<any>> = {
         <p 
           className={`leading-relaxed font-medium whitespace-pre-wrap ${alignment} w-full`}
           style={{ 
-            color: data.textColor || '#475569',
+            color: data.textColor || '#94a3b8',
             fontSize: data.fontSize ? `${data.fontSize}px` : '1.125rem'
           }}
         >
@@ -83,7 +83,7 @@ const blockMap: Record<string, React.FC<any>> = {
     return (
       <div className={`max-w-5xl px-6 mx-auto py-12 flex ${alignment}`}>
         <div 
-          className="rounded-[2.5rem] overflow-hidden shadow-2xl border border-slate-100 ring-1 ring-slate-900/5 group"
+          className="rounded-[2.5rem] overflow-hidden shadow-2xl border border-white/10 ring-1 ring-white/5 group pink-glow"
           style={{ width: `${width}%` }}
         >
           {data.image ? (
@@ -93,7 +93,7 @@ const blockMap: Record<string, React.FC<any>> = {
               className="w-full h-auto transform group-hover:scale-[1.02] transition-transform duration-1000" 
             />
           ) : (
-            <div className="py-20 bg-slate-50 flex items-center justify-center text-slate-400 font-bold uppercase tracking-widest text-xs">
+            <div className="py-20 bg-white/5 flex items-center justify-center text-slate-400 font-bold uppercase tracking-widest text-xs">
               Belum ada gambar
             </div>
           )}
@@ -207,7 +207,7 @@ export default function Renderer({ blocks, settings }: RendererProps) {
   const bgGlobal = settings?.globalBg || '#f0f7ff';
 
   return (
-    <div className="text-slate-900 font-sans selection:bg-slate-900 selection:text-white min-h-screen w-full relative overflow-x-hidden" style={{ backgroundColor: bgGlobal }}>
+    <div className="font-sans selection:bg-pink selection:text-white min-h-screen w-full relative overflow-x-hidden" style={{ backgroundColor: bgGlobal }}>
       {/* Background Decorative Elements */}
       <div className="fixed top-0 left-0 w-full h-full pointer-events-none -z-0">
         <div className="absolute top-[10%] left-[-10%] w-[40%] h-[40%] bg-blue-200/20 rounded-full blur-[120px]"></div>
