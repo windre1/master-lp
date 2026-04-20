@@ -249,39 +249,3 @@ export default function Renderer({ blocks, settings }: RendererProps) {
     </div>
   );
 }
-
-export default function Renderer({ blocks, settings }: RendererProps) {
-  if (!blocks) return null;
-
-  const bgGlobal = settings?.globalBg || '#f0f7ff';
-
-  return (
-    <div className="font-sans selection:bg-pink selection:text-white min-h-screen w-full relative overflow-x-hidden" style={{ backgroundColor: bgGlobal }}>
-      {/* Background Decorative Elements */}
-      <div className="fixed top-0 left-0 w-full h-full pointer-events-none -z-0">
-        <div className="absolute top-[10%] left-[-10%] w-[40%] h-[40%] bg-blue-200/20 rounded-full blur-[120px]"></div>
-        <div className="absolute bottom-[10%] right-[-10%] w-[40%] h-[40%] bg-indigo-200/20 rounded-full blur-[120px]"></div>
-      </div>
-
-      <div className="flex flex-col w-full relative z-10">
-        {blocks.map((block) => {
-          const Component = blockMap[block.type];
-          if (!Component) return <div key={block.id} className="p-8 text-red-500 text-center">Missing component: {block.type}</div>;
-          return (
-            <div key={block.id} className="w-full">
-              <Component data={block.data} />
-            </div>
-          );
-        })}
-        {blocks.length === 0 && (
-          <div className="flex flex-col items-center justify-center py-40 min-h-screen">
-             <div className="w-20 h-20 bg-white/50 backdrop-blur-xl rounded-[2rem] flex items-center justify-center mb-6 shadow-xl border border-white/20">
-                <span className="text-slate-400 text-4xl">📄</span>
-             </div>
-             <p className="text-slate-400 font-medium tracking-tight">Halaman ini belum memiliki konten.</p>
-          </div>
-        )}
-      </div>
-    </div>
-  );
-}
