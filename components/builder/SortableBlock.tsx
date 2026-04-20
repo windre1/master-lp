@@ -416,11 +416,11 @@ export function SortableBlock({
                {(block.data.items || []).map((item, idx) => (
                  <div 
                   key={idx} 
-                  className="bg-white p-6 rounded-[2rem] border-2 border-slate-100 relative group/item shadow-sm"
+                  className="bg-white p-8 rounded-[2rem] border-2 border-slate-100 relative group/item shadow-sm flex flex-col items-center text-center"
                   style={{ 
                     width: (block.data.items || []).length === 1 && block.data.priceListWidth ? `${block.data.priceListWidth}%` : 'auto',
-                    minWidth: '250px',
-                    flex: (block.data.items || []).length === 1 ? 'none' : '1 1 250px',
+                    minWidth: '280px',
+                    flex: (block.data.items || []).length === 1 ? 'none' : '1 1 280px',
                     maxWidth: (block.data.items || []).length === 3 ? '100%' : '400px'
                   }}
                  >
@@ -435,32 +435,34 @@ export function SortableBlock({
                        <Trash2 className="w-4 h-4" />
                     </button>
 
-                    <div className="space-y-4">
-                        <div className="flex items-center justify-between gap-2 border-b border-slate-50 pb-2">
-                           <input 
-                             type="text" 
-                             value={item.title || ''} 
-                             onChange={(e) => {
-                               const newItems = [...(block.data.items || [])];
-                               newItems[idx] = { ...item, title: e.target.value };
-                               updateData('items', newItems);
-                             }}
-                             style={{ color: item.textColor || '#0f172a' }}
-                             placeholder="Judul Paket"
-                             className="w-full bg-transparent font-black text-sm outline-none placeholder:text-slate-300"
-                           />
-                           <input 
-                             type="color" 
-                             value={item.textColor || '#0f172a'} 
-                             onChange={(e) => {
-                               const newItems = [...(block.data.items || [])];
-                               newItems[idx] = { ...item, textColor: e.target.value };
-                               updateData('items', newItems);
-                             }}
-                             className="w-4 h-4 rounded-full overflow-hidden border-none p-0 cursor-pointer shrink-0"
-                           />
+                    <div className="space-y-4 w-full">
+                        <div className="flex flex-col items-center gap-2 border-b border-slate-50 pb-4">
+                           <div className="flex items-center gap-2 w-full justify-center">
+                              <input 
+                                type="text" 
+                                value={item.title || ''} 
+                                onChange={(e) => {
+                                  const newItems = [...(block.data.items || [])];
+                                  newItems[idx] = { ...item, title: e.target.value };
+                                  updateData('items', newItems);
+                                }}
+                                style={{ color: item.textColor || '#0f172a' }}
+                                placeholder="Judul Paket"
+                                className="bg-transparent font-black text-sm outline-none placeholder:text-slate-300 text-center flex-1"
+                              />
+                              <input 
+                                type="color" 
+                                value={item.textColor || '#0f172a'} 
+                                onChange={(e) => {
+                                  const newItems = [...(block.data.items || [])];
+                                  newItems[idx] = { ...item, textColor: e.target.value };
+                                  updateData('items', newItems);
+                                }}
+                                className="w-4 h-4 rounded-full overflow-hidden border-none p-0 cursor-pointer shrink-0"
+                              />
+                           </div>
                         </div>
-                        <div className="flex items-center gap-1 border-b border-slate-50 pb-2">
+                        <div className="flex items-center justify-center gap-1 border-b border-slate-50 pb-2">
                            <span className="text-[10px] font-black text-slate-300">Rp</span>
                            <input 
                              type="text" 
@@ -471,7 +473,7 @@ export function SortableBlock({
                                updateData('items', newItems);
                              }}
                              placeholder="Harga"
-                             className="w-full bg-transparent font-black text-xs outline-none text-blue-600 placeholder:text-slate-200"
+                             className="bg-transparent font-black text-xs outline-none text-blue-600 placeholder:text-slate-200 text-center w-24"
                            />
                         </div>
                        <textarea 
@@ -483,9 +485,9 @@ export function SortableBlock({
                            updateData('items', newItems);
                          }}
                          placeholder="Keterangan..."
-                         className="w-full bg-transparent text-xs text-slate-800 font-medium outline-none resize-none leading-relaxed"
+                         className="w-full bg-slate-50 p-3 rounded-xl text-xs text-slate-800 font-medium outline-none resize-none leading-relaxed text-center"
                        />
-                       <div className="pt-4 space-y-3">
+                       <div className="pt-4 space-y-3 w-full">
                           <div className="flex items-center gap-2 bg-slate-100 p-2 rounded-xl">
                             <input 
                               type="text" 
@@ -496,7 +498,7 @@ export function SortableBlock({
                                 updateData('items', newItems);
                               }}
                               placeholder="Teks Tombol"
-                              className="flex-1 bg-transparent font-black text-[9px] uppercase tracking-widest text-slate-900 outline-none"
+                              className="flex-1 bg-transparent font-black text-[9px] uppercase tracking-widest text-slate-900 outline-none text-center"
                             />
                             <input 
                               type="color" 
@@ -518,7 +520,7 @@ export function SortableBlock({
                               updateData('items', newItems);
                             }}
                             placeholder="Link URL (https://...)"
-                            className="w-full bg-slate-50 border border-slate-100 px-3 py-2 rounded-xl text-[9px] text-slate-900 font-bold outline-none"
+                            className="w-full bg-slate-50 border border-slate-100 px-3 py-2 rounded-xl text-[9px] text-slate-900 font-bold outline-none text-center"
                           />
                        </div>
                     </div>
