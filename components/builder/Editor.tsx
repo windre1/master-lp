@@ -18,7 +18,7 @@ export default function Editor() {
   const [showModal, setShowModal] = useState(false);
   const [newTitle, setNewTitle] = useState('');
   const [newSlug, setNewSlug] = useState('');
-  const [selectedTemplate, setSelectedTemplate] = useState<'blank' | 'komisi' | 'tekotok'>('blank');
+  const [selectedTemplate, setSelectedTemplate] = useState<'blank' | 'komisi' | 'tekotok' | 'tekotok2'>('blank');
   const [settings, setSettings] = useState<{ globalBg?: string }>({ globalBg: '#f0f7ff' });
 
 
@@ -77,6 +77,25 @@ export default function Editor() {
       ] 
     } },
     { id: 't12', type: 'cta', data: { title: 'Siap Hasilkan Komisi Tanpa Wajah?', subtitle: 'Amankan slot kamu sekarang sebelum harga naik.', ctaText: 'SAYA MAU BERGABUNG SEKARANG', buttonColor: '#FF2D55' } }
+  ];
+
+  const TEKOTOK2_BLOCKS: Block[] = [
+    { id: 't2-1', type: 'text_only', data: { subtitle: '● AKTIF: PESERTA SUDAH BERGABUNG', badge: 'center', fontSize: '10', textColor: '#FF2D55' } },
+    { id: 't2-2', type: 'hero', data: { title: 'Dapatkan 100jt Pertama dari TikTok Tanpa Perlu Terkenal', subtitle: 'Sistem Ghost Live yang dirancang khusus untuk affiliate pemula yang pemalu tapi mau cuan gede.', ctaText: 'AMANKAN METODE GHOST LIVE ❯', ctaLink: '#cta-penutup', badge: 'center', buttonColor: '#FF2D55', textColor: '#ffffff' } },
+    { id: 't2-3', type: 'specs', data: { items: [{ t: '25+', d: 'VIDEO TUTORIAL' }, { t: '80rb', d: 'POTENSI KOMISI' }, { t: '0', d: 'TAMPIL WAJAH' }] } },
+    { id: 't2-4', type: 'problem', data: { 
+      title: 'Selalu Gagal Main Affiliate Karena Ini?', 
+      subtitle: 'KENAPA HARUS PAKAI METODE GHOST?',
+      items: [
+        { t: 'Malu rekaman muka sendiri', d: 'Gak pede depan kamera, bingung mau ngomong apa, takut diketawain temen.' },
+        { t: 'Gak ada waktu buat konten ribet', d: 'Sibuk kerja atau kuliah, pengennya yang sekali setting langsung jalan.' },
+        { t: 'Akun kena shadowban terus', d: 'Gak ngerti aturan main TikTok yang baru, asal upload malah akun mati.' }
+      ],
+      closing: 'Saatnya berhenti mencoba-coba...',
+      highlinedClosing: 'pakai sistem yang sudah teruji.'
+    } },
+    { id: 't2-5', type: 'socialProof', data: { title: 'Bukti Penghasilan Peserta', subtitle: 'REAL RESULT' } },
+    { id: 't2-6', type: 'cta', data: { title: 'Siap Scale Konten Tanpa Batas?', subtitle: 'Slot terbatas hanya untuk 50 orang pendaftar pertama.', ctaText: 'DAFTAR SEKARANG JUGA', buttonColor: '#FF2D55' } }
   ];
 
   const handleUpdateBlock = (id: string, data: any) => {
@@ -138,6 +157,12 @@ export default function Editor() {
       initialSettings = { globalBg: '#f0f7ff' };
     } else if (selectedTemplate === 'tekotok') {
       initialBlocks = TEKOTOK_BLOCKS.map(block => ({
+        ...block,
+        id: Math.random().toString(36).substr(2, 9)
+      }));
+      initialSettings = { globalBg: '#000000' };
+    } else if (selectedTemplate === 'tekotok2') {
+      initialBlocks = TEKOTOK2_BLOCKS.map(block => ({
         ...block,
         id: Math.random().toString(36).substr(2, 9)
       }));
@@ -320,8 +345,19 @@ export default function Editor() {
                            <div className="w-10 h-10 bg-blue-100 rounded-2xl flex items-center justify-center mb-4">
                               <Smartphone className="w-5 h-5 text-blue-600" />
                            </div>
-                           <h3 className="font-bold text-slate-800 text-sm">Tekotok Tools</h3>
-                           <p className="text-[10px] text-slate-400 mt-1">Template Automation TikTok</p>
+                           <h3 className="font-bold text-slate-800 text-sm">Tekotok V1</h3>
+                           <p className="text-[10px] text-slate-400 mt-1">Template Original</p>
+                        </button>
+
+                        <button 
+                          onClick={() => setSelectedTemplate('tekotok2')}
+                          className={`p-6 rounded-3xl border-2 text-left transition-all ${selectedTemplate === 'tekotok2' ? 'border-pink-500 bg-pink-50/30' : 'border-slate-100 bg-white hover:border-slate-200'}`}
+                        >
+                           <div className="w-10 h-10 bg-pink-100 rounded-2xl flex items-center justify-center mb-4">
+                              <Smartphone className="w-5 h-5 text-pink-500" />
+                           </div>
+                           <h3 className="font-bold text-slate-800 text-sm">Tekotok V2 Premium</h3>
+                           <p className="text-[10px] text-slate-400 mt-1">Desain Dark & Serif (Ghost Live)</p>
                         </button>
                      </div>
                   </div>
