@@ -39,63 +39,26 @@ export default function Editor() {
   ];
   
   const TEKOTOK_BLOCKS: Block[] = [
-    { id: 't1', type: 'text_only', data: { subtitle: '● AKTIF: PESERTA SUDAH BERGABUNG', badge: 'center', fontSize: '10', textColor: '#FF2D55' } },
-    { id: 't2', type: 'hero', data: { title: 'Hasilkan Komisi dari TikTok dalam 3 Hari Tanpa Tampil Wajah', subtitle: 'Sistem step-by-step yang sudah dibuktikan ratusan affiliate pemula — komisi hingga Rp 80.000/item dari TikTok Live.', ctaText: 'Buka Akses Metode Ghost Live ❯', ctaLink: '#cta-penutup', badge: 'center', buttonColor: '#FF2D55', textColor: '#ffffff' } },
-    { id: 't2-h', type: 'text_only', data: { subtitle: '...menggunakan 1 metode sederhana yang 90% orang belum tahu ⚡', badge: 'center', fontSize: '14', textColor: '#00FFC2' } },
-    { id: 't3', type: 'specs', data: { items: [{ t: '10+', d: 'MODUL VIDEO' }, { t: '80rb', d: 'KOMISI/ITEM' }, { t: '100%', d: 'TANPA WAJAH' }] } },
-    { id: 't4', type: 'image_only', data: { image: 'https://images.unsplash.com/photo-1611162617263-4ec3060a058e?q=80&w=1000&auto=format&fit=crop', imageWidth: '70' } },
-    { id: 't5', type: 'problem', data: { 
-      title: 'Pengen cuan dari TikTok, tapi selalu mentok di sini...', 
-      subtitle: 'APAKAH INI KAMU?',
-      items: [
-        { t: 'HP udah siap, tapi begitu pencet "Go Live"... batal', d: 'Tangan gemetar, keringat dingin. Takut dihujat teman, takut salah ngomong, takut di-judge. Akhirnya tutup aplikasi lagi. Besok pun sama.' },
-        { t: 'Sekalinya berani live, akun malah kena pelanggaran', d: 'Nggak ngerti kenapa tiba-tiba kena warning. Padahal nggak ngomong aneh-aneh. Bingung, panik, dan akhirnya kapok.' },
-        { t: 'Live 2 jam, penonton cuma 1-2 orang. Nol closing.', d: 'Capek ngomong sendirian. Yang nonton cuma temen sendiri. Nggak ada yang beli. Rasanya kayak ngomong ke tembok.' },
-        { t: 'Mau jadi affiliate tapi nggak punya modal beli sample', d: 'Semua orang bilang "beli dulu produknya buat sample." Lah, uangnya dari mana? Niat udah besar tapi modal nol.' },
-        { t: 'Makin banyak tonton tutorial, makin bingung', d: 'Yang satu bilang gini, yang lain bilang gitu. YouTube, TikTok, semua beda. Akhirnya nggak mulai-mulai.' }
-      ],
-      closing: 'Kalau minimal 2 dari masalah di atas kamu rasakan...',
-      highlinedClosing: 'maka halaman ini ditulis khusus untuk kamu.'
-    } },
-    { id: 't6', type: 'heading', data: { title: 'TRANSFORMASI NYATA', badge: 'center', textColor: '#FF2D55', fontSize: '14' } },
-    { id: 't7', type: 'heading', data: { title: 'Dari nyaris menyerah, jadi punya skill yang menghasilkan', badge: 'center', textColor: '#ffffff' } },
-    { id: 't8', type: 'comparison', data: { 
-      title: 'HASIL NYATA', 
-      traditional: { title: 'SEBELUM', items: ['Takut pencet Go Live', 'Gemetaran, 0 closing', 'Akun kena pelanggaran', 'Bingung mulai dari mana'], footer: 'Gak ada hasil.' }, 
-      spartan: { title: 'SESUDAH', items: ['Live PD tanpa tampil wajah', 'Penonton stay & beli', 'Akun aman dari pelanggaran', 'Komisi masuk tiap hari'], footer: 'Sistem yang kerja.' } 
-    } },
-    { id: 't-proof', type: 'socialProof', data: { title: 'Mereka sudah membuktikan', subtitle: 'HASIL NYATA PESERTA' } },
-    { id: 't9', type: 'heading', data: { title: 'Perkenalkan... Metode "Ghost Live"', badge: 'center', textColor: '#ffffff' } },
-    { id: 't10', type: 'text_only', data: { subtitle: 'Sistem langkah demi langkah untuk menghasilkan komisi affiliate dari TikTok Live — tanpa wajah, tanpa modal produk, tanpa pengalaman.', badge: 'center', textColor: '#ffffff' } },
-    { id: 't11', type: 'features', data: { 
-      title: '7 Hari dari Sekarang...', 
-      items: [
-        { t: 'Live dari kamar sendiri', d: 'Tanpa studio, tanpa perlengkapan mahal' },
-        { t: 'Komisi masuk tiap live', d: 'Produk unggulan komisi Rp 80.000/item' },
-        { t: 'Tanpa dikenal siapapun', d: 'Privasi terjaga, tetep cuan dari rumah' },
-        { t: 'Punya skill yang dicari', d: 'Skill yang bisa menghasilkan kapanpun' }
-      ] 
-    } },
-    { id: 't12', type: 'cta', data: { title: 'Siap Hasilkan Komisi Tanpa Wajah?', subtitle: 'Amankan slot kamu sekarang sebelum harga naik.', ctaText: 'SAYA MAU BERGABUNG SEKARANG', buttonColor: '#FF2D55' } }
+    { id: 't1', type: 'hero', data: { title: 'Scale Konten TikTok Tanpa Batas', subtitle: 'Upload massal, multi akun, auto posting — semua otomatis. Fokus bikin konten, biarkan sistem yang kerja.', ctaText: 'MULAI SEKARANG', ctaLink: '#cta-penutup', badge: 'center' } },
+    { id: 't2', type: 'text_only', data: { subtitle: '✔ Upload banyak video sekaligus (batch) \n✔ Auto posting & schedule tanpa ribet \n✔ Bisa handle banyak akun sekaligus \n✔ Cocok untuk affiliate & seller TikTok', badge: 'center', fontSize: '18', textColor: '#10b981' } },
+    { id: 't3', type: 'text_only', data: { subtitle: 'Dipakai oleh Affiliate & Seller di TikTok', badge: 'center', fontSize: '14', textColor: '#64748b' } },
+    { id: 't4', type: 'problem', data: { title: 'Kenapa Konten Lo Gak Pernah Scale?', subtitle: 'Masalahnya bukan di effort lo… tapi di sistem lo.', items: [{ t: 'Upload Manual Melelahkan', d: 'Bikin banyak konten tapi mental drop pas harus upload satu per satu.' }, { t: 'Ribet Kelola Banyak Akun', d: 'Login logout terus menerus menghabiskan waktu dan energi Anda.' }, { t: 'Gak Konsisten Upload', d: 'Niat awal mau rutin tapi kalah sama rasa capek dan sistem yang ribet.' }], closing: 'Akhirnya growth stuck', highlinedClosing: 'di situ-situ aja.' } },
+    { id: 't5', type: 'solution', data: { title: 'Saatnya Ubah Cara Main Anda', subtitle: 'Kenalin… sistem automation dari Wakrod Project: Tekotok Uploader', items: [{ t: 'Scale Konten Lebih Cepat', d: 'Tools yang dirancang khusus untuk pertumbuhan cepat.' }, { t: 'Handle Banyak Akun Tanpa Stress', d: 'Bangun konsistensi tanpa perlu effort berulang.' }, { t: 'Kerja Lebih Cerdas', d: 'Bukan sekadar kerja lebih keras, tapi lebih efisien.' }] } },
+    { id: 't6', type: 'heading', data: { title: 'Upload Sekali, Jalan Terus', badge: 'center', fontSize: '32' } },
+    { id: 't7', type: 'text_only', data: { subtitle: 'Bayangin ini: Kamu upload puluhan video sekaligus, sistem yang handle posting otomatis, dan semua akun jalan bareng tanpa ribet. 🔥 Ini bukan tools biasa — ini mesin scaling.', badge: 'center', fontSize: '20' } },
+    { id: 't8', type: 'features', data: { title: 'Semua Kebutuhan Anda Sudah Siap', items: [{ t: '⚡ Upload Mode Fleksibel', d: 'Single upload atau batch sekaligus sesuai kebutuhan.' }, { t: '🤖 Auto Posting & Schedule', d: 'Upload sekarang atau atur jadwal otomatis kapan saja.' }, { t: '🔐 Multi Akun Support', d: 'Bisa untuk akun regular, seller, atau affiliate.' }, { t: '🔐 No Login Logout Ribet', d: 'Kelola banyak akun dalam satu dashboard pusat.' }, { t: '⚡ Auto Delete Video', d: 'Video otomatis terhapus setelah terposting.' }, { t: '🤖 User Friendly', d: 'Tampilan simpel dan intuitif, tidak bikin pusing.' }] } },
+    { id: 't9', type: 'comparison', data: { title: 'Dari Manual ke Auto System', traditional: { title: 'ALUR MANUAL', items: ['Upload satu per satu', 'Capek sebelum konsisten', 'Growth sangat lambat'], footer: 'Gak bakal scale.' }, spartan: { title: 'SISTEM TEKOTOK', items: ['Upload massal otomatis', 'Konsisten tanpa usaha ekstra', 'Peluang viral meningkat drastis'], footer: 'Sistem yang kerja.' } } },
+    { id: 't10', type: 'target', data: { title: 'Siapa yang Cocok Pakai Ini?', items: [{ title: 'Affiliate TikTok', desc: 'Scale konten affiliate dengan sangat cepat.' }, { title: 'Seller TikTok Shop', desc: 'Handle puluhan video produk secara otomatis.' }, { title: 'Content Creator', desc: 'Fokus berkreasi, biarkan sistem yang memposting.' }, { title: 'Agency / Jasa Akun', desc: 'Efisiensi waktu untuk menangani banyak klien.' }], subtitle: 'Kalau kamu mau scale di TikTok… ini adalah tools wajib.' } },
+    { id: 't11', type: 'cta', data: { title: 'Siap Scale Konten Tanpa Batas?', subtitle: 'Stop capek upload manual. Saatnya pakai sistem automation sekarang.', ctaText: 'MULAI SEKARANG', buttonColor: '#2563eb' } }
   ];
 
   const TEKOTOK2_BLOCKS: Block[] = [
-    { id: 't2-1', type: 'text_only', data: { subtitle: '● AKTIF: PESERTA SUDAH BERGABUNG', badge: 'center', fontSize: '10', textColor: '#FF2D55' } },
-    { id: 't2-2', type: 'hero', data: { title: 'Dapatkan 100jt Pertama dari TikTok Tanpa Perlu Terkenal', subtitle: 'Sistem Ghost Live yang dirancang khusus untuk affiliate pemula yang pemalu tapi mau cuan gede.', ctaText: 'AMANKAN METODE GHOST LIVE ❯', ctaLink: '#cta-penutup', badge: 'center', buttonColor: '#FF2D55', textColor: '#ffffff' } },
-    { id: 't2-3', type: 'specs', data: { items: [{ t: '25+', d: 'VIDEO TUTORIAL' }, { t: '80rb', d: 'POTENSI KOMISI' }, { t: '0', d: 'TAMPIL WAJAH' }] } },
-    { id: 't2-4', type: 'problem', data: { 
-      title: 'Selalu Gagal Main Affiliate Karena Ini?', 
-      subtitle: 'KENAPA HARUS PAKAI METODE GHOST?',
-      items: [
-        { t: 'Malu rekaman muka sendiri', d: 'Gak pede depan kamera, bingung mau ngomong apa, takut diketawain temen.' },
-        { t: 'Gak ada waktu buat konten ribet', d: 'Sibuk kerja atau kuliah, pengennya yang sekali setting langsung jalan.' },
-        { t: 'Akun kena shadowban terus', d: 'Gak ngerti aturan main TikTok yang baru, asal upload malah akun mati.' }
-      ],
-      closing: 'Saatnya berhenti mencoba-coba...',
-      highlinedClosing: 'pakai sistem yang sudah teruji.'
-    } },
-    { id: 't2-5', type: 'socialProof', data: { title: 'Bukti Penghasilan Peserta', subtitle: 'REAL RESULT' } },
-    { id: 't2-6', type: 'cta', data: { title: 'Siap Scale Konten Tanpa Batas?', subtitle: 'Slot terbatas hanya untuk 50 orang pendaftar pertama.', ctaText: 'DAFTAR SEKARANG JUGA', buttonColor: '#FF2D55' } }
+    { id: 't2-1', type: 'hero', data: { title: 'Scale Konten TikTok Tanpa Batas', subtitle: 'Upload massal, multi akun, auto posting — semua otomatis. Fokus bikin konten, biarkan sistem yang kerja.', ctaText: 'MULAI SEKARANG', ctaLink: '#cta-penutup', badge: 'center', textColor: '#ffffff', buttonColor: '#FF2D55' } },
+    { id: 't2-2', type: 'text_only', data: { subtitle: '✔ Upload banyak video sekaligus (batch) \n✔ Auto posting & schedule tanpa ribet \n✔ Bisa handle banyak akun sekaligus', badge: 'center', fontSize: '18', textColor: '#00FFC2' } },
+    { id: 't2-3', type: 'problem', data: { title: 'Kenapa Konten Lo Gak Pernah Scale?', subtitle: 'Masalahnya bukan di effort lo… tapi di sistem lo.', items: [{ t: 'Upload Manual Melelahkan', d: 'Bikin banyak konten tapi mental drop pas harus upload satu per satu.' }, { t: 'Ribet Kelola Banyak Akun', d: 'Login logout terus menerus menghabiskan waktu dan energi Anda.' }, { t: 'Gak Konsisten Upload', d: 'Niat awal mau rutin tapi kalah sama rasa capek dan sistem yang ribet.' }], closing: 'Akhirnya growth stuck', highlinedClosing: 'di situ-situ aja.' } },
+    { id: 't2-4', type: 'socialProof', data: { title: 'Mereka sudah membuktikan', subtitle: 'HASIL NYATA USER' } },
+    { id: 't2-5', type: 'features', data: { title: 'Semua Kebutuhan Anda Sudah Siap', items: [{ t: '⚡ Upload Mode Fleksibel', d: 'Single upload atau batch sekaligus sesuai kebutuhan.' }, { t: '🤖 Auto Posting & Schedule', d: 'Upload sekarang atau atur jadwal otomatis kapan saja.' }, { t: '🔐 Multi Akun Support', d: 'Bisa untuk akun regular, seller, atau affiliate.' }] } },
+    { id: 't2-6', type: 'cta', data: { title: 'Siap Scale Konten Tanpa Batas?', subtitle: 'Stop capek upload manual. Saatnya pakai sistem automation sekarang.', ctaText: 'MULAI SEKARANG', buttonColor: '#FF2D55' } }
   ];
 
   const handleUpdateBlock = (id: string, data: any) => {
@@ -160,7 +123,7 @@ export default function Editor() {
         ...block,
         id: Math.random().toString(36).substr(2, 9)
       }));
-      initialSettings = { globalBg: '#000000' };
+      initialSettings = { globalBg: '#f0f7ff' };
     } else if (selectedTemplate === 'tekotok2') {
       initialBlocks = TEKOTOK2_BLOCKS.map(block => ({
         ...block,
