@@ -8,8 +8,8 @@ export default function Hero({ data }: { data: BlockData }) {
     <section className={`relative py-16 md:py-24 ${alignment} max-w-5xl mx-auto px-6 overflow-hidden flex flex-col ${itemsAlignment}`}>
       
       <h1 
-        className="text-4xl md:text-5xl lg:text-7xl font-serif font-black leading-[1.05] mb-8 tracking-[-0.035em] max-w-4xl"
-        style={{ color: data.textColor || '#0f172a' }}
+        className="text-4xl md:text-5xl lg:text-7xl font-serif font-black leading-[1.1] md:leading-[1.05] mb-8 tracking-[-0.05em] max-w-4xl"
+        style={{ color: data.textColor || '#ffffff' }}
       >
         {data.title || 'Judul Landing Page Anda'}
       </h1>

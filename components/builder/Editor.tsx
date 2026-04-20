@@ -64,6 +64,7 @@ export default function Editor() {
       traditional: { title: 'SEBELUM', items: ['Takut pencet Go Live', 'Gemetaran, 0 closing', 'Akun kena pelanggaran', 'Bingung mulai dari mana'], footer: 'Gak ada hasil.' }, 
       spartan: { title: 'SESUDAH', items: ['Live PD tanpa tampil wajah', 'Penonton stay & beli', 'Akun aman dari pelanggaran', 'Komisi masuk tiap hari'], footer: 'Sistem yang kerja.' } 
     } },
+    { id: 't-proof', type: 'socialProof', data: { title: 'Mereka sudah membuktikan', subtitle: 'HASIL NYATA PESERTA' } },
     { id: 't9', type: 'heading', data: { title: 'Perkenalkan... Metode "Ghost Live"', badge: 'center', textColor: '#ffffff' } },
     { id: 't10', type: 'text_only', data: { subtitle: 'Sistem langkah demi langkah untuk menghasilkan komisi affiliate dari TikTok Live — tanpa wajah, tanpa modal produk, tanpa pengalaman.', badge: 'center', textColor: '#ffffff' } },
     { id: 't11', type: 'features', data: { 
@@ -140,7 +141,7 @@ export default function Editor() {
         ...block,
         id: Math.random().toString(36).substr(2, 9)
       }));
-      initialSettings = { globalBg: '#0B0B0F' };
+      initialSettings = { globalBg: '#000000' };
     }
     
     try {
