@@ -119,6 +119,78 @@ export function SortableBlock({
 
   const renderFields = () => {
     switch (block.type) {
+      case 'features':
+        return (
+          <div className="space-y-6">
+            <div className="space-y-4">
+               <div className="flex items-center justify-between">
+                  <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Judul Keunggulan</label>
+                  <TextToolbar field="title" />
+               </div>
+               <input 
+                 type="text" 
+                 value={block.data.title || ''} 
+                 onChange={e => updateData('title', e.target.value)} 
+                 className="w-full bg-slate-50 border border-slate-100 p-4 rounded-xl outline-none font-bold text-slate-800 text-lg"
+               />
+            </div>
+            
+            <div className="space-y-4 pt-4 border-t border-slate-50">
+               <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Daftar Fitur / Benefit</label>
+               <div className="grid gap-3">
+                  {(block.data.items || []).map((item: any, idx: number) => (
+                    <div key={idx} className="flex gap-2 items-start bg-slate-50 p-3 rounded-xl border border-slate-100">
+                       <div className="flex-1 space-y-2">
+                        <input 
+                          type="text" 
+                          value={item.t || item.title || ''} 
+                          onChange={(e) => {
+                            const newItems = [...(block.data.items || [])];
+                            newItems[idx] = { ...item, t: e.target.value };
+                            updateData('items', newItems);
+                          }}
+                          placeholder="Judul"
+                          className="w-full bg-white border border-slate-100 px-3 py-2 rounded-lg font-bold text-xs outline-none"
+                        />
+                        <textarea 
+                          rows={2}
+                          value={item.d || item.desc || ''} 
+                          onChange={(e) => {
+                            const newItems = [...(block.data.items || [])];
+                            newItems[idx] = { ...item, d: e.target.value };
+                            updateData('items', newItems);
+                          }}
+                          placeholder="Deskripsi"
+                          className="w-full bg-white border border-slate-100 px-3 py-2 rounded-lg text-[10px] outline-none resize-none"
+                        />
+                       </div>
+                       <button onClick={() => updateData('items', (block.data.items || []).filter((_: any, i: number) => i !== idx))} className="p-2 text-slate-300 hover:text-red-500">
+                          <Trash2 className="w-3 h-3" />
+                       </button>
+                    </div>
+                  ))}
+                  <button 
+                    onClick={() => updateData('items', [...(block.data.items || []), { t: 'Fitur Baru', d: 'Keterangan...' }])}
+                    className="w-full py-2 border-2 border-dashed border-slate-200 rounded-xl text-[9px] font-black text-slate-400 hover:text-slate-600"
+                  >
+                    + Tambah Fitur
+                  </button>
+               </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4 pt-2 border-t border-slate-50">
+                <div className="flex items-center gap-2">
+                   <Zap className="w-3 h-3 text-slate-500" />
+                   <input 
+                     type="color" 
+                     value={block.data.textColor || '#0f172a'} 
+                     onChange={e => updateData('textColor', e.target.value)}
+                     className="w-4 h-4 rounded-full overflow-hidden border-none p-0 cursor-pointer"
+                   />
+                </div>
+            </div>
+          </div>
+        );
       case 'hero':
         return (
           <div className="space-y-6">
@@ -207,6 +279,34 @@ export function SortableBlock({
                        className="flex-1 h-1 bg-slate-200 rounded-lg appearance-none cursor-pointer"
                      />
                      <span className="text-[9px] font-bold text-slate-600">{block.data.imageWidth || 100}%</span>
+                  </div>
+               </div>
+
+               <div className="grid grid-cols-2 gap-4 pt-4 border-t border-slate-50">
+                  <div className="space-y-4">
+                     <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Ukuran Judul</label>
+                     <div className="flex items-center gap-2">
+                        <Layout className="w-3 h-3 text-slate-500" />
+                        <input 
+                          type="range" min="20" max="100" 
+                          value={block.data.fontSize || 48} 
+                          onChange={e => updateData('fontSize', e.target.value)}
+                          className="flex-1 h-1 bg-slate-200 rounded-lg appearance-none cursor-pointer"
+                        />
+                        <span className="text-[9px] font-bold text-slate-600">{block.data.fontSize || 48}px</span>
+                     </div>
+                  </div>
+                  <div className="space-y-4">
+                     <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Warna Text</label>
+                     <div className="flex items-center gap-2">
+                        <Zap className="w-3 h-3 text-slate-500" />
+                        <input 
+                          type="color" 
+                          value={block.data.textColor || '#0f172a'} 
+                          onChange={e => updateData('textColor', e.target.value)}
+                          className="w-8 h-8 rounded-xl overflow-hidden border-none p-0 cursor-pointer"
+                        />
+                     </div>
                   </div>
                </div>
             </div>
@@ -621,16 +721,139 @@ export function SortableBlock({
                        placeholder="https://..."
                      />
                   </div>
-                  <div className="flex items-center gap-2">
-                      <Zap className="w-3 h-3 text-slate-400" />
-                      <input 
-                        type="color" 
-                        value={block.data.buttonColor || '#0f172a'} 
-                        onChange={e => updateData('buttonColor', e.target.value)}
-                        className="w-4 h-4 rounded-full overflow-hidden border-none p-0 cursor-pointer"
-                      />
-                   </div>
+                  <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-2">
+                        <Layout className="w-3 h-3 text-slate-400" />
+                        <input 
+                          type="range" min="12" max="32" 
+                          value={block.data.fontSize || 14} 
+                          onChange={e => updateData('fontSize', e.target.value)}
+                          className="w-16 h-1 bg-slate-200 rounded-lg appearance-none cursor-pointer"
+                        />
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <Zap className="w-3 h-3 text-slate-400" />
+                        <input 
+                          type="color" 
+                          value={block.data.buttonColor || '#0f172a'} 
+                          onChange={e => updateData('buttonColor', e.target.value)}
+                          className="w-4 h-4 rounded-full overflow-hidden border-none p-0 cursor-pointer"
+                        />
+                    </div>
+                  </div>
                 </div>
+            </div>
+          </div>
+        );
+      case 'solution':
+        return (
+          <div className="space-y-6">
+            <div className="space-y-4">
+               <div className="flex items-center justify-between">
+                  <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Headline Solusi</label>
+                  <TextToolbar field="title" />
+               </div>
+               <textarea 
+                rows={2}
+                value={block.data.title || ''} 
+                onChange={e => updateData('title', e.target.value)} 
+                placeholder="IDE → ANALISA → PRODUKSI..."
+                className="w-full bg-slate-50 border border-slate-100 p-4 rounded-xl outline-none font-bold text-slate-800 text-lg leading-tight text-center"
+               />
+            </div>
+            
+            <div className="space-y-4">
+               <div className="flex items-center justify-between">
+                  <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Sub-Headline</label>
+                  <TextToolbar field="subtitle" />
+               </div>
+               <textarea 
+                rows={2}
+                value={block.data.subtitle || ''} 
+                onChange={e => updateData('subtitle', e.target.value)} 
+                placeholder="Bukan sekadar tools..."
+                className="w-full bg-slate-50 border border-slate-100 p-4 rounded-xl outline-none text-sm text-slate-600 font-medium text-center"
+               />
+            </div>
+
+            <div className="space-y-4 pt-4 border-t border-slate-50">
+               <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Daftar Poin Solusi</label>
+               <div className="grid grid-cols-1 gap-3">
+                  {(block.data.items || []).map((item: any, idx: number) => (
+                    <div key={idx} className="flex gap-2 items-start bg-slate-50 p-3 rounded-xl border border-slate-100">
+                       <div className="flex-1 space-y-2">
+                        <input 
+                          type="text" 
+                          value={item.t || item.title || ''} 
+                          onChange={(e) => {
+                            const newItems = [...(block.data.items || [])];
+                            newItems[idx] = { ...item, t: e.target.value };
+                            updateData('items', newItems);
+                          }}
+                          placeholder="Judul"
+                          className="w-full bg-white border border-slate-100 px-3 py-2 rounded-lg font-bold text-[10px] outline-none"
+                        />
+                        <textarea 
+                          rows={2}
+                          value={item.d || item.desc || ''} 
+                          onChange={(e) => {
+                            const newItems = [...(block.data.items || [])];
+                            newItems[idx] = { ...item, d: e.target.value };
+                            updateData('items', newItems);
+                          }}
+                          placeholder="Keterangan"
+                          className="w-full bg-white border border-slate-100 px-3 py-2 rounded-lg text-[10px] outline-none resize-none"
+                        />
+                       </div>
+                       <button 
+                         onClick={() => {
+                           const newItems = [...(block.data.items || [])];
+                           newItems.splice(idx, 1);
+                           updateData('items', newItems);
+                         }}
+                         className="p-2 text-slate-300 hover:text-red-500"
+                       >
+                          <Trash2 className="w-3 h-3" />
+                       </button>
+                    </div>
+                  ))}
+                  <button 
+                    onClick={() => updateData('items', [...(block.data.items || []), { t: 'Solusi Baru', d: 'Keterangan...' }])}
+                    className="w-full py-2 border-2 border-dashed border-slate-200 rounded-xl text-[9px] font-black text-slate-400 hover:text-slate-600"
+                  >
+                    + Tambah Solusi
+                  </button>
+               </div>
+            </div>
+
+            <div className="grid grid-cols-3 gap-4 pt-4 border-t border-slate-50">
+               <div className="space-y-2">
+                  <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Warna Text</label>
+                  <input 
+                    type="color" 
+                    value={block.data.textColor || '#ffffff'} 
+                    onChange={e => updateData('textColor', e.target.value)}
+                    className="w-full h-8 rounded-xl overflow-hidden border-none p-0 cursor-pointer shadow-sm"
+                  />
+               </div>
+               <div className="space-y-2">
+                  <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Warna Bag</label>
+                  <input 
+                    type="color" 
+                    value={block.data.bgColor || '#0f172a'} 
+                    onChange={e => updateData('bgColor', e.target.value)}
+                    className="w-full h-8 rounded-xl overflow-hidden border-none p-0 cursor-pointer shadow-sm"
+                  />
+               </div>
+               <div className="space-y-2">
+                  <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Aksen</label>
+                  <input 
+                    type="color" 
+                    value={block.data.accentColor || '#22d3ee'} 
+                    onChange={e => updateData('accentColor', e.target.value)}
+                    className="w-full h-8 rounded-xl overflow-hidden border-none p-0 cursor-pointer shadow-sm"
+                  />
+               </div>
             </div>
           </div>
         );
@@ -811,29 +1034,31 @@ export function SortableBlock({
                <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Daftar Poin Masalah</label>
                <div className="grid gap-3">
                   {(block.data.items || []).map((item: any, idx: number) => (
-                    <div key={idx} className="flex gap-2 items-start">
-                       <input 
-                         type="text" 
-                         value={item.t || ''} 
-                         onChange={(e) => {
-                           const newItems = [...(block.data.items || [])];
-                           newItems[idx] = { ...item, t: e.target.value };
-                           updateData('items', newItems);
-                         }}
-                         placeholder="Judul"
-                         className="flex-[2] bg-slate-50 border border-slate-100 px-3 py-2 rounded-lg font-bold text-[10px] outline-none"
-                       />
-                       <input 
-                         type="text" 
-                         value={item.d || ''} 
-                         onChange={(e) => {
-                           const newItems = [...(block.data.items || [])];
-                           newItems[idx] = { ...item, d: e.target.value };
-                           updateData('items', newItems);
-                         }}
-                         placeholder="Deskripsi"
-                         className="flex-[3] bg-slate-50 border border-slate-100 px-3 py-2 rounded-lg text-[10px] outline-none"
-                       />
+                    <div key={idx} className="flex gap-2 items-start bg-slate-50 p-3 rounded-xl border border-slate-100">
+                       <div className="flex-1 space-y-2">
+                        <input 
+                          type="text" 
+                          value={item.t || ''} 
+                          onChange={(e) => {
+                            const newItems = [...(block.data.items || [])];
+                            newItems[idx] = { ...item, t: e.target.value };
+                            updateData('items', newItems);
+                          }}
+                          placeholder="Judul"
+                          className="w-full bg-white border border-slate-100 px-3 py-2 rounded-lg font-bold text-[10px] outline-none"
+                        />
+                        <textarea 
+                          rows={2}
+                          value={item.d || ''} 
+                          onChange={(e) => {
+                            const newItems = [...(block.data.items || [])];
+                            newItems[idx] = { ...item, d: e.target.value };
+                            updateData('items', newItems);
+                          }}
+                          placeholder="Keterangan"
+                          className="w-full bg-white border border-slate-100 px-3 py-2 rounded-lg text-[10px] outline-none resize-none"
+                        />
+                       </div>
                        <button 
                          onClick={() => {
                            const newItems = [...(block.data.items || [])];
@@ -852,6 +1077,162 @@ export function SortableBlock({
                   >
                     + Tambah Poin
                   </button>
+               </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-6 pt-4 border-t border-slate-50">
+               <div className="space-y-3">
+                  <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Warna Text</label>
+                  <div className="flex items-center gap-2">
+                    <input 
+                      type="color" 
+                      value={block.data.textColor || '#0f172a'} 
+                      onChange={e => updateData('textColor', e.target.value)}
+                      className="w-6 h-6 rounded-lg overflow-hidden border-none p-0 cursor-pointer"
+                    />
+                    <span className="text-[10px] font-bold text-slate-500 uppercase">{block.data.textColor || '#0f172a'}</span>
+                  </div>
+               </div>
+               <div className="space-y-3">
+                  <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Ukuran Judul</label>
+                  <div className="flex items-center gap-2">
+                    <input 
+                      type="range" min="16" max="72" 
+                      value={block.data.fontSize || 36} 
+                      onChange={e => updateData('fontSize', e.target.value)}
+                      className="flex-1 h-1 bg-slate-200 rounded-lg appearance-none cursor-pointer"
+                    />
+                    <span className="text-[10px] font-bold text-slate-500">{block.data.fontSize || 36}px</span>
+                  </div>
+               </div>
+            </div>
+          </div>
+        );
+      case 'socialProof':
+        return (
+          <div className="space-y-6">
+            <div className="space-y-4">
+               <div className="flex items-center justify-between">
+                  <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Headline Social Proof</label>
+                  <TextToolbar field="title" />
+               </div>
+               <textarea 
+                rows={2}
+                value={block.data.title || ''} 
+                onChange={e => updateData('title', e.target.value)} 
+                placeholder="Mereka sudah membuktikan..."
+                className="w-full bg-slate-50 border border-slate-100 p-4 rounded-xl outline-none font-bold text-slate-800 text-lg leading-tight"
+               />
+            </div>
+            
+            <div className="space-y-4">
+               <div className="flex items-center justify-between">
+                  <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Sub-Label (Atas)</label>
+                  <TextToolbar field="subtitle" />
+               </div>
+               <input 
+                type="text"
+                value={block.data.subtitle || ''} 
+                onChange={e => updateData('subtitle', e.target.value)} 
+                placeholder="BUKTI NYATA"
+                className="w-full bg-slate-50 border border-slate-100 px-4 py-3 rounded-xl outline-none text-[10px] font-black tracking-widest uppercase"
+               />
+            </div>
+
+            <div className="space-y-4 pt-4 border-t border-slate-50">
+               <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Daftar Bukti (Screenshots)</label>
+               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {(block.data.items || []).map((item: any, idx: number) => (
+                    <div key={idx} className="bg-slate-50 p-4 rounded-2xl border border-slate-100 space-y-3 relative group/card">
+                       <button 
+                        onClick={() => {
+                          const newItems = [...(block.data.items || [])];
+                          newItems.splice(idx, 1);
+                          updateData('items', newItems);
+                        }}
+                        className="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover/card:opacity-100 transition-all shadow-lg"
+                       >
+                          <Trash2 className="w-3.5 h-3.5" />
+                       </button>
+                       
+                       <div className="aspect-[9/16] bg-slate-200 rounded-xl overflow-hidden relative group/img">
+                          {item.img ? (
+                            <img src={item.img} className="w-full h-full object-cover" alt="Proof" />
+                          ) : (
+                            <div className="w-full h-full flex items-center justify-center text-slate-400">
+                               <ImageIcon className="w-8 h-8 opacity-20" />
+                            </div>
+                          )}
+                          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/img:opacity-100 transition-all flex items-center justify-center">
+                             <label className="p-2 bg-white rounded-full cursor-pointer">
+                                <Upload className="w-4 h-4 text-slate-900" />
+                                <input 
+                                  type="file" className="hidden" accept="image/*" 
+                                  onChange={async (e) => {
+                                    const file = e.target.files?.[0];
+                                    if (!file) return;
+                                    const url = await uploadImage(file);
+                                    const newItems = [...(block.data.items || [])];
+                                    newItems[idx] = { ...item, img: url };
+                                    updateData('items', newItems);
+                                  }} 
+                                />
+                             </label>
+                          </div>
+                       </div>
+                       <textarea 
+                        rows={3}
+                        value={item.desc || ''} 
+                        onChange={(e) => {
+                          const newItems = [...(block.data.items || [])];
+                          newItems[idx] = { ...item, desc: e.target.value };
+                          updateData('items', newItems);
+                        }}
+                        placeholder="Testimoni / Deskripsi..."
+                        className="w-full bg-white border border-slate-100 p-3 rounded-xl text-[10px] font-medium outline-none resize-none"
+                       />
+                    </div>
+                  ))}
+               </div>
+               <button 
+                onClick={() => updateData('items', [...(block.data.items || []), { img: '', desc: 'Ketik testimoni di sini...' }])}
+                className="w-full py-4 border-2 border-dashed border-slate-200 rounded-2xl text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-slate-900 transition-all"
+               >
+                 + Tambah Bukti Baru
+               </button>
+            </div>
+
+            <div className="space-y-4 pt-4 border-t border-slate-50">
+               <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Teks Penutup (Footer)</label>
+               <input 
+                type="text"
+                value={block.data.footer || ''} 
+                onChange={e => updateData('footer', e.target.value)} 
+                placeholder="Ratusan orang sudah membuktikan..."
+                className="w-full bg-slate-50 border border-slate-100 px-4 py-3 rounded-xl outline-none text-[10px] font-bold"
+               />
+            </div>
+
+            <div className="grid grid-cols-2 gap-4 pt-4 border-t border-slate-50">
+               <div className="flex items-center gap-2">
+                  <Zap className="w-3 h-3 text-slate-400" />
+                  <span className="text-[9px] font-black uppercase tracking-widest text-slate-400">Warna Utama</span>
+                  <input 
+                    type="color" 
+                    value={block.data.textColor || '#ffffff'} 
+                    onChange={e => updateData('textColor', e.target.value)}
+                    className="w-4 h-4 rounded-full overflow-hidden border-none p-0 cursor-pointer"
+                  />
+               </div>
+               <div className="flex items-center gap-2">
+                  <Zap className="w-3 h-3 text-pink" />
+                  <span className="text-[9px] font-black uppercase tracking-widest text-slate-400">Warna Aksen</span>
+                  <input 
+                    type="color" 
+                    value={block.data.accentColor || '#ff2d55'} 
+                    onChange={e => updateData('accentColor', e.target.value)}
+                    className="w-4 h-4 rounded-full overflow-hidden border-none p-0 cursor-pointer"
+                  />
                </div>
             </div>
           </div>

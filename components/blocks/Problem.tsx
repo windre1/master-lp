@@ -19,7 +19,11 @@ export default function Problem({ data }: { data: BlockData }) {
           </h4>
           <h2 
             className={`text-3xl md:text-6xl font-black mb-8 tracking-tight leading-[1.1] ${isDark ? 'font-serif text-white' : 'font-sans text-slate-900 uppercase italic'}`}
-            style={getTextStyle(data, 'title')}
+            style={{ 
+              color: data.textColor, 
+              fontSize: data.fontSize ? `${data.fontSize}px` : undefined,
+              ...getTextStyle(data, 'title') 
+            }}
           >
             {data.title || 'Pengen cuan dari TikTok, tapi selalu mentok di sini...'}
           </h2>
