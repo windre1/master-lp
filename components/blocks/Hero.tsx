@@ -1,5 +1,13 @@
 import { BlockData } from '@/types/lp';
 
+export const getTextStyle = (data: any, field: string) => {
+  return {
+    fontWeight: data[`${field}Bold`] ? '900' : 'inherit',
+    fontStyle: data[`${field}Italic`] ? 'italic' : 'normal',
+    textDecoration: data[`${field}Underline`] ? 'underline' : 'none',
+  };
+};
+
 export default function Hero({ data }: { data: BlockData }) {
   const alignment = data.badge === 'left' ? 'text-left' : (data.badge === 'right' ? 'text-right' : 'text-center');
   const itemsAlignment = data.badge === 'left' ? 'items-start' : (data.badge === 'right' ? 'items-end' : 'items-center');
@@ -10,14 +18,14 @@ export default function Hero({ data }: { data: BlockData }) {
       
       <h1 
         className={`text-4xl md:text-5xl lg:text-7xl font-black leading-[1.1] md:leading-[1.05] mb-8 tracking-[-0.05em] max-w-4xl ${isDark ? 'font-serif' : 'font-sans uppercase italic'}`}
-        style={{ color: data.textColor || '#0f172a' }}
+        style={{ color: data.textColor || '#0f172a', ...getTextStyle(data, 'title') }}
       >
         {data.title || 'Judul Landing Page Anda'}
       </h1>
       
       <p 
         className={`text-lg md:text-xl max-w-3xl mb-12 leading-relaxed font-medium ${isDark ? 'opacity-70' : 'text-slate-600'}`}
-        style={{ color: isDark ? '#ffffff' : (data.textColor || '#64748b') }}
+        style={{ color: isDark ? '#ffffff' : (data.textColor || '#64748b'), ...getTextStyle(data, 'subtitle') }}
       >
         {data.subtitle || 'Tuliskan penjelasan singkat yang menarik di sini untuk meyakinkan pengunjung Anda.'}
       </p>
@@ -26,7 +34,7 @@ export default function Hero({ data }: { data: BlockData }) {
         <a 
           href={data.ctaLink || '#'} 
           className={`px-12 py-5 text-white rounded-2xl font-black text-xs md:text-sm tracking-widest hover:scale-105 transition-all uppercase shadow-xl ${isDark ? 'pink-glow' : ''}`}
-          style={{ backgroundColor: data.buttonColor || '#2563eb' }}
+          style={{ backgroundColor: data.buttonColor || '#2563eb', ...getTextStyle(data, 'cta') }}
         >
           {data.ctaText || 'MULAI SEKARANG'}
         </a>

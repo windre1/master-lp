@@ -1,4 +1,5 @@
 import React from 'react';
+import { getTextStyle } from '@/lib/styles';
 
 export default function Comparison({ data }: { data: any }) {
   const isDark = data.textColor === '#ffffff';
@@ -18,7 +19,10 @@ export default function Comparison({ data }: { data: any }) {
     <section className="py-20 md:py-32 max-w-5xl mx-auto px-6">
       <div className="text-center mb-16">
         <h4 className={`text-[10px] font-black tracking-[0.4em] uppercase mb-6 ${isDark ? 'text-pink' : 'text-blue-600'}`}>TAHAPAN BERBEDA</h4>
-        <h2 className={`text-3xl md:text-6xl font-black tracking-tight leading-tight ${isDark ? 'font-serif text-white' : 'font-sans text-slate-900 uppercase italic'}`}>
+        <h2 
+          className={`text-3xl md:text-6xl font-black tracking-tight leading-tight ${isDark ? 'font-serif text-white' : 'font-sans text-slate-900 uppercase italic'}`}
+          style={getTextStyle(data, 'title')}
+        >
           {data.title || 'Alur Manual vs. Sistem Otomatis'}
         </h2>
       </div>

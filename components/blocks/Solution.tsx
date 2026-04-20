@@ -1,22 +1,31 @@
 import React from 'react';
+import { getTextStyle } from '@/lib/styles';
 
 export default function Solution({ data }: { data: any }) {
+  const isDark = data.textColor === '#ffffff';
+
   return (
     <section className="py-20 md:py-32 max-w-5xl mx-auto px-6">
-      <div className="bg-slate-900 rounded-[4rem] p-10 md:p-24 shadow-2xl shadow-slate-200 text-center relative overflow-hidden">
+      <div className={`${isDark ? 'bg-white/5 border border-white/10' : 'bg-slate-900'} rounded-[4rem] p-10 md:p-24 shadow-2xl text-center relative overflow-hidden`}>
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent"></div>
         
-        <h4 className="text-cyan-400 font-bold tracking-[0.2em] uppercase mb-6 text-[10px] md:text-xs">{data.badge || 'WAKROD PROJECT'}</h4>
-        <h2 className="text-3xl md:text-6xl font-extrabold mb-8 text-white tracking-[-0.03em] leading-[1.05]">
+        <h4 className={`${isDark ? 'text-pink' : 'text-cyan-400'} font-bold tracking-[0.2em] uppercase mb-6 text-[10px] md:text-xs`}>{data.badge || 'WAKROD PROJECT'}</h4>
+        <h2 
+          className={`text-3xl md:text-6xl font-black mb-8 text-white tracking-[-0.03em] leading-[1.05] ${isDark ? 'font-serif' : 'font-sans uppercase italic'}`}
+          style={getTextStyle(data, 'title')}
+        >
           {data.title || 'IDE → ANALISA → PRODUKSI → UPLOAD'}
         </h2>
-        <p className="text-slate-400 text-lg md:text-xl max-w-3xl mx-auto mb-16 leading-relaxed font-medium">
-          {data.subtitle || 'Bukan sekadar tools... Ini adalah mesin pertumbuhan channel YouTube dalam SATU dashboard.'}
+        <p 
+          className="text-slate-400 text-lg md:text-xl max-w-3xl mx-auto mb-16 leading-relaxed font-medium"
+          style={getTextStyle(data, 'subtitle')}
+        >
+          {data.subtitle || 'Bukan sekadar tools... Ini adalah mesin pertumbuhan dalam SATU dashboard.'}
         </p>
         
         <div className="grid gap-6 md:grid-cols-3 mb-16">
           {(data.items || []).map((p: any, i: number) => (
-             <div key={i} className="text-left p-8 bg-white/5 rounded-3xl border border-white/10">
+             <div key={i} className="text-left p-8 bg-white/5 rounded-3xl border border-white/10 group hover:bg-white/10 transition-all">
                 <h4 className="text-white font-extrabold text-lg mb-2 tracking-tight">{p.t}</h4>
                 <p className="text-slate-500 text-sm leading-relaxed font-medium">{p.d}</p>
              </div>

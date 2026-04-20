@@ -1,5 +1,6 @@
 import React from 'react';
 import { Block } from '@/types/lp';
+import { getTextStyle } from '@/lib/styles';
 
 // Block Components
 import Hero from '@/components/blocks/Hero';
@@ -51,7 +52,8 @@ const blockMap: Record<string, React.FC<any>> = {
           style={{ 
             color: data.textColor || '#ffffff',
             fontSize: data.fontSize ? `${data.fontSize}px` : '3rem',
-            lineHeight: '1.05'
+            lineHeight: '1.05',
+            ...getTextStyle(data, 'title')
           }}
         >
           {data.title || 'Headline'}
@@ -69,7 +71,8 @@ const blockMap: Record<string, React.FC<any>> = {
           className={`leading-relaxed font-medium whitespace-pre-wrap ${alignment} w-full`}
           style={{ 
             color: data.textColor || '#94a3b8',
-            fontSize: data.fontSize ? `${data.fontSize}px` : '1.125rem'
+            fontSize: data.fontSize ? `${data.fontSize}px` : '1.125rem',
+            ...getTextStyle(data, 'subtitle')
           }}
         >
           {data.subtitle || 'Tulis paragraf di sini...'}
@@ -156,12 +159,17 @@ const blockMap: Record<string, React.FC<any>> = {
                  <div className="flex-1">
                     <h3 
                      className="text-xl font-extrabold mb-4 tracking-[-0.03em] uppercase italic group-hover:text-blue-600 transition-colors"
-                     style={{ color: item.textColor || '#0f172a' }}
+                     style={{ color: item.textColor || '#0f172a', ...getTextStyle(item, 'title') }}
                     >
                      {item.title}
                     </h3>
                     <div className="w-10 h-1 bg-blue-100 mb-6 rounded-full"></div>
-                    <p className="text-slate-500 leading-relaxed mb-8 font-medium text-sm">{item.desc}</p>
+                    <p 
+                      className="text-slate-500 leading-relaxed mb-8 font-medium text-sm"
+                      style={getTextStyle(item, 'desc')}
+                    >
+                      {item.desc}
+                    </p>
                  </div>
                  
                  <div className="mt-8">
@@ -174,7 +182,7 @@ const blockMap: Record<string, React.FC<any>> = {
                     <a 
                       href={item.ctaLink || '#'} 
                       className="w-full py-5 text-white text-center rounded-2xl font-extrabold text-[10px] uppercase tracking-[0.2em] hover:brightness-110 transition-all shadow-xl shadow-blue-500/10 block"
-                      style={{ backgroundColor: item.buttonColor || '#0f172a' }}
+                      style={{ backgroundColor: item.buttonColor || '#0f172a', ...getTextStyle(item, 'cta') }}
                     >
                       {item.ctaText}
                     </a>
@@ -192,7 +200,7 @@ const blockMap: Record<string, React.FC<any>> = {
         <a 
           href={data.ctaLink || '#'} 
           className="px-12 py-5 text-white font-extrabold rounded-2xl hover:brightness-110 transition-all shadow-xl uppercase tracking-[0.2em] text-[10px] inline-block"
-          style={{ backgroundColor: data.buttonColor || '#4f46e5' }}
+          style={{ backgroundColor: data.buttonColor || '#4f46e5', ...getTextStyle(data, 'cta') }}
         >
           {data.ctaText || 'Klik Di Sini'}
         </a>
@@ -200,6 +208,42 @@ const blockMap: Record<string, React.FC<any>> = {
     );
   }
 };
+
+export default function Renderer({ blocks, settings }: RendererProps) {
+  if (!blocks) return null;
+
+  const bgGlobal = settings?.globalBg || '#f0f7ff';
+
+  return (
+    <div className="font-sans selection:bg-pink selection:text-white min-h-screen w-full relative overflow-x-hidden" style={{ backgroundColor: bgGlobal }}>
+      {/* Background Decorative Elements */}
+      <div className="fixed top-0 left-0 w-full h-full pointer-events-none -z-0">
+        <div className="absolute top-[10%] left-[-10%] w-[40%] h-[40%] bg-blue-200/20 rounded-full blur-[120px]"></div>
+        <div className="absolute bottom-[10%] right-[-10%] w-[40%] h-[40%] bg-indigo-200/20 rounded-full blur-[120px]"></div>
+      </div>
+
+      <div className="flex flex-col w-full relative z-10">
+        {blocks.map((block) => {
+          const Component = blockMap[block.type];
+          if (!Component) return <div key={block.id} className="p-8 text-red-500 text-center">Missing component: {block.type}</div>;
+          return (
+            <div key={block.id} className="w-full">
+              <Component data={block.data} />
+            </div>
+          );
+        })}
+        {blocks.length === 0 && (
+          <div className="flex flex-col items-center justify-center py-40 min-h-screen">
+             <div className="w-20 h-20 bg-white/50 backdrop-blur-xl rounded-[2rem] flex items-center justify-center mb-6 shadow-xl border border-white/20">
+                <span className="text-slate-400 text-4xl">📄</span>
+             </div>
+             <p className="text-slate-400 font-medium tracking-tight">Halaman ini belum memiliki konten.</p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
 
 export default function Renderer({ blocks, settings }: RendererProps) {
   if (!blocks) return null;

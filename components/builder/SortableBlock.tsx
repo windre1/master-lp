@@ -14,7 +14,10 @@ import {
   Play,
   Layout as ImageIcon,
   Layers,
-  Upload
+  Upload,
+  Bold,
+  Italic,
+  Underline
 } from 'lucide-react';
 import { Block } from '@/types/lp';
 import { uploadImage } from '@/lib/data';
@@ -48,6 +51,38 @@ export function SortableBlock({
 
   const updateData = (key: string, value: any) => {
     onUpdateBlock(id, { ...block.data, [key]: value });
+  };
+
+  const TextToolbar = ({ field }: { field: string }) => {
+    const isBold = block.data[`${field}Bold`];
+    const isItalic = block.data[`${field}Italic`];
+    const isUnderline = block.data[`${field}Underline`];
+
+    return (
+      <div className="flex items-center gap-1">
+        <button 
+          onClick={() => updateData(`${field}Bold`, !isBold)}
+          className={`p-1.5 rounded-lg transition-all ${isBold ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-400 hover:text-slate-600'}`}
+          title="Bold"
+        >
+          <Bold className="w-3 h-3" />
+        </button>
+        <button 
+          onClick={() => updateData(`${field}Italic`, !isItalic)}
+          className={`p-1.5 rounded-lg transition-all ${isItalic ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-400 hover:text-slate-600'}`}
+          title="Italic"
+        >
+          <Italic className="w-3 h-3" />
+        </button>
+        <button 
+          onClick={() => updateData(`${field}Underline`, !isUnderline)}
+          className={`p-1.5 rounded-lg transition-all ${isUnderline ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-400 hover:text-slate-600'}`}
+          title="Underline"
+        >
+          <Underline className="w-3 h-3" />
+        </button>
+      </div>
+    );
   };
 
   const currentAlign = block.data.badge || 'center';
@@ -88,7 +123,10 @@ export function SortableBlock({
         return (
           <div className="space-y-6">
             <div className="space-y-4">
-               <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Headline Utama</label>
+               <div className="flex items-center justify-between">
+                  <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Headline Utama</label>
+                  <TextToolbar field="title" />
+               </div>
                <textarea 
                 rows={2}
                 value={block.data.title || ''} 
@@ -177,6 +215,9 @@ export function SortableBlock({
       case 'heading':
         return (
           <div className="space-y-4">
+            <div className="flex justify-end mb-2">
+              <TextToolbar field="title" />
+            </div>
             <input 
               type="text" 
               value={block.data.title || ''} 
@@ -214,6 +255,9 @@ export function SortableBlock({
       case 'text_only':
         return (
           <div className="space-y-4">
+            <div className="flex justify-end mb-2">
+              <TextToolbar field="subtitle" />
+            </div>
             <textarea 
               rows={3}
               value={block.data.subtitle || ''} 
@@ -518,7 +562,10 @@ export function SortableBlock({
             {block.type === 'cta' && (
               <>
                 <div className="space-y-4">
-                   <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Headline CTA</label>
+                   <div className="flex items-center justify-between">
+                      <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Headline CTA</label>
+                      <TextToolbar field="title" />
+                   </div>
                    <textarea 
                     rows={2}
                     value={block.data.title || ''} 
@@ -529,7 +576,10 @@ export function SortableBlock({
                 </div>
                 
                 <div className="space-y-4">
-                   <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Sub-Headline</label>
+                   <div className="flex items-center justify-between">
+                      <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Sub-Headline</label>
+                      <TextToolbar field="subtitle" />
+                   </div>
                    <textarea 
                     rows={2}
                     value={block.data.subtitle || ''} 
@@ -586,7 +636,10 @@ export function SortableBlock({
         return (
           <div className="space-y-6">
             <div className="space-y-4">
-               <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Judul Komparasi</label>
+               <div className="flex items-center justify-between">
+                  <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Judul Komparasi</label>
+                  <TextToolbar field="title" />
+               </div>
                <input 
                  type="text" 
                  value={block.data.title || ''} 
@@ -696,7 +749,10 @@ export function SortableBlock({
         return (
           <div className="space-y-6">
             <div className="space-y-4">
-               <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Headline Masalah</label>
+               <div className="flex items-center justify-between">
+                  <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Headline Masalah</label>
+                  <TextToolbar field="title" />
+               </div>
                <textarea 
                 rows={2}
                 value={block.data.title || ''} 
@@ -707,7 +763,10 @@ export function SortableBlock({
             </div>
             
             <div className="space-y-4">
-               <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Sub-Headline</label>
+               <div className="flex items-center justify-between">
+                  <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Sub-Headline</label>
+                  <TextToolbar field="subtitle" />
+               </div>
                <textarea 
                 rows={2}
                 value={block.data.subtitle || ''} 
@@ -719,7 +778,10 @@ export function SortableBlock({
 
             <div className="grid grid-cols-2 gap-4 pt-4 border-t border-slate-50">
                <div className="space-y-2">
-                  <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Statement (Highlight)</label>
+                  <div className="flex items-center justify-between">
+                    <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Statement (Highlight)</label>
+                    <TextToolbar field="closing" />
+                  </div>
                   <input 
                     type="text" 
                     value={block.data.closing || ''} 
@@ -729,7 +791,10 @@ export function SortableBlock({
                   />
                </div>
                <div className="space-y-2">
-                  <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Statement (Miring)</label>
+                  <div className="flex items-center justify-between">
+                    <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Statement (Miring)</label>
+                    <TextToolbar field="highlinedClosing" />
+                  </div>
                   <input 
                     type="text" 
                     value={block.data.highlinedClosing || ''} 
