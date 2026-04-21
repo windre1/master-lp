@@ -2,26 +2,33 @@ import React from 'react';
 import { getTextStyle } from '@/lib/styles';
 
 export default function Comparison({ data }: { data: any }) {
-  const isDark = data.textColor === '#ffffff';
+  const isDark = data.textColor === '#ffffff' || !data.textColor;
   
   const traditional = data.traditional || {
     title: "BELAJAR SENDIRI:",
-    items: ["Belajar berbulan-bulan", "Cari sendiri", "Tahu setelah kena", "Ngomong asal", "Beli sendiri", "Sangat tinggi"],
-    footer: "Gak bakal scale."
+    items: ["Belajar berbulan-bulan", "Cari sendiri", "Tahu setelah kena"],
   };
   const spartan = data.spartan || {
-    title: "METODE GHOST LIVE:",
-    items: ["Praktik hari ini", "Dikasih langsung", "Dicegah dari awal", "Template siap pakai", "Cara gratis", "Diminimalkan"],
-    footer: "Sistem yang kerja."
+    title: "METODE KAMI:",
+    items: ["Praktik hari ini", "Dikasih langsung", "Dicegah dari awal"],
   };
 
   return (
     <section className="py-20 md:py-32 max-w-5xl mx-auto px-6">
       <div className="text-center mb-16">
-        <h4 className={`text-[10px] font-black tracking-[0.4em] uppercase mb-6 ${isDark ? 'text-pink' : 'text-blue-600'}`}>TAHAPAN BERBEDA</h4>
+        <h4 
+          className={`text-[10px] font-black tracking-[0.4em] uppercase mb-6 ${isDark ? 'text-pink' : 'text-blue-600'}`}
+          style={getTextStyle(data, 'subtitle')}
+        >
+          {data.badge || 'TAHAPAN BERBEDA'}
+        </h4>
         <h2 
           className={`text-3xl md:text-6xl font-black tracking-tight leading-tight ${isDark ? 'font-serif text-white' : 'font-sans text-slate-900 uppercase italic'}`}
-          style={getTextStyle(data, 'title')}
+          style={{
+            color: data.textColor,
+            fontSize: data.fontSize ? `${data.fontSize}px` : undefined,
+            ...getTextStyle(data, 'title')
+          }}
         >
           {data.title || 'Alur Manual vs. Sistem Otomatis'}
         </h2>
@@ -35,7 +42,7 @@ export default function Comparison({ data }: { data: any }) {
             <ul className="space-y-6">
               {(traditional.items || []).map((item: string, i: number) => (
                 <li key={i} className={`flex items-center justify-between gap-3 text-sm md:text-base font-bold ${isDark ? 'text-white' : 'text-slate-600'}`}>
-                  <span className={`${isDark ? 'text-pink' : 'text-red-500'} text-xs font-black`}>✕ {item}</span>
+                  <span className="text-red-500 text-xs font-black">✕ {item}</span>
                 </li>
               ))}
             </ul>
@@ -43,15 +50,25 @@ export default function Comparison({ data }: { data: any }) {
         </div>
 
         {/* Sisi Kanan: Solusi */}
-        <div className={`p-8 md:p-14 rounded-[3.5rem] border flex flex-col justify-between transition-all relative overflow-hidden group ${isDark ? 'bg-white/5 border-green/20 hover:bg-green/[0.05]' : 'bg-slate-900 border-slate-800 shadow-2xl'}`}>
-          <div className={`absolute top-0 right-10 -translate-y-1/2 px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.2em] shadow-xl z-20 ${isDark ? 'bg-green text-black' : 'bg-blue-600 text-white'}`}>Recommended</div>
+        <div className={`p-8 md:p-14 rounded-[3.5rem] border flex flex-col justify-between transition-all relative overflow-hidden group ${isDark ? 'bg-[#0f172a] border-white/10 shadow-2xl' : 'bg-slate-900 border-slate-800 shadow-2xl'}`}>
+          <div 
+            className="absolute top-0 right-10 -translate-y-1/2 px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.2em] shadow-xl z-20 text-white"
+            style={{ backgroundColor: data.accentColor || '#3b82f6' }}
+          >
+            Recommended
+          </div>
           
           <div>
-            <h3 className={`text-xs font-black mb-10 uppercase tracking-widest text-center border-b pb-6 ${isDark ? 'text-green border-white/5' : 'text-blue-400 border-white/5'}`}>{spartan.title}</h3>
+            <h3 
+              className={`text-xs font-black mb-10 uppercase tracking-widest text-center border-b pb-6 ${isDark ? 'border-white/5' : 'border-white/5'}`}
+              style={{ color: data.accentColor || '#60a5fa' }}
+            >
+              {spartan.title}
+            </h3>
             <ul className="space-y-6">
               {(spartan.items || []).map((item: string, i: number) => (
                 <li key={i} className="text-white font-bold flex items-center justify-between gap-4 text-sm md:text-base">
-                  <span className={`${isDark ? 'text-green' : 'text-blue-400'} text-xs font-black`}>✓ {item}</span>
+                  <span className="text-xs font-black" style={{ color: data.accentColor || '#4ade80' }}>✓ {item}</span>
                 </li>
               ))}
             </ul>

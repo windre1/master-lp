@@ -2,7 +2,7 @@ import React from 'react';
 import { getTextStyle } from '@/lib/styles';
 
 export default function CTA({ data }: { data: any }) {
-  const isDark = data.buttonColor === '#FF2D55' || !data.buttonColor; // Heuristic based on pink color or default
+  const isDark = data.textColor === '#ffffff' || !data.textColor;
 
   return (
     <section id="cta-section" className="py-20 md:py-32 text-center max-w-5xl mx-auto px-6">
@@ -11,7 +11,11 @@ export default function CTA({ data }: { data: any }) {
         
         <h2 
           className={`text-3xl md:text-7xl font-black mb-8 tracking-tight leading-[1.05] ${isDark ? 'font-serif text-white' : 'font-sans text-white uppercase italic'}`}
-          style={getTextStyle(data, 'title')}
+          style={{
+            color: data.textColor,
+            fontSize: data.fontSize ? `${data.fontSize}px` : undefined,
+            ...getTextStyle(data, 'title')
+          }}
         >
           {data.title || 'Siap Scale Konten Tanpa Batas?'}
         </h2>
@@ -24,7 +28,11 @@ export default function CTA({ data }: { data: any }) {
         
         <a 
           href={data.ctaLink || '#'}
-          style={{ backgroundColor: data.buttonColor || '#2563eb', ...getTextStyle(data, 'cta') }}
+          style={{ 
+            backgroundColor: data.buttonColor || data.accentColor || '#ff2d55', 
+            fontSize: data.buttonFontSize ? `${data.buttonFontSize}px` : undefined,
+            ...getTextStyle(data, 'cta') 
+          }}
           className={`inline-block px-14 py-6 text-white font-extrabold rounded-[2rem] shadow-xl hover:scale-105 transition-all uppercase tracking-[0.2em] text-[10px] md:text-sm ${isDark ? 'pink-glow' : ''}`}
         >
            {data.ctaText || 'DAFTAR SEKARANG'}
