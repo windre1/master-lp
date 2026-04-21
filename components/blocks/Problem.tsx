@@ -14,7 +14,7 @@ export default function Problem({ data }: { data: BlockData }) {
           <h4 
             className={`text-[10px] font-black tracking-[0.4em] uppercase mb-6 ${isDark ? 'text-pink' : 'text-blue-600'}`}
             style={{
-              color: data.accentColor,
+              color: data.subtitleColor || data.accentColor,
               ...getTextStyle(data, 'subtitle')
             }}
           >
@@ -23,7 +23,7 @@ export default function Problem({ data }: { data: BlockData }) {
           <h2 
             className={`text-3xl md:text-6xl font-black mb-8 tracking-tight leading-[1.1] ${isDark ? 'font-serif text-white' : 'font-sans text-slate-900 uppercase italic'}`}
             style={{ 
-              color: data.textColor, 
+              color: data.titleColor || data.textColor, 
               fontSize: data.fontSize ? `${data.fontSize}px` : undefined,
               ...getTextStyle(data, 'title') 
             }}
@@ -50,13 +50,13 @@ export default function Problem({ data }: { data: BlockData }) {
               <div>
                 <h4 
                   className={`font-extrabold text-lg md:text-xl mb-2 leading-tight ${isDark ? 'text-white' : 'text-slate-800'}`}
-                  style={{ color: data.textColor }}
+                  style={{ color: data.itemsColor || data.textColor }}
                 >
                   {p.t}
                 </h4>
                 <p 
                   className={`text-sm md:text-base leading-relaxed font-medium ${isDark ? 'text-slate-400' : 'text-slate-500'}`}
-                  style={{ color: isDark ? undefined : data.textColor ? `${data.textColor}CC` : undefined }}
+                  style={{ color: data.itemsColor ? `${data.itemsColor}CC` : (isDark ? undefined : data.textColor ? `${data.textColor}CC` : undefined) }}
                 >
                   {p.d}
                 </p>
@@ -69,7 +69,7 @@ export default function Problem({ data }: { data: BlockData }) {
            <p 
              className={`font-bold text-sm md:text-lg mb-4 ${isDark ? 'text-white/60' : 'text-slate-600'}`}
              style={{
-               color: data.textColor ? `${data.textColor}99` : undefined,
+               color: data.closingColor || (data.textColor ? `${data.textColor}99` : undefined),
                ...getTextStyle(data, 'closing')
              }}
            >

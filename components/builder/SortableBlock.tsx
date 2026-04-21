@@ -1098,18 +1098,36 @@ export function SortableBlock({
                </div>
             </div>
 
-            <div className="grid grid-cols-3 gap-6 pt-4 border-t border-slate-50">
-               <div className="space-y-3">
-                  <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Warna Text</label>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-6 border-t border-slate-50">
+               <div className="space-y-2">
+                  <label className="text-[8px] font-black text-slate-400 uppercase tracking-widest">Warna Judul</label>
                   <input 
                     type="color" 
-                    value={block.data.textColor || '#0f172a'} 
-                    onChange={e => updateData('textColor', e.target.value)}
+                    value={block.data.titleColor || block.data.textColor || '#0f172a'} 
+                    onChange={e => updateData('titleColor', e.target.value)}
                     className="w-full h-8 rounded-xl overflow-hidden border-none p-0 cursor-pointer shadow-sm"
                   />
                </div>
-               <div className="space-y-3">
-                  <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Warna Aksen</label>
+               <div className="space-y-2">
+                  <label className="text-[8px] font-black text-slate-400 uppercase tracking-widest">Warna Sub</label>
+                  <input 
+                    type="color" 
+                    value={block.data.subtitleColor || block.data.accentColor || '#3b82f6'} 
+                    onChange={e => updateData('subtitleColor', e.target.value)}
+                    className="w-full h-8 rounded-xl overflow-hidden border-none p-0 cursor-pointer shadow-sm"
+                  />
+               </div>
+               <div className="space-y-2">
+                  <label className="text-[8px] font-black text-slate-400 uppercase tracking-widest">Warna List</label>
+                  <input 
+                    type="color" 
+                    value={block.data.itemsColor || block.data.textColor || '#1e293b'} 
+                    onChange={e => updateData('itemsColor', e.target.value)}
+                    className="w-full h-8 rounded-xl overflow-hidden border-none p-0 cursor-pointer shadow-sm"
+                  />
+               </div>
+               <div className="space-y-2">
+                  <label className="text-[8px] font-black text-slate-400 uppercase tracking-widest">Warna Aksen</label>
                   <input 
                     type="color" 
                     value={block.data.accentColor || '#3b82f6'} 
@@ -1117,17 +1135,17 @@ export function SortableBlock({
                     className="w-full h-8 rounded-xl overflow-hidden border-none p-0 cursor-pointer shadow-sm"
                   />
                </div>
-               <div className="space-y-3">
-                  <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Ukuran Judul</label>
-                  <div className="flex items-center gap-2">
-                    <input 
-                      type="range" min="16" max="72" 
-                      value={block.data.fontSize || 36} 
-                      onChange={e => updateData('fontSize', e.target.value)}
-                      className="flex-1 h-1 bg-slate-200 rounded-lg appearance-none cursor-pointer"
-                    />
-                    <span className="text-[9px] font-bold text-slate-600">{block.data.fontSize || 36}px</span>
-                  </div>
+            </div>
+            <div className="space-y-3 pt-4">
+               <label className="text-[8px] font-black text-slate-400 uppercase tracking-widest">Ukuran Judul</label>
+               <div className="flex items-center gap-4">
+                  <input 
+                    type="range" min="16" max="96" 
+                    value={block.data.fontSize || 36} 
+                    onChange={e => updateData('fontSize', parseInt(e.target.value))}
+                    className="flex-1 h-1 bg-slate-200 rounded-lg appearance-none cursor-pointer"
+                  />
+                  <span className="text-[10px] font-bold text-slate-600">{block.data.fontSize || 36}px</span>
                </div>
             </div>
           </div>
