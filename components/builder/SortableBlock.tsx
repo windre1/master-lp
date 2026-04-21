@@ -167,7 +167,16 @@ export function SortableBlock({
                        <div className="flex-1 space-y-3">
                          <div className="flex items-center justify-between">
                             <span className="text-[8px] font-black text-slate-400 uppercase">Judul Poin</span>
-                            <TextToolbar field="t" itemIdx={idx} />
+                            <div className="flex items-center gap-2">
+                               <TextToolbar field="t" itemIdx={idx} />
+                               <button 
+                                 onClick={() => updateData('items', (block.data.items || []).filter((_: any, i: number) => i !== idx))} 
+                                 className="p-1.5 text-slate-300 hover:text-red-500 rounded-xl hover:bg-white border border-transparent hover:border-slate-100 transition-all shadow-sm group/del"
+                                 title="Hapus Item"
+                               >
+                                  <Trash2 className="w-3 h-3 group-hover/del:scale-110 transition-transform" />
+                               </button>
+                            </div>
                          </div>
                          <input 
                            type="text" 
@@ -196,9 +205,6 @@ export function SortableBlock({
                            className="w-full bg-white border border-slate-100 px-3 py-2 rounded-lg text-[10px] outline-none resize-none focus:border-blue-400"
                          />
                        </div>
-                       <button onClick={() => updateData('items', (block.data.items || []).filter((_: any, i: number) => i !== idx))} className="p-2 text-slate-300 hover:text-red-500 absolute top-2 right-2">
-                          <Trash2 className="w-3 h-3" />
-                       </button>
                     </div>
                   ))}
                   <button 
@@ -836,7 +842,20 @@ export function SortableBlock({
                        <div className="flex-1 space-y-3">
                          <div className="flex items-center justify-between">
                             <span className="text-[8px] font-black text-slate-400 uppercase">Input Solusi</span>
-                            <TextToolbar field="t" itemIdx={idx} />
+                            <div className="flex items-center gap-2">
+                               <TextToolbar field="t" itemIdx={idx} />
+                               <button 
+                                 onClick={() => {
+                                   const newItems = [...(block.data.items || [])];
+                                   newItems.splice(idx, 1);
+                                   updateData('items', newItems);
+                                 }}
+                                 className="p-1.5 text-slate-300 hover:text-red-500 rounded-xl hover:bg-white border border-transparent hover:border-slate-100 transition-all shadow-sm group/del"
+                                 title="Hapus Solusi"
+                               >
+                                  <Trash2 className="w-3.5 h-3.5 group-hover/del:scale-110 transition-transform" />
+                               </button>
+                            </div>
                          </div>
                          <input 
                            type="text" 
@@ -865,16 +884,6 @@ export function SortableBlock({
                            className="w-full bg-white border border-slate-100 px-3 py-2 rounded-lg text-[10px] outline-none resize-none font-medium"
                          />
                        </div>
-                       <button 
-                         onClick={() => {
-                           const newItems = [...(block.data.items || [])];
-                           newItems.splice(idx, 1);
-                           updateData('items', newItems);
-                         }}
-                         className="absolute top-4 right-4 p-1 text-slate-300 hover:text-red-500 opacity-0 group-hover/solution:opacity-100 transition-opacity"
-                       >
-                          <Trash2 className="w-3.5 h-3.5" />
-                       </button>
                     </div>
                   ))}
                   <button 
@@ -1024,7 +1033,12 @@ export function SortableBlock({
                     <div key={idx} className="bg-slate-50 p-4 rounded-2xl border border-slate-100 space-y-3 relative group/target">
                        <div className="flex items-center justify-between">
                           <span className="text-[8px] font-black text-slate-400 uppercase">Input Target</span>
+                           <div className="flex items-center gap-2">
                           <TextToolbar field="title" itemIdx={idx} />
+                              <button onClick={() => updateData('items', (block.data.items || []).filter((_: any, ii: number) => ii !== idx))} className="p-1.5 text-slate-300 hover:text-red-500 rounded-xl hover:bg-white border border-transparent hover:border-slate-100 transition-all shadow-sm group/del">
+                                 <Trash2 className="w-3.5 h-3.5" />
+                              </button>
+                           </div>
                        </div>
                        <input 
                          type="text" 
@@ -1051,10 +1065,7 @@ export function SortableBlock({
                          }}
                          className="w-full bg-white border border-slate-100 px-3 py-2 rounded-lg text-[10px] outline-none"
                          placeholder="Alasan kenapa cocok..."
-                       />
-                       <button onClick={() => updateData('items', (block.data.items || []).filter((_: any, i: number) => i !== idx))} className="absolute top-2 right-2 p-1 text-slate-300 hover:text-red-500 opacity-0 group-hover/target:opacity-100 transition-opacity">
-                          <Trash2 className="w-3.5 h-3.5" />
-                       </button>
+                        />
                     </div>
                   ))}
                   <button onClick={() => updateData('items', [...(block.data.items || []), { title: 'Target Baru', desc: 'Deskripsi...' }])} className="w-full py-4 border-2 border-dashed border-slate-200 rounded-2xl text-[9px] font-black text-slate-400 hover:text-slate-900 transition-all uppercase tracking-widest">
@@ -1141,7 +1152,20 @@ export function SortableBlock({
                        <div className="flex-1 space-y-3">
                          <div className="flex items-center justify-between">
                             <span className="text-[8px] font-black text-slate-400 uppercase">Judul Masalah</span>
-                            <TextToolbar field="t" itemIdx={idx} />
+                            <div className="flex items-center gap-2">
+                               <TextToolbar field="t" itemIdx={idx} />
+                               <button 
+                                 onClick={() => {
+                                   const newItems = [...(block.data.items || [])];
+                                   newItems.splice(idx, 1);
+                                   updateData('items', newItems);
+                                 }}
+                                 className="p-1.5 text-slate-300 hover:text-red-500 rounded-xl hover:bg-white border border-transparent hover:border-slate-100 transition-all shadow-sm group/del"
+                                 title="Hapus Item"
+                               >
+                                  <Trash2 className="w-3.5 h-3.5 group-hover/del:scale-110 transition-transform" />
+                               </button>
+                            </div>
                          </div>
                          <input 
                            type="text" 
@@ -1170,16 +1194,6 @@ export function SortableBlock({
                            className="w-full bg-white border border-slate-100 px-3 py-2 rounded-lg text-[10px] outline-none resize-none font-medium"
                          />
                        </div>
-                       <button 
-                         onClick={() => {
-                           const newItems = [...(block.data.items || [])];
-                           newItems.splice(idx, 1);
-                           updateData('items', newItems);
-                         }}
-                         className="absolute top-4 right-4 p-2 text-slate-300 hover:text-red-500 opacity-0 group-hover/problem:opacity-100 transition-opacity"
-                       >
-                          <Trash2 className="w-3.5 h-3.5" />
-                       </button>
                     </div>
                   ))}
                   <button 
@@ -1253,18 +1267,22 @@ export function SortableBlock({
                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {(block.data.items || []).map((item: any, idx: number) => (
                     <div key={idx} className="bg-slate-50 p-4 rounded-2xl border border-slate-100 space-y-3 relative group/card">
-                       <button 
-                        onClick={() => {
-                          const newItems = [...(block.data.items || [])];
-                          newItems.splice(idx, 1);
-                          updateData('items', newItems);
-                        }}
-                        className="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover/card:opacity-100 transition-all shadow-lg"
-                       >
-                          <Trash2 className="w-3.5 h-3.5" />
-                       </button>
+                       <div className="flex items-center justify-between">
+                          <span className="text-[8px] font-black text-slate-400 uppercase tracking-widest">Bukti {idx + 1}</span>
+                          <button 
+                            onClick={() => {
+                              const newItems = [...(block.data.items || [])];
+                              newItems.splice(idx, 1);
+                              updateData('items', newItems);
+                            }}
+                            className="p-1.5 text-slate-300 hover:text-red-500 rounded-xl hover:bg-white border border-transparent hover:border-slate-100 transition-all shadow-sm group/del"
+                            title="Hapus Bukti"
+                          >
+                             <Trash2 className="w-3.5 h-3.5 group-hover/del:scale-110 transition-transform" />
+                          </button>
+                       </div>
                        
-                       <div className="aspect-[9/16] bg-slate-200 rounded-xl overflow-hidden relative group/img">
+                       <div className="aspect-[9/16] bg-slate-200 rounded-xl overflow-hidden relative group/img shadow-inner">
                           {item.img ? (
                             <img src={item.img} className="w-full h-full object-cover" alt="Proof" />
                           ) : (
@@ -1391,7 +1409,16 @@ export function SortableBlock({
                        <div className="flex-1 flex flex-col gap-2">
                          <div className="flex items-center justify-between">
                             <span className="text-[8px] font-black text-slate-400 uppercase">Input Langkah {idx + 1}</span>
-                            <TextToolbar field="t" itemIdx={idx} />
+                            <div className="flex items-center gap-2">
+                               <TextToolbar field="t" itemIdx={idx} />
+                               <button 
+                                 onClick={() => updateData('items', (block.data.items || []).filter((_: any, i: number) => i !== idx))} 
+                                 className="p-1.5 text-slate-300 hover:text-red-500 rounded-xl hover:bg-white border border-transparent hover:border-slate-100 transition-all shadow-sm group/del"
+                                 title="Hapus Langkah"
+                               >
+                                  <Trash2 className="w-3.5 h-3.5 group-hover/del:scale-110 transition-transform" />
+                               </button>
+                            </div>
                          </div>
                          <input 
                            type="text" 
@@ -1405,9 +1432,6 @@ export function SortableBlock({
                            className="w-full bg-white border border-slate-100 px-3 py-2 rounded-lg font-bold text-xs outline-none focus:border-blue-400 shadow-sm"
                          />
                        </div>
-                       <button onClick={() => updateData('items', (block.data.items || []).filter((_: any, i: number) => i !== idx))} className="p-2 text-slate-300 hover:text-red-500 transition-colors">
-                          <Trash2 className="w-4 h-4" />
-                       </button>
                     </div>
                   ))}
                   <button 
@@ -1453,7 +1477,16 @@ export function SortableBlock({
                        <div className="space-y-3">
                          <div className="flex items-center justify-between">
                             <span className="text-[8px] font-black text-slate-400 uppercase">Pertanyaan</span>
-                            <TextToolbar field="q" itemIdx={idx} />
+                            <div className="flex items-center gap-2">
+                               <TextToolbar field="q" itemIdx={idx} />
+                               <button 
+                                 onClick={() => updateData('items', (block.data.items || []).filter((_: any, i: number) => i !== idx))}
+                                 className="p-1.5 text-slate-300 hover:text-red-500 rounded-xl hover:bg-white border border-transparent hover:border-slate-100 transition-all shadow-sm group/del"
+                                 title="Hapus FAQ"
+                               >
+                                  <Trash2 className="w-4 h-4 group-hover/del:scale-110 transition-all" />
+                               </button>
+                            </div>
                          </div>
                          <input 
                            type="text" 
@@ -1482,9 +1515,6 @@ export function SortableBlock({
                            className="w-full bg-white border border-slate-100 px-3 py-2 rounded-lg text-xs outline-none resize-none font-medium shadow-sm focus:border-blue-400"
                          />
                        </div>
-                       <button onClick={() => updateData('items', (block.data.items || []).filter((_: any, i: number) => i !== idx))} className="absolute top-2 right-2 p-1 text-slate-300 hover:text-red-500 opacity-0 group-hover/faq:opacity-100 transition-opacity">
-                          <Trash2 className="w-4 h-4" />
-                       </button>
                     </div>
                   ))}
                   <button 
@@ -1601,9 +1631,10 @@ export function SortableBlock({
                        </div>
                        <button 
                         onClick={() => updateData('items', (block.data.items || []).filter((_: any, i: number) => i !== idx))}
-                        className="absolute top-2 right-2 p-1.5 text-slate-300 hover:text-red-500 opacity-0 group-hover/t:opacity-100 transition-all"
+                        className="p-1.5 text-slate-300 hover:text-red-500 rounded-xl hover:bg-white border border-transparent hover:border-slate-100 transition-all shadow-sm group/del"
+                        title="Hapus Testimoni"
                        >
-                          <Trash2 className="w-4 h-4" />
+                          <Trash2 className="w-4 h-4 group-hover/del:scale-110 transition-all" />
                        </button>
                     </div>
                   ))}
