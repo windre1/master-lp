@@ -1098,18 +1098,24 @@ export function SortableBlock({
                </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-6 pt-4 border-t border-slate-50">
+            <div className="grid grid-cols-3 gap-6 pt-4 border-t border-slate-50">
                <div className="space-y-3">
                   <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Warna Text</label>
-                  <div className="flex items-center gap-2">
-                    <input 
-                      type="color" 
-                      value={block.data.textColor || '#0f172a'} 
-                      onChange={e => updateData('textColor', e.target.value)}
-                      className="w-6 h-6 rounded-lg overflow-hidden border-none p-0 cursor-pointer"
-                    />
-                    <span className="text-[10px] font-bold text-slate-500 uppercase">{block.data.textColor || '#0f172a'}</span>
-                  </div>
+                  <input 
+                    type="color" 
+                    value={block.data.textColor || '#0f172a'} 
+                    onChange={e => updateData('textColor', e.target.value)}
+                    className="w-full h-8 rounded-xl overflow-hidden border-none p-0 cursor-pointer shadow-sm"
+                  />
+               </div>
+               <div className="space-y-3">
+                  <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Warna Aksen</label>
+                  <input 
+                    type="color" 
+                    value={block.data.accentColor || '#3b82f6'} 
+                    onChange={e => updateData('accentColor', e.target.value)}
+                    className="w-full h-8 rounded-xl overflow-hidden border-none p-0 cursor-pointer shadow-sm"
+                  />
                </div>
                <div className="space-y-3">
                   <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Ukuran Judul</label>
@@ -1120,12 +1126,13 @@ export function SortableBlock({
                       onChange={e => updateData('fontSize', e.target.value)}
                       className="flex-1 h-1 bg-slate-200 rounded-lg appearance-none cursor-pointer"
                     />
-                    <span className="text-[10px] font-bold text-slate-500">{block.data.fontSize || 36}px</span>
+                    <span className="text-[9px] font-bold text-slate-600">{block.data.fontSize || 36}px</span>
                   </div>
                </div>
             </div>
           </div>
         );
+
       case 'socialProof':
         return (
           <div className="space-y-6">

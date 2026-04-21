@@ -5,7 +5,7 @@ import { BlockData } from '@/types/lp';
 import { getTextStyle } from '@/lib/styles';
 
 export default function Problem({ data }: { data: BlockData }) {
-  const isDark = data.textColor === '#ffffff';
+  const isDark = data.textColor === '#ffffff' || !data.textColor;
 
   return (
     <section className="py-20 md:py-32">
@@ -13,7 +13,10 @@ export default function Problem({ data }: { data: BlockData }) {
         <div className="text-center mb-20">
           <h4 
             className={`text-[10px] font-black tracking-[0.4em] uppercase mb-6 ${isDark ? 'text-pink' : 'text-blue-600'}`}
-            style={getTextStyle(data, 'subtitle')}
+            style={{
+              color: data.accentColor,
+              ...getTextStyle(data, 'subtitle')
+            }}
           >
             {data.subtitle || 'APAKAH INI KAMU?'}
           </h4>
@@ -32,12 +35,31 @@ export default function Problem({ data }: { data: BlockData }) {
         <div className="grid gap-4 max-w-4xl mx-auto">
           {(data.items || []).map((p: any, i: number) => (
             <div key={i} className={`p-8 md:p-10 rounded-3xl border flex gap-6 items-start group transition-all ${isDark ? 'bg-white/5 border-white/10 hover:bg-white/[0.08]' : 'bg-white border-slate-100 shadow-xl shadow-slate-200/50 hover:-translate-y-1'}`}>
-              <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 border ${isDark ? 'bg-orange-400/20 border-orange-400/30' : 'bg-blue-50 border-blue-100'}`}>
-                 <div className={`w-2.5 h-2.5 rounded-full ${isDark ? 'bg-orange-400 shadow-[0_0_10px_rgba(251,146,60,0.8)]' : 'bg-blue-600'}`}></div>
+              <div 
+                className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 border ${isDark ? 'bg-orange-400/20 border-white/10' : 'bg-slate-50 border-slate-100'}`}
+                style={{ borderColor: data.accentColor ? `${data.accentColor}40` : undefined }}
+              >
+                 <div 
+                  className="w-2.5 h-2.5 rounded-full"
+                  style={{ 
+                    backgroundColor: data.accentColor || (isDark ? '#fb923c' : '#2563eb'),
+                    boxShadow: data.accentColor ? `0 0 10px ${data.accentColor}` : undefined
+                  }}
+                 ></div>
               </div>
               <div>
-                <h4 className={`font-extrabold text-lg md:text-xl mb-2 leading-tight ${isDark ? 'text-white' : 'text-slate-800'}`}>{p.t}</h4>
-                <p className={`text-sm md:text-base leading-relaxed font-medium ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{p.d}</p>
+                <h4 
+                  className={`font-extrabold text-lg md:text-xl mb-2 leading-tight ${isDark ? 'text-white' : 'text-slate-800'}`}
+                  style={{ color: data.textColor }}
+                >
+                  {p.t}
+                </h4>
+                <p 
+                  className={`text-sm md:text-base leading-relaxed font-medium ${isDark ? 'text-slate-400' : 'text-slate-500'}`}
+                  style={{ color: isDark ? undefined : data.textColor ? `${data.textColor}CC` : undefined }}
+                >
+                  {p.d}
+                </p>
               </div>
             </div>
           ))}
@@ -46,13 +68,20 @@ export default function Problem({ data }: { data: BlockData }) {
         <div className="mt-16 text-center">
            <p 
              className={`font-bold text-sm md:text-lg mb-4 ${isDark ? 'text-white/60' : 'text-slate-600'}`}
-             style={getTextStyle(data, 'closing')}
+             style={{
+               color: data.textColor ? `${data.textColor}99` : undefined,
+               ...getTextStyle(data, 'closing')
+             }}
            >
               {data.closing || 'Kalau minimal 2 dari masalah di atas kamu rasakan...'}
            </p>
            <p 
              className={`inline-block font-black text-xs md:text-sm uppercase tracking-widest border-b-2 pb-1 ${isDark ? 'text-green border-green' : 'text-blue-600 border-blue-600'}`}
-             style={getTextStyle(data, 'highlinedClosing')}
+             style={{
+               color: data.accentColor,
+               borderColor: data.accentColor,
+               ...getTextStyle(data, 'highlinedClosing')
+             }}
            >
               {data.highlinedClosing || 'maka halaman ini ditulis khusus untuk kamu.'}
            </p>
