@@ -23,7 +23,7 @@ export default function Editor() {
 
 
   const KOMISI_BLOCKS: Block[] = [
-    { id: 'k1', type: 'hero', data: { title: '👉 Dapat Komisi 30% Tanpa Punya Produk Sendiri', subtitle: 'Gabung jadi Affiliate di Wakrod Project — cukup share link, komisi jalan otomatis, bahkan bisa terus mengalir selamanya.', ctaText: '👉 Amankan Slot & Join GMeet Sekarang', ctaLink: '#cta-section', badge: 'center' } },
+    { id: 'k1', type: 'hero', data: { title: '👉 Dapat Komisi 30% Tanpa Punya Produk Sendiri', subtitle: 'Gabung jadi Affiliate di Wakrod Project — cukup share link, komisi jalan otomatis, bahkan bisa terus mengalir selamanya.', ctaText: '👉 Amankan Slot & Join GMeet Sekarang', ctaLink: '#price_list', badge: 'center' } },
     { id: 'k2', type: 'text_only', data: { subtitle: '⚠️ Detail lengkap sistem akan dibahas eksklusif di GMeet (slot terbatas)', badge: 'center', textColor: '#ef4444', fontSize: '18' } },
     { id: 'k3', type: 'problem', data: { title: 'Capek Jualan Tapi Gak Punya Produk?', subtitle: '👉 Sekarang saatnya ubah cara main.', items: [{ t: 'Bingung Produk Apa', d: 'Mau jualan tapi bingung produk apa.' }, { t: 'Komisi Kecil', d: 'Sudah coba affiliate, tapi komisi kecil.' }, { t: 'Gapunya Produk', d: 'Sekali closing, selesai… gak ada penghasilan lanjutan.' }, { t: 'Mulai dari nol', d: 'Harus mulai dari nol terus.' }] } },
     { id: 'k4', type: 'solution', data: { title: 'Kenalan dengan Wakrod Project', subtitle: '👉 Semua sudah disiapkan, kamu tinggal jalanin.', items: [{ t: 'Affiliate Komisi Besar', d: 'Komisi hingga 30% per transaksi.' }, { t: 'Tanpa Stok', d: 'Bangun income tanpa stok barang.' }, { t: 'Sistem Seller', d: 'Bahkan upgrade jadi seller dengan sistem simpel.' }] } },
@@ -39,7 +39,7 @@ export default function Editor() {
   ];
   
   const TEKOTOK_BLOCKS: Block[] = [
-    { id: 't1', type: 'hero', data: { title: 'Scale Konten TikTok Tanpa Batas', subtitle: 'Upload massal, multi akun, auto posting — semua otomatis. Fokus bikin konten, biarkan sistem yang kerja.', ctaText: 'MULAI SEKARANG', ctaLink: '#cta-penutup', badge: 'center' } },
+    { id: 't1', type: 'hero', data: { title: 'Scale Konten TikTok Tanpa Batas', subtitle: 'Upload massal, multi akun, auto posting — semua otomatis. Fokus bikin konten, biarkan sistem yang kerja.', ctaText: 'MULAI SEKARANG', ctaLink: '#price_list', badge: 'center' } },
     { id: 't2', type: 'text_only', data: { subtitle: '✔ Upload banyak video sekaligus (batch) \n✔ Auto posting & schedule tanpa ribet \n✔ Bisa handle banyak akun sekaligus \n✔ Cocok untuk affiliate & seller TikTok', badge: 'center', fontSize: '18', textColor: '#10b981' } },
     { id: 't3', type: 'text_only', data: { subtitle: 'Dipakai oleh Affiliate & Seller di TikTok', badge: 'center', fontSize: '14', textColor: '#64748b' } },
     { id: 't4', type: 'problem', data: { title: 'Kenapa Konten Lo Gak Pernah Scale?', subtitle: 'Masalahnya bukan di effort lo… tapi di sistem lo.', items: [{ t: 'Upload Manual Melelahkan', d: 'Bikin banyak konten tapi mental drop pas harus upload satu per satu.' }, { t: 'Ribet Kelola Banyak Akun', d: 'Login logout terus menerus menghabiskan waktu dan energi Anda.' }, { t: 'Gak Konsisten Upload', d: 'Niat awal mau rutin tapi kalah sama rasa capek dan sistem yang ribet.' }], closing: 'Akhirnya growth stuck', highlinedClosing: 'di situ-situ aja.' } },
@@ -53,7 +53,7 @@ export default function Editor() {
   ];
 
   const TEKOTOK2_BLOCKS: Block[] = [
-    { id: 't2-1', type: 'hero', data: { title: 'Scale Konten TikTok Tanpa Batas', subtitle: 'Upload massal, multi akun, auto posting — semua otomatis. Fokus bikin konten, biarkan sistem yang kerja.', ctaText: 'MULAI SEKARANG', ctaLink: '#cta-penutup', badge: 'center', textColor: '#ffffff', buttonColor: '#FF2D55' } },
+    { id: 't2-1', type: 'hero', data: { title: 'Scale Konten TikTok Tanpa Batas', subtitle: 'Upload massal, multi akun, auto posting — semua otomatis. Fokus bikin konten, biarkan sistem yang kerja.', ctaText: 'MULAI SEKARANG', ctaLink: '#price_list', badge: 'center', textColor: '#ffffff', buttonColor: '#FF2D55' } },
     { id: 't2-2', type: 'text_only', data: { subtitle: '✔ Upload banyak video sekaligus (batch) \n✔ Auto posting & schedule tanpa ribet \n✔ Bisa handle banyak akun sekaligus \n✔ Cocok untuk affiliate & seller TikTok', badge: 'center', fontSize: '18', textColor: '#00FFC2' } },
     { id: 't2-3', type: 'text_only', data: { subtitle: 'Dipakai oleh Affiliate & Seller di TikTok', badge: 'center', fontSize: '14', textColor: '#94a3b8' } },
     { id: 't2-4', type: 'problem', data: { title: 'Kenapa Konten Lo Gak Pernah Scale?', subtitle: 'Masalahnya bukan di effort lo… tapi di sistem lo.', items: [{ t: 'Upload Manual Melelahkan', d: 'Bikin banyak konten tapi mental drop pas harus upload satu per satu.' }, { t: 'Ribet Kelola Banyak Akun', d: 'Login logout terus menerus menghabiskan waktu dan energi Anda.' }, { t: 'Gak Konsisten Upload', d: 'Niat awal mau rutin tapi kalah sama rasa capek dan sistem yang ribet.' }], closing: 'Akhirnya growth stuck', highlinedClosing: 'di situ-situ aja.', textColor: '#ffffff' } },
@@ -82,7 +82,7 @@ export default function Editor() {
         title: type === 'heading' ? 'Judul Baru' : '',
         subtitle: type === 'text_only' ? 'Isi teks di sini...' : '',
         ctaText: type === 'cta' || type === 'button_only' ? 'Tombol' : '',
-        ctaLink: '#',
+        ctaLink: '#price_list',
         image: type === 'image_only' ? '' : undefined,
         videoUrl: type === 'video_only' ? '' : undefined,
         videoWidth: '100',

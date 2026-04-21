@@ -143,7 +143,7 @@ const blockMap: Record<string, React.FC<any>> = {
     const isDouble = items.length === 2;
     
     return (
-      <div className="max-w-5xl px-6 mx-auto py-16">
+      <div id="price_list" className="max-w-5xl px-6 mx-auto py-16">
         <div className={`flex flex-wrap justify-center gap-8`}>
            {items.map((item: any, i: number) => (
               <div 
