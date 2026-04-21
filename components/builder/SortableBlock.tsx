@@ -53,34 +53,58 @@ export function SortableBlock({
     onUpdateBlock(id, { ...block.data, [key]: value });
   };
 
-  const TextToolbar = ({ field }: { field: string }) => {
-    const isBold = block.data[`${field}Bold`];
-    const isItalic = block.data[`${field}Italic`];
-    const isUnderline = block.data[`${field}Underline`];
+  const TextToolbar = ({ field, itemIdx }: { field: string, itemIdx?: number }) => {
+    const isItem = itemIdx !== undefined;
+    const target = isItem ? (block.data.items?.[itemIdx] || {}) : block.data;
+    
+    const isBold = target[`${field}Bold`];
+    const isItalic = target[`${field}Italic`];
+    const isUnderline = target[`${field}Underline`];
+    const color = target[`${field}Color`] || (field === 'title' ? target.titleColor : undefined) || (field === 'subtitle' ? target.subtitleColor : undefined) || target.textColor || '#0f172a';
+
+    const updateValue = (key: string, val: any) => {
+      if (isItem) {
+        const newItems = [...(block.data.items || [])];
+        newItems[itemIdx] = { ...newItems[itemIdx], [key]: val };
+        updateData('items', newItems);
+      } else {
+        updateData(key, val);
+      }
+    };
 
     return (
-      <div className="flex items-center gap-1">
+      <div className="flex items-center gap-1 bg-slate-50 p-1 rounded-xl border border-slate-100">
         <button 
-          onClick={() => updateData(`${field}Bold`, !isBold)}
-          className={`p-1.5 rounded-lg transition-all ${isBold ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-400 hover:text-slate-600'}`}
+          onClick={() => updateValue(`${field}Bold`, !isBold)}
+          className={`p-1.5 rounded-lg transition-all ${isBold ? 'bg-slate-900 text-white' : 'text-slate-400 hover:text-slate-600 hover:bg-white'}`}
           title="Bold"
         >
           <Bold className="w-3 h-3" />
         </button>
         <button 
-          onClick={() => updateData(`${field}Italic`, !isItalic)}
-          className={`p-1.5 rounded-lg transition-all ${isItalic ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-400 hover:text-slate-600'}`}
+          onClick={() => updateValue(`${field}Italic`, !isItalic)}
+          className={`p-1.5 rounded-lg transition-all ${isItalic ? 'bg-slate-900 text-white' : 'text-slate-400 hover:text-slate-600 hover:bg-white'}`}
           title="Italic"
         >
           <Italic className="w-3 h-3" />
         </button>
         <button 
-          onClick={() => updateData(`${field}Underline`, !isUnderline)}
-          className={`p-1.5 rounded-lg transition-all ${isUnderline ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-400 hover:text-slate-600'}`}
+          onClick={() => updateValue(`${field}Underline`, !isUnderline)}
+          className={`p-1.5 rounded-lg transition-all ${isUnderline ? 'bg-slate-900 text-white' : 'text-slate-400 hover:text-slate-600 hover:bg-white'}`}
           title="Underline"
         >
           <Underline className="w-3 h-3" />
         </button>
+        <div className="w-[1px] h-4 bg-slate-200 mx-1"></div>
+        <div className="relative group/color flex items-center">
+          <input 
+            type="color" 
+            value={color} 
+            onChange={e => updateValue(`${field}Color`, e.target.value)}
+            className="w-5 h-5 rounded-lg overflow-hidden border-none p-0 cursor-pointer shadow-sm"
+            title="Warna Teks"
+          />
+        </div>
       </div>
     );
   };
@@ -137,55 +161,63 @@ export function SortableBlock({
             
             <div className="space-y-4 pt-4 border-t border-slate-50">
                <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Daftar Fitur / Benefit</label>
-               <div className="grid gap-3">
+               <div className="grid gap-4">
                   {(block.data.items || []).map((item: any, idx: number) => (
-                    <div key={idx} className="flex gap-2 items-start bg-slate-50 p-3 rounded-xl border border-slate-100">
-                       <div className="flex-1 space-y-2">
-                        <input 
-                          type="text" 
-                          value={item.t || item.title || ''} 
-                          onChange={(e) => {
-                            const newItems = [...(block.data.items || [])];
-                            newItems[idx] = { ...item, t: e.target.value };
-                            updateData('items', newItems);
-                          }}
-                          placeholder="Judul"
-                          className="w-full bg-white border border-slate-100 px-3 py-2 rounded-lg font-bold text-xs outline-none"
-                        />
-                        <textarea 
-                          rows={2}
-                          value={item.d || item.desc || ''} 
-                          onChange={(e) => {
-                            const newItems = [...(block.data.items || [])];
-                            newItems[idx] = { ...item, d: e.target.value };
-                            updateData('items', newItems);
-                          }}
-                          placeholder="Deskripsi"
-                          className="w-full bg-white border border-slate-100 px-3 py-2 rounded-lg text-[10px] outline-none resize-none"
-                        />
+                    <div key={idx} className="flex gap-4 items-start bg-slate-50 p-4 rounded-2xl border border-slate-100 group/feature relative">
+                       <div className="flex-1 space-y-3">
+                         <div className="flex items-center justify-between">
+                            <span className="text-[8px] font-black text-slate-400 uppercase">Judul Poin</span>
+                            <TextToolbar field="t" itemIdx={idx} />
+                         </div>
+                         <input 
+                           type="text" 
+                           value={item.t || item.title || ''} 
+                           onChange={(e) => {
+                             const newItems = [...(block.data.items || [])];
+                             newItems[idx] = { ...item, t: e.target.value };
+                             updateData('items', newItems);
+                           }}
+                           placeholder="Judul"
+                           className="w-full bg-white border border-slate-100 px-3 py-2 rounded-lg font-bold text-xs outline-none focus:border-blue-400"
+                         />
+                         <div className="flex items-center justify-between">
+                            <span className="text-[8px] font-black text-slate-400 uppercase">Keterangan</span>
+                            <TextToolbar field="d" itemIdx={idx} />
+                         </div>
+                         <textarea 
+                           rows={2}
+                           value={item.d || item.desc || ''} 
+                           onChange={(e) => {
+                             const newItems = [...(block.data.items || [])];
+                             newItems[idx] = { ...item, d: e.target.value };
+                             updateData('items', newItems);
+                           }}
+                           placeholder="Deskripsi"
+                           className="w-full bg-white border border-slate-100 px-3 py-2 rounded-lg text-[10px] outline-none resize-none focus:border-blue-400"
+                         />
                        </div>
-                       <button onClick={() => updateData('items', (block.data.items || []).filter((_: any, i: number) => i !== idx))} className="p-2 text-slate-300 hover:text-red-500">
+                       <button onClick={() => updateData('items', (block.data.items || []).filter((_: any, i: number) => i !== idx))} className="p-2 text-slate-300 hover:text-red-500 absolute top-2 right-2">
                           <Trash2 className="w-3 h-3" />
                        </button>
                     </div>
                   ))}
                   <button 
                     onClick={() => updateData('items', [...(block.data.items || []), { t: 'Fitur Baru', d: 'Keterangan...' }])}
-                    className="w-full py-2 border-2 border-dashed border-slate-200 rounded-xl text-[9px] font-black text-slate-400 hover:text-slate-600"
+                    className="w-full py-4 border-2 border-dashed border-slate-200 rounded-2xl text-[9px] font-black text-slate-400 hover:text-slate-900 transition-all uppercase tracking-widest"
                   >
-                    + Tambah Fitur
+                    + TAMBAH FITUR BARU
                   </button>
                </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4 pt-2 border-t border-slate-50">
-                <div className="flex items-center gap-2">
-                   <Zap className="w-3 h-3 text-slate-500" />
+            <div className="grid grid-cols-2 gap-4 pt-4 border-t border-slate-50">
+                <div className="space-y-3">
+                   <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Warna Aksen</label>
                    <input 
                      type="color" 
-                     value={block.data.textColor || '#0f172a'} 
-                     onChange={e => updateData('textColor', e.target.value)}
-                     className="w-4 h-4 rounded-full overflow-hidden border-none p-0 cursor-pointer"
+                     value={block.data.accentColor || '#3b82f6'} 
+                     onChange={e => updateData('accentColor', e.target.value)}
+                     className="w-full h-8 rounded-xl overflow-hidden border-none p-0 cursor-pointer shadow-sm"
                    />
                 </div>
             </div>
@@ -209,7 +241,10 @@ export function SortableBlock({
             </div>
             
             <div className="space-y-4">
-               <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Sub-Headline</label>
+               <div className="flex items-center justify-between">
+                  <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Sub-Headline</label>
+                  <TextToolbar field="subtitle" />
+               </div>
                <textarea 
                 rows={2}
                 value={block.data.subtitle || ''} 
@@ -221,7 +256,10 @@ export function SortableBlock({
 
             <div className="grid grid-cols-2 gap-4 pt-4 border-t border-slate-50">
                <div className="space-y-2">
-                  <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Teks Tombol</label>
+                  <div className="flex items-center justify-between">
+                     <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Teks Tombol</label>
+                     <TextToolbar field="cta" />
+                  </div>
                   <div className="flex items-center gap-2 bg-slate-100 p-2 rounded-xl">
                     <input 
                       type="text" 
@@ -232,9 +270,10 @@ export function SortableBlock({
                     />
                     <input 
                       type="color" 
-                      value={block.data.buttonColor || '#0f172a'} 
+                      value={block.data.buttonColor || block.data.accentColor || '#0f172a'} 
                       onChange={e => updateData('buttonColor', e.target.value)}
-                      className="w-4 h-4 rounded-full overflow-hidden border-none p-0 cursor-pointer"
+                      className="w-5 h-5 rounded-lg overflow-hidden border-none p-0 cursor-pointer shadow-sm"
+                      title="Warna Background Tombol"
                     />
                   </div>
                </div>
@@ -535,95 +574,104 @@ export function SortableBlock({
                        <Trash2 className="w-4 h-4" />
                     </button>
 
-                    <div className="space-y-4 w-full">
-                        <div className="flex flex-col items-center gap-2 border-b border-slate-50 pb-4">
-                           <div className="flex items-center gap-2 w-full justify-center">
+                   <div className="space-y-4 w-full">
+                        <div className="flex flex-col items-center gap-4 border-b border-slate-50 pb-4">
+                           <div className="flex items-center justify-between w-full">
+                              <span className="text-[8px] font-black text-slate-300 uppercase">Nama Paket</span>
+                              <TextToolbar field="title" itemIdx={idx} />
+                           </div>
+                           <input 
+                             type="text" 
+                             value={item.title || ''} 
+                             onChange={(e) => {
+                               const newItems = [...(block.data.items || [])];
+                               newItems[idx] = { ...item, title: e.target.value };
+                               updateData('items', newItems);
+                             }}
+                             placeholder="Judul Paket"
+                             className="w-full bg-slate-50 border border-slate-100 px-3 py-2 rounded-xl font-black text-sm outline-none placeholder:text-slate-300 text-center"
+                           />
+                           
+                           <div className="flex items-center justify-between w-full">
+                              <span className="text-[8px] font-black text-slate-300 uppercase">Harga</span>
+                              <TextToolbar field="price" itemIdx={idx} />
+                           </div>
+                           <div className="flex items-center justify-center gap-1 w-full">
+                              <span className="text-xs font-black text-slate-400">Rp</span>
                               <input 
                                 type="text" 
-                                value={item.title || ''} 
+                                value={item.price || ''} 
                                 onChange={(e) => {
                                   const newItems = [...(block.data.items || [])];
-                                  newItems[idx] = { ...item, title: e.target.value };
+                                  newItems[idx] = { ...item, price: e.target.value };
                                   updateData('items', newItems);
                                 }}
-                                style={{ color: item.textColor || '#0f172a' }}
-                                placeholder="Judul Paket"
-                                className="bg-transparent font-black text-sm outline-none placeholder:text-slate-300 text-center flex-1"
-                              />
-                              <input 
-                                type="color" 
-                                value={item.textColor || '#0f172a'} 
-                                onChange={(e) => {
-                                  const newItems = [...(block.data.items || [])];
-                                  newItems[idx] = { ...item, textColor: e.target.value };
-                                  updateData('items', newItems);
-                                }}
-                                className="w-4 h-4 rounded-full overflow-hidden border-none p-0 cursor-pointer shrink-0"
+                                placeholder="Harga"
+                                className="bg-transparent font-black text-xl outline-none text-blue-600 placeholder:text-slate-200 text-center flex-1"
                               />
                            </div>
                         </div>
-                        <div className="flex items-center justify-center gap-1 border-b border-slate-50 pb-2">
-                           <span className="text-[10px] font-black text-slate-300">Rp</span>
-                           <input 
-                             type="text" 
-                             value={item.price || ''} 
+
+                        <div className="space-y-2">
+                           <div className="flex items-center justify-between w-full">
+                              <span className="text-[8px] font-black text-slate-300 uppercase">Keterangan</span>
+                              <TextToolbar field="desc" itemIdx={idx} />
+                           </div>
+                           <textarea 
+                             rows={3}
+                             value={item.desc || ''} 
                              onChange={(e) => {
                                const newItems = [...(block.data.items || [])];
-                               newItems[idx] = { ...item, price: e.target.value };
+                               newItems[idx] = { ...item, desc: e.target.value };
                                updateData('items', newItems);
                              }}
-                             placeholder="Harga"
-                             className="bg-transparent font-black text-xs outline-none text-blue-600 placeholder:text-slate-200 text-center w-24"
+                             placeholder="Keterangan paket (pisahkan koma)..."
+                             className="w-full bg-slate-50 p-4 rounded-xl text-[10px] text-slate-800 font-medium outline-none resize-none leading-relaxed text-center"
                            />
                         </div>
-                       <textarea 
-                         rows={2}
-                         value={item.desc || ''} 
-                         onChange={(e) => {
-                           const newItems = [...(block.data.items || [])];
-                           newItems[idx] = { ...item, desc: e.target.value };
-                           updateData('items', newItems);
-                         }}
-                         placeholder="Keterangan..."
-                         className="w-full bg-slate-50 p-3 rounded-xl text-xs text-slate-800 font-medium outline-none resize-none leading-relaxed text-center"
-                       />
-                       <div className="pt-4 space-y-3 w-full">
-                          <div className="flex items-center gap-2 bg-slate-100 p-2 rounded-xl">
-                            <input 
-                              type="text" 
-                              value={item.ctaText || ''} 
-                              onChange={(e) => {
-                                const newItems = [...(block.data.items || [])];
-                                newItems[idx] = { ...item, ctaText: e.target.value };
-                                updateData('items', newItems);
-                              }}
-                              placeholder="Teks Tombol"
-                              className="flex-1 bg-transparent font-black text-[9px] uppercase tracking-widest text-slate-900 outline-none text-center"
-                            />
-                            <input 
-                              type="color" 
-                              value={item.buttonColor || '#0f172a'} 
-                              onChange={(e) => {
-                                const newItems = [...(block.data.items || [])];
-                                newItems[idx] = { ...item, buttonColor: e.target.value };
-                                updateData('items', newItems);
-                              }}
-                              className="w-4 h-4 rounded-full overflow-hidden border-none p-0 cursor-pointer"
-                            />
-                          </div>
-                          <input 
-                            type="text" 
-                            value={item.ctaLink || ''} 
-                            onChange={(e) => {
-                              const newItems = [...(block.data.items || [])];
-                              newItems[idx] = { ...item, ctaLink: e.target.value };
-                              updateData('items', newItems);
-                            }}
-                            placeholder="Link URL (https://...)"
-                            className="w-full bg-slate-50 border border-slate-100 px-3 py-2 rounded-xl text-[9px] text-slate-900 font-bold outline-none text-center"
-                          />
-                       </div>
-                    </div>
+
+                        <div className="pt-4 space-y-3 w-full border-t border-slate-50">
+                           <div className="flex items-center justify-between w-full mb-1">
+                              <span className="text-[8px] font-black text-slate-300 uppercase">Tombol</span>
+                              <TextToolbar field="cta" itemIdx={idx} />
+                           </div>
+                           <div className="flex items-center gap-2 bg-slate-100 p-2 rounded-xl">
+                             <input 
+                               type="text" 
+                               value={item.ctaText || ''} 
+                               onChange={(e) => {
+                                 const newItems = [...(block.data.items || [])];
+                                 newItems[idx] = { ...item, ctaText: e.target.value };
+                                 updateData('items', newItems);
+                               }}
+                               placeholder="Teks Tombol"
+                               className="flex-1 bg-transparent font-black text-[9px] uppercase tracking-widest text-slate-900 outline-none text-center"
+                             />
+                             <input 
+                               type="color" 
+                               value={item.buttonColor || '#0f172a'} 
+                               onChange={(e) => {
+                                 const newItems = [...(block.data.items || [])];
+                                 newItems[idx] = { ...item, buttonColor: e.target.value };
+                                 updateData('items', newItems);
+                               }}
+                               className="w-5 h-5 rounded-lg overflow-hidden border-none p-0 cursor-pointer shadow-sm"
+                               title="Warna Tombol"
+                             />
+                           </div>
+                           <input 
+                             type="text" 
+                             value={item.ctaLink || ''} 
+                             onChange={(e) => {
+                               const newItems = [...(block.data.items || [])];
+                               newItems[idx] = { ...item, ctaLink: e.target.value };
+                               updateData('items', newItems);
+                             }}
+                             placeholder="Link URL (https://...)"
+                             className="w-full bg-white border border-slate-100 px-3 py-2 rounded-xl text-[9px] text-slate-400 font-bold outline-none text-center"
+                           />
+                        </div>
+                     </div>
                  </div>
                ))}
                {(block.data.items || []).length < 3 && (
@@ -694,7 +742,10 @@ export function SortableBlock({
             )}
 
             <div className="pt-4 border-t border-slate-50">
-               <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-4 block">Pengaturan Tombol</label>
+               <div className="flex items-center justify-between mb-4">
+                  <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Pengaturan Tombol</label>
+                  <TextToolbar field="cta" />
+               </div>
                 <div className={`flex ${currentAlign === 'left' ? 'justify-start' : (currentAlign === 'right' ? 'justify-end' : 'justify-center')}`}>
                   <div 
                     className="px-10 py-3 rounded-xl text-xs font-black uppercase tracking-widest shadow-lg min-w-[200px] text-center"
@@ -725,9 +776,9 @@ export function SortableBlock({
                     <div className="flex items-center gap-2">
                         <Layout className="w-3 h-3 text-slate-400" />
                         <input 
-                          type="range" min="12" max="32" 
+                          type="range" min="12" max="48" 
                           value={block.data.fontSize || 14} 
-                          onChange={e => updateData('fontSize', e.target.value)}
+                          onChange={e => updateData('fontSize', parseInt(e.target.value))}
                           className="w-16 h-1 bg-slate-200 rounded-lg appearance-none cursor-pointer"
                         />
                     </div>
@@ -737,7 +788,8 @@ export function SortableBlock({
                           type="color" 
                           value={block.data.buttonColor || '#0f172a'} 
                           onChange={e => updateData('buttonColor', e.target.value)}
-                          className="w-4 h-4 rounded-full overflow-hidden border-none p-0 cursor-pointer"
+                          className="w-5 h-5 rounded-lg overflow-hidden border-none p-0 cursor-pointer shadow-sm"
+                          title="Warna Tombol"
                         />
                     </div>
                   </div>
@@ -778,32 +830,40 @@ export function SortableBlock({
 
             <div className="space-y-4 pt-4 border-t border-slate-50">
                <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Daftar Poin Solusi</label>
-               <div className="grid grid-cols-1 gap-3">
+               <div className="grid grid-cols-1 gap-4">
                   {(block.data.items || []).map((item: any, idx: number) => (
-                    <div key={idx} className="flex gap-2 items-start bg-slate-50 p-3 rounded-xl border border-slate-100">
-                       <div className="flex-1 space-y-2">
-                        <input 
-                          type="text" 
-                          value={item.t || item.title || ''} 
-                          onChange={(e) => {
-                            const newItems = [...(block.data.items || [])];
-                            newItems[idx] = { ...item, t: e.target.value };
-                            updateData('items', newItems);
-                          }}
-                          placeholder="Judul"
-                          className="w-full bg-white border border-slate-100 px-3 py-2 rounded-lg font-bold text-[10px] outline-none"
-                        />
-                        <textarea 
-                          rows={2}
-                          value={item.d || item.desc || ''} 
-                          onChange={(e) => {
-                            const newItems = [...(block.data.items || [])];
-                            newItems[idx] = { ...item, d: e.target.value };
-                            updateData('items', newItems);
-                          }}
-                          placeholder="Keterangan"
-                          className="w-full bg-white border border-slate-100 px-3 py-2 rounded-lg text-[10px] outline-none resize-none"
-                        />
+                    <div key={idx} className="bg-slate-50 p-4 rounded-2xl border border-slate-100 space-y-3 relative group/solution">
+                       <div className="flex-1 space-y-3">
+                         <div className="flex items-center justify-between">
+                            <span className="text-[8px] font-black text-slate-400 uppercase">Input Solusi</span>
+                            <TextToolbar field="t" itemIdx={idx} />
+                         </div>
+                         <input 
+                           type="text" 
+                           value={item.t || item.title || ''} 
+                           onChange={(e) => {
+                             const newItems = [...(block.data.items || [])];
+                             newItems[idx] = { ...item, t: e.target.value };
+                             updateData('items', newItems);
+                           }}
+                           placeholder="Judul"
+                           className="w-full bg-white border border-slate-100 px-3 py-2 rounded-lg font-bold text-[10px] outline-none"
+                         />
+                         <div className="flex items-center justify-between">
+                            <span className="text-[8px] font-black text-slate-400 uppercase">Keterangan</span>
+                            <TextToolbar field="d" itemIdx={idx} />
+                         </div>
+                         <textarea 
+                           rows={2}
+                           value={item.d || item.desc || ''} 
+                           onChange={(e) => {
+                             const newItems = [...(block.data.items || [])];
+                             newItems[idx] = { ...item, d: e.target.value };
+                             updateData('items', newItems);
+                           }}
+                           placeholder="Keterangan"
+                           className="w-full bg-white border border-slate-100 px-3 py-2 rounded-lg text-[10px] outline-none resize-none font-medium"
+                         />
                        </div>
                        <button 
                          onClick={() => {
@@ -811,17 +871,17 @@ export function SortableBlock({
                            newItems.splice(idx, 1);
                            updateData('items', newItems);
                          }}
-                         className="p-2 text-slate-300 hover:text-red-500"
+                         className="absolute top-4 right-4 p-1 text-slate-300 hover:text-red-500 opacity-0 group-hover/solution:opacity-100 transition-opacity"
                        >
-                          <Trash2 className="w-3 h-3" />
+                          <Trash2 className="w-3.5 h-3.5" />
                        </button>
                     </div>
                   ))}
                   <button 
                     onClick={() => updateData('items', [...(block.data.items || []), { t: 'Solusi Baru', d: 'Keterangan...' }])}
-                    className="w-full py-2 border-2 border-dashed border-slate-200 rounded-xl text-[9px] font-black text-slate-400 hover:text-slate-600"
+                    className="w-full py-4 border-2 border-dashed border-slate-200 rounded-2xl text-[9px] font-black text-slate-400 hover:text-slate-900 transition-all uppercase tracking-widest"
                   >
-                    + Tambah Solusi
+                    + TAMBAH POIN SOLUSI
                   </button>
                </div>
             </div>
@@ -934,7 +994,10 @@ export function SortableBlock({
         return (
           <div className="space-y-6">
             <div className="space-y-4">
-               <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Judul Section</label>
+               <div className="flex items-center justify-between">
+                  <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Judul Section</label>
+                  <TextToolbar field="title" />
+               </div>
                <input 
                  type="text" 
                  value={block.data.title || ''} 
@@ -943,7 +1006,10 @@ export function SortableBlock({
                />
             </div>
             <div className="space-y-4">
-               <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Sub-Judul / Deskripsi</label>
+               <div className="flex items-center justify-between">
+                  <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Sub-Judul / Deskripsi</label>
+                  <TextToolbar field="subtitle" />
+               </div>
                <input 
                  type="text" 
                  value={block.data.subtitle || ''} 
@@ -955,7 +1021,11 @@ export function SortableBlock({
                <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Daftar Target User</label>
                <div className="grid gap-3">
                   {(block.data.items || []).map((item: any, idx: number) => (
-                    <div key={idx} className="flex gap-2 items-start">
+                    <div key={idx} className="bg-slate-50 p-4 rounded-2xl border border-slate-100 space-y-3 relative group/target">
+                       <div className="flex items-center justify-between">
+                          <span className="text-[8px] font-black text-slate-400 uppercase">Input Target</span>
+                          <TextToolbar field="title" itemIdx={idx} />
+                       </div>
                        <input 
                          type="text" 
                          value={item.title || ''} 
@@ -964,9 +1034,13 @@ export function SortableBlock({
                            newItems[idx] = { ...item, title: e.target.value };
                            updateData('items', newItems);
                          }}
-                         className="flex-[2] bg-slate-50 border border-slate-100 px-3 py-2 rounded-lg font-bold text-[10px]"
-                         placeholder="Target"
+                         className="w-full bg-white border border-slate-100 px-3 py-2 rounded-lg font-bold text-[10px] outline-none"
+                         placeholder="Contoh: Kreator Pemula"
                        />
+                       <div className="flex items-center justify-between">
+                          <span className="text-[8px] font-black text-slate-400 uppercase">Keterangan Singkat</span>
+                          <TextToolbar field="desc" itemIdx={idx} />
+                       </div>
                        <input 
                          type="text" 
                          value={item.desc || ''} 
@@ -975,18 +1049,29 @@ export function SortableBlock({
                            newItems[idx] = { ...item, desc: e.target.value };
                            updateData('items', newItems);
                          }}
-                         className="flex-[3] bg-slate-50 border border-slate-100 px-3 py-2 rounded-lg text-[10px]"
-                         placeholder="Keterangan"
+                         className="w-full bg-white border border-slate-100 px-3 py-2 rounded-lg text-[10px] outline-none"
+                         placeholder="Alasan kenapa cocok..."
                        />
-                       <button onClick={() => updateData('items', (block.data.items || []).filter((_: any, i: number) => i !== idx))} className="p-2 text-slate-300 hover:text-red-500">
-                          <Trash2 className="w-3 h-3" />
+                       <button onClick={() => updateData('items', (block.data.items || []).filter((_: any, i: number) => i !== idx))} className="absolute top-2 right-2 p-1 text-slate-300 hover:text-red-500 opacity-0 group-hover/target:opacity-100 transition-opacity">
+                          <Trash2 className="w-3.5 h-3.5" />
                        </button>
                     </div>
                   ))}
-                  <button onClick={() => updateData('items', [...(block.data.items || []), { title: 'Target Baru', desc: 'Deskripsi...' }])} className="w-full py-2 border-2 border-dashed border-slate-200 rounded-xl text-[9px] font-black text-slate-400 hover:text-slate-600">
-                    + Tambah Target
+                  <button onClick={() => updateData('items', [...(block.data.items || []), { title: 'Target Baru', desc: 'Deskripsi...' }])} className="w-full py-4 border-2 border-dashed border-slate-200 rounded-2xl text-[9px] font-black text-slate-400 hover:text-slate-900 transition-all uppercase tracking-widest">
+                    + Tambah Target Baru
                   </button>
                </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4 pt-4 border-t border-slate-50">
+                <div className="space-y-3">
+                   <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Warna Aksen</label>
+                   <input 
+                     type="color" 
+                     value={block.data.accentColor || '#3b82f6'} 
+                     onChange={e => updateData('accentColor', e.target.value)}
+                     className="w-full h-8 rounded-xl overflow-hidden border-none p-0 cursor-pointer shadow-sm"
+                   />
+                </div>
             </div>
           </div>
         );
@@ -1050,32 +1135,40 @@ export function SortableBlock({
 
             <div className="space-y-4 pt-4 border-t border-slate-50">
                <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Daftar Poin Masalah</label>
-               <div className="grid gap-3">
+               <div className="grid gap-4">
                   {(block.data.items || []).map((item: any, idx: number) => (
-                    <div key={idx} className="flex gap-2 items-start bg-slate-50 p-3 rounded-xl border border-slate-100">
-                       <div className="flex-1 space-y-2">
-                        <input 
-                          type="text" 
-                          value={item.t || ''} 
-                          onChange={(e) => {
-                            const newItems = [...(block.data.items || [])];
-                            newItems[idx] = { ...item, t: e.target.value };
-                            updateData('items', newItems);
-                          }}
-                          placeholder="Judul"
-                          className="w-full bg-white border border-slate-100 px-3 py-2 rounded-lg font-bold text-[10px] outline-none"
-                        />
-                        <textarea 
-                          rows={2}
-                          value={item.d || ''} 
-                          onChange={(e) => {
-                            const newItems = [...(block.data.items || [])];
-                            newItems[idx] = { ...item, d: e.target.value };
-                            updateData('items', newItems);
-                          }}
-                          placeholder="Keterangan"
-                          className="w-full bg-white border border-slate-100 px-3 py-2 rounded-lg text-[10px] outline-none resize-none"
-                        />
+                    <div key={idx} className="bg-slate-50 p-4 rounded-3xl border border-slate-100 space-y-3 relative group/problem">
+                       <div className="flex-1 space-y-3">
+                         <div className="flex items-center justify-between">
+                            <span className="text-[8px] font-black text-slate-400 uppercase">Judul Masalah</span>
+                            <TextToolbar field="t" itemIdx={idx} />
+                         </div>
+                         <input 
+                           type="text" 
+                           value={item.t || ''} 
+                           onChange={(e) => {
+                             const newItems = [...(block.data.items || [])];
+                             newItems[idx] = { ...item, t: e.target.value };
+                             updateData('items', newItems);
+                           }}
+                           placeholder="Judul"
+                           className="w-full bg-white border border-slate-100 px-3 py-2 rounded-lg font-bold text-[10px] outline-none"
+                         />
+                         <div className="flex items-center justify-between">
+                            <span className="text-[8px] font-black text-slate-400 uppercase">Keterangan</span>
+                            <TextToolbar field="d" itemIdx={idx} />
+                         </div>
+                         <textarea 
+                           rows={2}
+                           value={item.d || ''} 
+                           onChange={(e) => {
+                             const newItems = [...(block.data.items || [])];
+                             newItems[idx] = { ...item, d: e.target.value };
+                             updateData('items', newItems);
+                           }}
+                           placeholder="Keterangan"
+                           className="w-full bg-white border border-slate-100 px-3 py-2 rounded-lg text-[10px] outline-none resize-none font-medium"
+                         />
                        </div>
                        <button 
                          onClick={() => {
@@ -1083,9 +1176,9 @@ export function SortableBlock({
                            newItems.splice(idx, 1);
                            updateData('items', newItems);
                          }}
-                         className="p-2 text-slate-300 hover:text-red-500"
+                         className="absolute top-4 right-4 p-2 text-slate-300 hover:text-red-500 opacity-0 group-hover/problem:opacity-100 transition-opacity"
                        >
-                          <Trash2 className="w-3 h-3" />
+                          <Trash2 className="w-3.5 h-3.5" />
                        </button>
                     </div>
                   ))}
@@ -1098,36 +1191,9 @@ export function SortableBlock({
                </div>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-6 border-t border-slate-50">
-               <div className="space-y-2">
-                  <label className="text-[8px] font-black text-slate-400 uppercase tracking-widest">Warna Judul</label>
-                  <input 
-                    type="color" 
-                    value={block.data.titleColor || block.data.textColor || '#0f172a'} 
-                    onChange={e => updateData('titleColor', e.target.value)}
-                    className="w-full h-8 rounded-xl overflow-hidden border-none p-0 cursor-pointer shadow-sm"
-                  />
-               </div>
-               <div className="space-y-2">
-                  <label className="text-[8px] font-black text-slate-400 uppercase tracking-widest">Warna Sub</label>
-                  <input 
-                    type="color" 
-                    value={block.data.subtitleColor || block.data.accentColor || '#3b82f6'} 
-                    onChange={e => updateData('subtitleColor', e.target.value)}
-                    className="w-full h-8 rounded-xl overflow-hidden border-none p-0 cursor-pointer shadow-sm"
-                  />
-               </div>
-               <div className="space-y-2">
-                  <label className="text-[8px] font-black text-slate-400 uppercase tracking-widest">Warna List</label>
-                  <input 
-                    type="color" 
-                    value={block.data.itemsColor || block.data.textColor || '#1e293b'} 
-                    onChange={e => updateData('itemsColor', e.target.value)}
-                    className="w-full h-8 rounded-xl overflow-hidden border-none p-0 cursor-pointer shadow-sm"
-                  />
-               </div>
-               <div className="space-y-2">
-                  <label className="text-[8px] font-black text-slate-400 uppercase tracking-widest">Warna Aksen</label>
+            <div className="grid grid-cols-2 gap-6 pt-6 border-t border-slate-50">
+               <div className="space-y-3">
+                  <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Warna Aksen</label>
                   <input 
                     type="color" 
                     value={block.data.accentColor || '#3b82f6'} 
@@ -1135,17 +1201,17 @@ export function SortableBlock({
                     className="w-full h-8 rounded-xl overflow-hidden border-none p-0 cursor-pointer shadow-sm"
                   />
                </div>
-            </div>
-            <div className="space-y-3 pt-4">
-               <label className="text-[8px] font-black text-slate-400 uppercase tracking-widest">Ukuran Judul</label>
-               <div className="flex items-center gap-4">
-                  <input 
-                    type="range" min="16" max="96" 
-                    value={block.data.fontSize || 36} 
-                    onChange={e => updateData('fontSize', parseInt(e.target.value))}
-                    className="flex-1 h-1 bg-slate-200 rounded-lg appearance-none cursor-pointer"
-                  />
-                  <span className="text-[10px] font-bold text-slate-600">{block.data.fontSize || 36}px</span>
+               <div className="space-y-3">
+                  <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Ukuran Judul</label>
+                  <div className="flex items-center gap-4">
+                    <input 
+                      type="range" min="16" max="96" 
+                      value={block.data.fontSize || 36} 
+                      onChange={e => updateData('fontSize', parseInt(e.target.value))}
+                      className="flex-1 h-1 bg-slate-200 rounded-lg appearance-none cursor-pointer"
+                    />
+                    <span className="text-[9px] font-bold text-slate-600">{block.data.fontSize || 36}px</span>
+                  </div>
                </div>
             </div>
           </div>
@@ -1246,7 +1312,10 @@ export function SortableBlock({
             </div>
 
             <div className="space-y-4 pt-4 border-t border-slate-50">
-               <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Teks Penutup (Footer)</label>
+               <div className="flex items-center justify-between">
+                  <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Teks Penutup (Footer)</label>
+                  <TextToolbar field="footer" />
+               </div>
                <input 
                 type="text"
                 value={block.data.footer || ''} 
@@ -1318,28 +1387,34 @@ export function SortableBlock({
                <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Langkah-Langkah</label>
                <div className="grid gap-3">
                   {(block.data.items || []).map((item: any, idx: number) => (
-                    <div key={idx} className="flex gap-2 items-center bg-slate-50 p-2 rounded-xl border border-slate-100">
-                       <input 
-                         type="text" 
-                         value={item.t || item.title || ''} 
-                         onChange={(e) => {
-                           const newItems = [...(block.data.items || [])];
-                           newItems[idx] = { ...item, t: e.target.value };
-                           updateData('items', newItems);
-                         }}
-                         placeholder={`Langkah ${idx+1}`}
-                         className="flex-1 bg-white border border-slate-100 px-3 py-2 rounded-lg font-bold text-[10px] outline-none"
-                       />
-                       <button onClick={() => updateData('items', (block.data.items || []).filter((_: any, i: number) => i !== idx))} className="p-2 text-slate-300">
-                          <Trash2 className="w-3 h-3" />
+                    <div key={idx} className="flex gap-4 items-center bg-slate-50 p-3 rounded-2xl border border-slate-100 group/step relative">
+                       <div className="flex-1 flex flex-col gap-2">
+                         <div className="flex items-center justify-between">
+                            <span className="text-[8px] font-black text-slate-400 uppercase">Input Langkah {idx + 1}</span>
+                            <TextToolbar field="t" itemIdx={idx} />
+                         </div>
+                         <input 
+                           type="text" 
+                           value={item.t || item.title || ''} 
+                           onChange={(e) => {
+                             const newItems = [...(block.data.items || [])];
+                             newItems[idx] = { ...item, t: e.target.value };
+                             updateData('items', newItems);
+                           }}
+                           placeholder={`Langkah ${idx+1}`}
+                           className="w-full bg-white border border-slate-100 px-3 py-2 rounded-lg font-bold text-xs outline-none focus:border-blue-400 shadow-sm"
+                         />
+                       </div>
+                       <button onClick={() => updateData('items', (block.data.items || []).filter((_: any, i: number) => i !== idx))} className="p-2 text-slate-300 hover:text-red-500 transition-colors">
+                          <Trash2 className="w-4 h-4" />
                        </button>
                     </div>
                   ))}
                   <button 
                     onClick={() => updateData('items', [...(block.data.items || []), { t: 'Langkah Baru' }])}
-                    className="w-full py-2 border-2 border-dashed border-slate-200 rounded-xl text-[9px] font-black text-slate-400"
+                    className="w-full py-3 border-2 border-dashed border-slate-200 rounded-2xl text-[9px] font-black text-slate-400 hover:text-slate-900 hover:border-slate-400 transition-all uppercase tracking-widest"
                   >
-                    + Tambah Langkah
+                    + TAMBAH LANGKAH BARU
                   </button>
                </div>
             </div>
@@ -1372,41 +1447,51 @@ export function SortableBlock({
 
             <div className="space-y-4 pt-4 border-t border-slate-50">
                <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Daftar Pertanyaan</label>
-               <div className="grid gap-3">
+               <div className="grid gap-4">
                   {(block.data.items || []).map((item: any, idx: number) => (
-                    <div key={idx} className="bg-slate-50 p-4 rounded-2xl border border-slate-100 space-y-3">
-                       <input 
-                         type="text" 
-                         value={item.q || item.title || ''} 
-                         onChange={(e) => {
-                           const newItems = [...(block.data.items || [])];
-                           newItems[idx] = { ...item, q: e.target.value };
-                           updateData('items', newItems);
-                         }}
-                         placeholder="Pertanyaan?"
-                         className="w-full bg-white border border-slate-100 px-3 py-2 rounded-lg font-bold text-[10px] outline-none"
-                       />
-                       <textarea 
-                         rows={2}
-                         value={item.a || item.desc || ''} 
-                         onChange={(e) => {
-                           const newItems = [...(block.data.items || [])];
-                           newItems[idx] = { ...item, a: e.target.value };
-                           updateData('items', newItems);
-                         }}
-                         placeholder="Jawaban..."
-                         className="w-full bg-white border border-slate-100 px-3 py-2 rounded-lg text-[10px] outline-none resize-none font-medium"
-                       />
-                       <div className="flex justify-end">
-                          <button onClick={() => updateData('items', (block.data.items || []).filter((_: any, i: number) => i !== idx))} className="text-red-500 text-[9px] font-bold uppercase">Hapus FAQ</button>
+                    <div key={idx} className="bg-slate-50 p-4 rounded-2xl border border-slate-100 space-y-4 relative group/faq">
+                       <div className="space-y-3">
+                         <div className="flex items-center justify-between">
+                            <span className="text-[8px] font-black text-slate-400 uppercase">Pertanyaan</span>
+                            <TextToolbar field="q" itemIdx={idx} />
+                         </div>
+                         <input 
+                           type="text" 
+                           value={item.q || item.title || ''} 
+                           onChange={(e) => {
+                             const newItems = [...(block.data.items || [])];
+                             newItems[idx] = { ...item, q: e.target.value };
+                             updateData('items', newItems);
+                           }}
+                           placeholder="Pertanyaan?"
+                           className="w-full bg-white border border-slate-100 px-3 py-2 rounded-lg font-bold text-[11px] outline-none shadow-sm focus:border-blue-400"
+                         />
+                         <div className="flex items-center justify-between">
+                            <span className="text-[8px] font-black text-slate-400 uppercase">Jawaban</span>
+                            <TextToolbar field="a" itemIdx={idx} />
+                         </div>
+                         <textarea 
+                           rows={3}
+                           value={item.a || item.desc || ''} 
+                           onChange={(e) => {
+                             const newItems = [...(block.data.items || [])];
+                             newItems[idx] = { ...item, a: e.target.value };
+                             updateData('items', newItems);
+                           }}
+                           placeholder="Jawaban..."
+                           className="w-full bg-white border border-slate-100 px-3 py-2 rounded-lg text-xs outline-none resize-none font-medium shadow-sm focus:border-blue-400"
+                         />
                        </div>
+                       <button onClick={() => updateData('items', (block.data.items || []).filter((_: any, i: number) => i !== idx))} className="absolute top-2 right-2 p-1 text-slate-300 hover:text-red-500 opacity-0 group-hover/faq:opacity-100 transition-opacity">
+                          <Trash2 className="w-4 h-4" />
+                       </button>
                     </div>
                   ))}
                   <button 
                     onClick={() => updateData('items', [...(block.data.items || []), { q: 'Pertanyaan Baru?', a: 'Jawaban...' }])}
-                    className="w-full py-2 border-2 border-dashed border-slate-200 rounded-xl text-[9px] font-black text-slate-400"
+                    className="w-full py-4 border-2 border-dashed border-slate-200 rounded-2xl text-[9px] font-black text-slate-400 hover:text-slate-900 hover:border-slate-400 transition-all uppercase tracking-widest"
                   >
-                    + Tambah FAQ
+                    + TAMBAH FAQ BARU
                   </button>
                </div>
             </div>
@@ -1439,14 +1524,14 @@ export function SortableBlock({
 
             <div className="space-y-4 pt-4 border-t border-slate-50">
                <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Daftar Testimoni</label>
-               <div className="grid gap-3">
+               <div className="grid gap-4">
                   {(block.data.items || []).map((item: any, idx: number) => (
-                    <div key={idx} className="bg-slate-50 p-4 rounded-2xl border border-slate-100 space-y-3 relative group/t">
-                       <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 rounded-full bg-slate-200 overflow-hidden relative">
+                    <div key={idx} className="bg-slate-50 p-5 rounded-3xl border border-slate-100 space-y-4 relative group/t">
+                       <div className="flex items-center gap-4">
+                          <div className="w-12 h-12 rounded-full bg-slate-200 overflow-hidden relative shadow-inner shrink-0">
                              {item.avatar && <img src={item.avatar} className="w-full h-full object-cover" alt="" />}
-                             <label className="absolute inset-0 bg-black/40 opacity-0 hover:opacity-100 flex items-center justify-center cursor-pointer">
-                                <Upload className="w-3 h-3 text-white" />
+                             <label className="absolute inset-0 bg-black/40 opacity-0 hover:opacity-100 flex items-center justify-center cursor-pointer transition-opacity">
+                                <Upload className="w-4 h-4 text-white" />
                                 <input 
                                   type="file" className="hidden" accept="image/*" 
                                   onChange={async (e) => {
@@ -1460,55 +1545,73 @@ export function SortableBlock({
                                 />
                              </label>
                           </div>
-                          <div className="flex-1 space-y-1">
-                             <input 
-                               type="text" 
-                               value={item.name || ''} 
-                               onChange={(e) => {
-                                 const newItems = [...(block.data.items || [])];
-                                 newItems[idx] = { ...item, name: e.target.value };
-                                 updateData('items', newItems);
-                               }}
-                               placeholder="Nama"
-                               className="w-full bg-white px-2 py-1 rounded text-[10px] font-bold outline-none"
-                             />
-                             <input 
-                               type="text" 
-                               value={item.role || ''} 
-                               onChange={(e) => {
-                                 const newItems = [...(block.data.items || [])];
-                                 newItems[idx] = { ...item, role: e.target.value };
-                                 updateData('items', newItems);
-                               }}
-                               placeholder="Jabatan"
-                               className="w-full bg-white px-2 py-1 rounded text-[9px] outline-none"
-                             />
+                          <div className="flex-1 space-y-3">
+                             <div className="space-y-1">
+                                <div className="flex items-center justify-between">
+                                   <span className="text-[8px] font-black text-slate-400 uppercase">Nama</span>
+                                   <TextToolbar field="name" itemIdx={idx} />
+                                </div>
+                                <input 
+                                  type="text" 
+                                  value={item.name || ''} 
+                                  onChange={(e) => {
+                                    const newItems = [...(block.data.items || [])];
+                                    newItems[idx] = { ...item, name: e.target.value };
+                                    updateData('items', newItems);
+                                  }}
+                                  placeholder="Nama Klien"
+                                  className="w-full bg-white border border-slate-100 px-3 py-1.5 rounded-lg text-xs font-bold outline-none focus:border-blue-400"
+                                />
+                             </div>
+                             <div className="space-y-1">
+                                <div className="flex items-center justify-between">
+                                   <span className="text-[8px] font-black text-slate-400 uppercase">Jabatan</span>
+                                   <TextToolbar field="role" itemIdx={idx} />
+                                </div>
+                                <input 
+                                  type="text" 
+                                  value={item.role || ''} 
+                                  onChange={(e) => {
+                                    const newItems = [...(block.data.items || [])];
+                                    newItems[idx] = { ...item, role: e.target.value };
+                                    updateData('items', newItems);
+                                  }}
+                                  placeholder="Owner / CEO"
+                                  className="w-full bg-white border border-slate-100 px-3 py-1.5 rounded-lg text-[10px] outline-none focus:border-blue-400 font-medium"
+                                />
+                             </div>
                           </div>
                        </div>
-                       <textarea 
-                        rows={2}
-                        value={item.text || item.desc || ''} 
-                        onChange={(e) => {
-                          const newItems = [...(block.data.items || [])];
-                          newItems[idx] = { ...item, text: e.target.value };
-                          updateData('items', newItems);
-                        }}
-                        placeholder="Testimoni"
-                        className="w-full bg-white border border-slate-100 px-3 py-2 rounded-lg text-[10px] outline-none resize-none"
-                       />
+                       <div className="space-y-2">
+                          <div className="flex items-center justify-between">
+                             <span className="text-[8px] font-black text-slate-400 uppercase">Ulasan</span>
+                             <TextToolbar field="text" itemIdx={idx} />
+                          </div>
+                          <textarea 
+                           rows={3}
+                           value={item.text || item.desc || ''} 
+                           onChange={(e) => {
+                             const newItems = [...(block.data.items || [])];
+                             newItems[idx] = { ...item, text: e.target.value };
+                             updateData('items', newItems);
+                           }}
+                           placeholder="Review klien..."
+                           className="w-full bg-white border border-slate-100 px-3 py-2 rounded-xl text-xs outline-none resize-none font-medium focus:border-blue-400"
+                          />
+                       </div>
                        <button 
                         onClick={() => updateData('items', (block.data.items || []).filter((_: any, i: number) => i !== idx))}
-                        className="absolute top-2 right-2 p-1 text-slate-300 hover:text-red-500 opacity-0 group-hover/t:opacity-100"
+                        className="absolute top-2 right-2 p-1.5 text-slate-300 hover:text-red-500 opacity-0 group-hover/t:opacity-100 transition-all"
                        >
-                          <Trash2 className="w-3 h-3" />
+                          <Trash2 className="w-4 h-4" />
                        </button>
                     </div>
                   ))}
                   <button 
                     onClick={() => updateData('items', [...(block.data.items || []), { name: 'User Baru', role: 'Klien', text: 'Mantap banget!' }])}
-                    className="w-full py-2 border-2 border-dashed border-slate-200 rounded-xl text-[9px] font-black text-slate-400"
+                    className="w-full py-4 border-2 border-dashed border-slate-200 rounded-2xl text-[9px] font-black text-slate-400 hover:text-slate-900 hover:border-slate-400 transition-all uppercase tracking-widest"
                   >
-                    + Tambah Testimoni
+                    + TAMBAH TESTIMONI BARU
                   </button>
                </div>
             </div>
@@ -1554,22 +1657,28 @@ export function SortableBlock({
                 <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Daftar Poin</label>
                 <div className="grid gap-3">
                   {(block.data.items || []).map((item: any, idx: number) => (
-                    <div key={idx} className="flex gap-2 items-center bg-slate-50 p-2 rounded-xl border border-slate-100">
-                       <input 
-                         type="text" 
-                         value={item.title || item.t || ''} 
-                         onChange={(e) => {
-                           const newItems = [...(block.data.items || [])];
-                           if (item.title !== undefined) newItems[idx] = { ...item, title: e.target.value };
-                           else newItems[idx] = { ...item, t: e.target.value };
-                           updateData('items', newItems);
-                         }}
-                         className="flex-1 bg-white px-3 py-2 rounded-lg font-bold text-[10px] outline-none"
-                       />
-                       <button onClick={() => updateData('items', (block.data.items || []).filter((_: any, i: number) => i !== idx))} className="p-2 text-slate-300">
-                          <Trash2 className="w-3 h-3" />
-                       </button>
-                    </div>
+                     <div key={idx} className="flex gap-4 items-center bg-slate-50 p-3 rounded-2xl border border-slate-100 group/point relative">
+                        <div className="flex-1 space-y-2">
+                           <div className="flex items-center justify-between">
+                             <span className="text-[8px] font-black text-slate-400 uppercase">Input Poin</span>
+                             <TextToolbar field={item.title !== undefined ? "title" : "t"} itemIdx={idx} />
+                           </div>
+                           <input 
+                             type="text" 
+                             value={item.title || item.t || ''} 
+                             onChange={(e) => {
+                               const newItems = [...(block.data.items || [])];
+                               if (item.title !== undefined) newItems[idx] = { ...item, title: e.target.value };
+                               else newItems[idx] = { ...item, t: e.target.value };
+                               updateData('items', newItems);
+                             }}
+                             className="w-full bg-white border border-slate-100 px-3 py-2 rounded-lg font-bold text-xs outline-none focus:border-blue-400 shadow-sm"
+                           />
+                        </div>
+                        <button onClick={() => updateData('items', (block.data.items || []).filter((_: any, i: number) => i !== idx))} className="p-2 text-slate-300 hover:text-red-500 transition-colors">
+                           <Trash2 className="w-4 h-4" />
+                        </button>
+                     </div>
                   ))}
                   <button 
                     onClick={() => updateData('items', [...(block.data.items || []), { title: 'Poin Baru' }])}
